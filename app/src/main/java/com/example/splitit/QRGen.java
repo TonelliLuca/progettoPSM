@@ -30,30 +30,14 @@ public class QRGen {
         this.qrcode = qrgEncoder.getBitmap();
         qrView=activity.findViewById(R.id.QRCodeView);
         qrView.setImageBitmap(this.qrcode);
-        this.save(activity);
     }
 
     public Bitmap getQrCode(){
         return this.qrcode;
     }
 
-    private void save(Activity activity){
-        if (ContextCompat.checkSelfPermission(activity.getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            try {
-                // Save with location, value, bitmap returned and type of Image(JPG/PNG).
-                QRGSaver qrgSaver = new QRGSaver();
-                boolean save=qrgSaver.save(Environment.getExternalStorageDirectory().getPath()+"/QRCode/".trim(), "myCode", this.qrcode, QRGContents.ImageType.IMAGE_JPEG);
-                String result = save ? "Image Saved" : "Image Not Saved";
-                Toast.makeText(activity, result, Toast.LENGTH_LONG).show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-        }
 
 
-    }
 
 }
 
