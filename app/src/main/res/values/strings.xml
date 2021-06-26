@@ -9,4 +9,9 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="registration_btn">Sei nuovo? Registrati!</string>
+    <string name="registration_tv">Compila il form e procedi con la registrazione</string>
+    <string name="la_tua_email">La tua email</string>
+    <string name="la_tua_password">La tua password</string>
+    <string name="reinserisci_la_password">Reinserisci la Password</string>
 </resources>
