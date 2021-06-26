@@ -20,7 +20,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:drawableStart="@drawable/ic_baseline_person_24" />
 
     <TextView
         android:id="@+id/textView"
@@ -51,7 +52,8 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
+        android:drawableStart="@drawable/ic_baseline_lock_24" />
 
     <EditText
         android:id="@+id/editTextTextPassword2"
@@ -66,15 +68,16 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
+        android:drawableStart="@drawable/ic_baseline_lock_24" />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="189dp"
-        android:layout_height="54dp"
+        android:layout_width="180dp"
+        android:layout_height="41dp"
         android:layout_marginTop="48dp"
         android:background="@drawable/gradient_btn"
-        android:text="Registrati"
+        android:text="@string/registrati"
         app:backgroundTint="@color/purple_200"
         app:backgroundTintMode="multiply"
         app:layout_constraintEnd_toEndOf="parent"
