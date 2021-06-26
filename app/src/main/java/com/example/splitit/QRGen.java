@@ -6,16 +6,11 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Environment;
-import android.util.Log;
 import android.widget.ImageView;
-import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.ContentView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import com.google.zxing.WriterException;
 
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
@@ -29,8 +24,8 @@ public class QRGen {
 
     public void generate(Activity activity, String inputValue, int smallerDimension){
         QRGEncoder qrgEncoder = new QRGEncoder(inputValue, null, QRGContents.Type.TEXT, smallerDimension);
-        qrgEncoder.setColorBlack(Color.RED);
-        qrgEncoder.setColorWhite(Color.BLUE);
+        qrgEncoder.setColorBlack(Color.BLACK);
+        qrgEncoder.setColorWhite(Color.WHITE);
         // Getting QR-Code as Bitmap
         this.qrcode = qrgEncoder.getBitmap();
         qrView=activity.findViewById(R.id.QRCodeView);
@@ -47,7 +42,7 @@ public class QRGen {
             try {
                 // Save with location, value, bitmap returned and type of Image(JPG/PNG).
                 QRGSaver qrgSaver = new QRGSaver();
-                Boolean save=qrgSaver.save(Environment.getExternalStorageDirectory().getPath()+"/QRCode/".trim(), "myCode", this.qrcode, QRGContents.ImageType.IMAGE_JPEG);
+                boolean save=qrgSaver.save(Environment.getExternalStorageDirectory().getPath()+"/QRCode/".trim(), "myCode", this.qrcode, QRGContents.ImageType.IMAGE_JPEG);
                 String result = save ? "Image Saved" : "Image Not Saved";
                 Toast.makeText(activity, result, Toast.LENGTH_LONG).show();
             } catch (Exception e) {

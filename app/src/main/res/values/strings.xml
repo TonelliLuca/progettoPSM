@@ -15,4 +15,5 @@
     <string name="la_tua_password">La tua password</string>
     <string name="reinserisci_la_password">Reinserisci la Password</string>
     <string name="registrati">Registrati</string>
+    <string name="error_login">Errore! Controlla i dati e riprova</string>
 </resources>

@@ -10,7 +10,6 @@
         android:layout_height="?attr/actionBarSize"
         app:title="@string/app_name"
         app:menu="@menu/top_app_bar"
-        style="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
         android:theme="@style/Theme.SplitIt"/>
 
 
