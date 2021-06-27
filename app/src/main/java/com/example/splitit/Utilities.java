@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class Utilities {
 
-    static void insertFragment(AppCompatActivity activity, Fragment fragment, String tag) {
+   /* static void insertFragment(AppCompatActivity activity, Fragment fragment, String tag) {
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
 
         // Replace whatever is in the fragment_container_view with this fragment,
@@ -19,6 +19,6 @@ public class Utilities {
 
         // Commit the transaction
         transaction.commit();
-    }
+    }*/
 
 }
