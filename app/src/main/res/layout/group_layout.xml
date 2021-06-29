@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/purple_500"
-            android:contentDescription="@string/grop_image"
+            android:contentDescription="@string/group_image"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_foreground"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
@@ -35,7 +35,8 @@
             android:gravity="center_horizontal|center_vertical"
             android:textAppearance="?attr/textAppearanceHeadline6"
             android:textColor="@color/black"
-            tools:text="@string/grop_name" />
+            tools:text="@string/group_name" />
+
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </com.google.android.material.card.MaterialCardView>
