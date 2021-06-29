@@ -26,12 +26,14 @@
         app:srcCompat="@android:drawable/ic_menu_help" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView2"
-        android:layout_width="362dp"
-        android:layout_height="284dp"
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/QRCodeView" />
+        app:layout_constraintTop_toBottomOf="@+id/QRCodeView"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/card_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,4 +17,6 @@
     <string name="registrati">Registrati</string>
     <string name="error_login">Errore! Controlla i dati e riprova</string>
     <string name="qrcode">qrcode</string>
+    <string name="grop_image">group image</string>
+    <string name="grop_name">group name</string>
 </resources>
