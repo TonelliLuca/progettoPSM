@@ -6,15 +6,16 @@ import android.os.Bundle;
 import android.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
-
+    private static final String FRAGMENT_TAG_HOME = "HomeFragment";
     private Toolbar topToolbar;
-    private QRGen qrg= new QRGen();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home);
-        qrg.generate(this,"ciao ciao ciao", 200);
+        setContentView(R.layout.activity_main);
+        Utilities.insertFragment(this, new HomeFragment(), FRAGMENT_TAG_HOME);
+
 
     }
 

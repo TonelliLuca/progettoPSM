@@ -34,6 +34,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/QRCodeView"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/card_layout" />
+        tools:listitem="@layout/group_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

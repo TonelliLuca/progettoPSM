@@ -1,19 +1,14 @@
 package com.example.splitit.RecyclerView;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.splitit.R;
-import com.example.splitit.Utilities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +26,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupViewHolder> {
     @NonNull
     @Override
     public GroupViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View layoutItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_layout, parent, false);
+        View layoutItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.group_layout, parent, false);
         return new GroupViewHolder(layoutItem);
     }
 
