@@ -1,18 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include layout="@layout/topbar"/>
+
+    <include
+        android:id="@+id/include2"
+        layout="@layout/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/QRCodeView" />
 
     <ImageView
         android:id="@+id/QRCodeView"
-        android:layout_width="270dp"
-        android:layout_height="270dp"
-        android:layout_marginTop="70dp"
-        android:layout_gravity="top|center_horizontal"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:layout_marginTop="14dp"
+        android:contentDescription="@string/qrcode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include2"
         app:srcCompat="@android:drawable/ic_menu_help" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView2"
+        android:layout_width="362dp"
+        android:layout_height="284dp"
+        android:layout_marginTop="52dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/QRCodeView" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
