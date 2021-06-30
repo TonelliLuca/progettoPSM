@@ -6,5 +6,11 @@
         android:icon="@drawable/ic_baseline_settings_24"
         android:title="@string/settings"
         app:showAsAction="ifRoom" />
+    <item
+        android:title="Item1"
+        android:id="@+id/settings"
+        />
+    <item android:title="Item2" />
+    <item android:title="Item3" />
 
 </menu>
