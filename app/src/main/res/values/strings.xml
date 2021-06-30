@@ -19,4 +19,5 @@
     <string name="qrcode">qrcode</string>
     <string name="group_image">group image</string>
     <string name="group_name">group name</string>
+    <string name="add_group">add group</string>
 </resources>
