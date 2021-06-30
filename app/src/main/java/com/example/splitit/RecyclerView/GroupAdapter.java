@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GroupAdapter extends RecyclerView.Adapter<GroupViewHolder> {
-
+    private static final int SIZE = 1000;
     private List<GroupItem> groupItemList;
     private Activity activity;
     

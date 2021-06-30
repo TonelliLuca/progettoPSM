@@ -13,14 +13,14 @@
     app:strokeColor="@color/material_on_surface_stroke">
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/groupImage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:background="@color/purple_500"
             android:contentDescription="@string/group_image"
             android:scaleType="centerCrop"
