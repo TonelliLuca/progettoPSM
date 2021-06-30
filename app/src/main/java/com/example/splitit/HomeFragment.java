@@ -2,11 +2,14 @@ package com.example.splitit;
 
 
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.splitit.RecyclerView.GroupAdapter;
 import com.example.splitit.RecyclerView.GroupItem;
 import com.example.splitit.RecyclerView.OnItemListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -55,6 +58,14 @@ public class HomeFragment extends Fragment implements OnItemListener{
         if(activity != null){
             setRecyclerView(activity);
             qrg.generate(activity,"CIAO CIAO CIAO", 200);
+            FloatingActionButton floatingActionButton = view.findViewById(R.id.fab_add);
+            floatingActionButton.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View v) {
+                Utilities.insertFragment((AppCompatActivity) activity, new AddFragment(), "AddFragment");
+                }
+            });
         }else{
             Log.e(LOG, "Activity is null");
         }

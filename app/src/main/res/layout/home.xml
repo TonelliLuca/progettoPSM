@@ -16,6 +16,7 @@
         android:layout_marginRight="8dp"
         android:contentDescription="@string/add_group"
         android:src="@drawable/ic_baseline_add_circle_24"
+        android:id="@+id/fab_add"
         app:backgroundTint="#C60D0D"
         app:fabSize="auto"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
@@ -45,7 +46,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="52dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
