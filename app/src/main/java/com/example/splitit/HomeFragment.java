@@ -88,6 +88,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
         }else{
             Log.e(LOG, "Activity is null");
         }
+
     }
 
 

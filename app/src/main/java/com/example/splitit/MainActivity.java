@@ -1,4 +1,4 @@
-package com.example.splitit;
+ package com.example.splitit;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
 
-
         /*set action bar*/
         setSupportActionBar(toolbar);
         /*creation navigation bar menu*/
@@ -47,11 +46,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (savedInstanceState == null)
             Utilities.insertFragment(this, new HomeFragment(), FRAGMENT_TAG_HOME);
-
-
-
-
     }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.top_app_bar, menu);
@@ -68,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return true;
         }
         return false;
-
     }
 
 
