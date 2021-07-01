@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.appcompat.widget.Toolbar;
@@ -32,9 +33,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
 
-        if (toolbar==null){
-            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        }
+
         /*set action bar*/
         setSupportActionBar(toolbar);
         /*creation navigation bar menu*/
@@ -45,25 +44,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
 
-        Utilities.insertFragment(this, new HomeFragment(), FRAGMENT_TAG_HOME);
+
+        if (savedInstanceState == null)
+            Utilities.insertFragment(this, new HomeFragment(), FRAGMENT_TAG_HOME);
+
+
+
 
     }
-
-
+    @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.top_app_bar, menu);
+        Log.e("Menu Creation", "Menu created");
         return true;
     }
-
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         super.onOptionsItemSelected(item);
-        if(item.getItemId()==R.id.settings){
+        Log.e("Intent menu", "Starting menu intent "+item.getItemId());
+        if(item.getItemId()==R.id.app_bar_option){
             Intent intent = new Intent(this, SettingsActivity.class);
             this.startActivity(intent);
             return true;
-        }else{
-            return false;
         }
+        return false;
+
     }
 
 

@@ -38,14 +38,18 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
     private GroupAdapter adapter;
     private RecyclerView recyclerView;
 
-    Toolbar toolbar;
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-
     @Override
     public void onItemClick(int position) {
 
     }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         return inflater.inflate(R.layout.home, container, false);
@@ -70,6 +74,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
         super.onViewCreated(view, savedInstanceState);
         final Activity activity = getActivity();
         if(activity != null){
+            Utilities.setUpToolbar((AppCompatActivity) getActivity(), "SplitIt");
             setRecyclerView(activity);
             qrg.generate(activity,"CIAO CIAO CIAO", 200);
             FloatingActionButton floatingActionButton = view.findViewById(R.id.fab_add);
@@ -83,21 +88,6 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
         }else{
             Log.e(LOG, "Activity is null");
         }
-
-        /*drawerLayout = requireView().findViewById(R.id.activity_main_layout);
-        navigationView = getView().findViewById(R.id.nav_view);
-        toolbar = getView().findViewById(R.id.toolbar);*/
-
-
-        /*set action bar*/
-        //((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        /*creation navigation bar menu*/
-        /*navigationView.bringToFront();
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle((AppCompatActivity)getActivity(), drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-        navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) getActivity());
-        navigationView.setCheckedItem(R.id.nav_home);*/
     }
 
 
