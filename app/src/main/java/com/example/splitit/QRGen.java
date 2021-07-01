@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Environment;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -22,14 +23,13 @@ public class QRGen {
 
 
 
-    public void generate(Activity activity, String inputValue, int smallerDimension){
+    public void generate(Activity activity, String inputValue, int smallerDimension, ImageView image){
         QRGEncoder qrgEncoder = new QRGEncoder(inputValue, null, QRGContents.Type.TEXT, smallerDimension);
         qrgEncoder.setColorBlack(Color.BLACK);
-        qrgEncoder.setColorWhite(Color.WHITE);
+        qrgEncoder.setColorWhite(Color.TRANSPARENT);
         // Getting QR-Code as Bitmap
         this.qrcode = qrgEncoder.getBitmap();
-        qrView=activity.findViewById(R.id.QRCodeView);
-        qrView.setImageBitmap(this.qrcode);
+        image.setImageBitmap(this.qrcode);
     }
 
     public Bitmap getQrCode(){

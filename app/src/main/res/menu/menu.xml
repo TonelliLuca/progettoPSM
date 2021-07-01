@@ -3,53 +3,32 @@
     <group>
         <item
             android:id="@+id/nav_home"
-            android:title="Home" />
+            android:title="@string/home" />
 
         <item
-            android:id="@+id/nav_cycle"
-            android:title="Cycling" />
-
-        <item
-            android:id="@+id/nav_bus"
-            android:title="Bus" />
-
-        <item
-            android:id="@+id/nav_plane"
-            android:title="Plane" />
+            android:id="@+id/nav_dashboard"
+            android:title="@string/dashboard" />
     </group>
 
-    <item android:title="Profile">
-
+    <item android:title="@string/transactions">
         <menu>
-
             <group>
+                <item
+                    android:id="@+id/nav_storico"
+                    android:title="@string/storico" />
 
                 <item
-                    android:id="@+id/nav_login"
-                    android:title="Login" />
-
-                <item
-                    android:id="@+id/nav_profile"
-                    android:title="Profile" />
-
-                <item
-                    android:id="@+id/nav_logout"
-                    android:title="Logout" />
+                    android:id="@+id/nav_bilancio"
+                    android:title="@string/bilancio" />
             </group>
         </menu>
     </item>
 
-    <item android:title="Communicate">
-
+    <item android:title="@string/profile">
         <menu>
-
             <item
-                android:id="@+id/nav_share"
-                android:title="Share" />
-
-            <item
-                android:id="@+id/nav_rate"
-                android:title="Rate Us" />
+                android:id="@+id/nav_logout"
+                android:title="@string/logout" />
         </menu>
     </item>
 </menu>

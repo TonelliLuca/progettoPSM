@@ -23,5 +23,13 @@
     <string name="nome_utente">Nome Utente</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="home">Home</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="transactions">Transactions</string>
+    <string name="storico">Storico</string>
+    <string name="bilancio">Bilancio</string>
+    <string name="profile">Profile</string>
+    <string name="mostra_qrcode">Mostra QrCode</string>
+    <string name="close">Close</string>
 
 </resources>
