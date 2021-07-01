@@ -20,4 +20,8 @@
     <string name="group_image">group image</string>
     <string name="group_name">group name</string>
     <string name="add_group">add group</string>
+    <string name="nome_utente">Nome Utente</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 </resources>

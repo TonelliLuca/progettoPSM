@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:divider="?attr/dividerVertical">
-
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/topAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:theme="@style/Theme.SplitIt"
-        app:menu="@menu/top_app_bar"
-        app:popupTheme="@style/MaterialAlertDialog.MaterialComponents.Title.Icon.CenterStacked"
-        app:title="@string/app_name" />
-
-
-</com.google.android.material.appbar.AppBarLayout>
+    android:background="@color/foreground"
+    android:divider="?attr/dividerVertical"
+    android:theme="@style/Theme.SplitIt"
+    app:navigationIcon="@color/foreground" />

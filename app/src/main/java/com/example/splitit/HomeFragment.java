@@ -2,18 +2,24 @@ package com.example.splitit;
 
 
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.splitit.RecyclerView.GroupAdapter;
 import com.example.splitit.RecyclerView.GroupItem;
 import com.example.splitit.RecyclerView.OnItemListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -24,18 +30,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class HomeFragment extends Fragment implements OnItemListener{
+public class HomeFragment extends Fragment implements OnItemListener, NavigationView.OnNavigationItemSelectedListener{
     private static final String LOG="HomeFragment";
     private QRGen qrg= new QRGen();
     private GroupAdapter adapter;
     private RecyclerView recyclerView;
+
+    Toolbar toolbar;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+
     @Override
     public void onItemClick(int position) {
 
     }
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         return inflater.inflate(R.layout.home, container, false);
+
     }
 
     private void setRecyclerView(final Activity activity){
@@ -69,5 +83,26 @@ public class HomeFragment extends Fragment implements OnItemListener{
         }else{
             Log.e(LOG, "Activity is null");
         }
+
+        /*drawerLayout = requireView().findViewById(R.id.activity_main_layout);
+        navigationView = getView().findViewById(R.id.nav_view);
+        toolbar = getView().findViewById(R.id.toolbar);*/
+
+
+        /*set action bar*/
+        //((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        /*creation navigation bar menu*/
+        /*navigationView.bringToFront();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle((AppCompatActivity)getActivity(), drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) getActivity());
+        navigationView.setCheckedItem(R.id.nav_home);*/
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return true;
     }
 }

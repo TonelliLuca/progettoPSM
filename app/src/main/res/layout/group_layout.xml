@@ -8,7 +8,7 @@
     android:id="@+id/single_card"
     android:layout_margin="16dp"
     app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="@dimen/cardview_default_radius"
+    app:cardCornerRadius="10dp"
     app:strokeWidth="1dp"
     app:strokeColor="@color/material_on_surface_stroke">
 
