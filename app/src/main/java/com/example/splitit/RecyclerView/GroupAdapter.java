@@ -15,12 +15,13 @@ import java.util.List;
 
 public class GroupAdapter extends RecyclerView.Adapter<GroupViewHolder> {
     private static final int SIZE = 1000;
-    private List<GroupItem> groupItemList;
+    private List<GroupItem> groupItemList=new ArrayList<>();;
+    private List<GroupItem> groupItemFiltered = new ArrayList<>();
     private Activity activity;
     
-    public GroupAdapter(Activity activity, List<GroupItem> cardItemList){
+    public GroupAdapter(Activity activity){
         this.activity = activity;
-        this.groupItemList = new ArrayList<GroupItem>(cardItemList);
+
     }
 
     @NonNull
@@ -56,5 +57,11 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupViewHolder> {
     @Override
     public int getItemCount() {
         return groupItemList.size();
+    }
+
+    public void setData(List<GroupItem> list) {
+        this.groupItemList = new ArrayList<>(list);
+        this.groupItemFiltered = new ArrayList<>(list);
+        notifyDataSetChanged();
     }
 }
