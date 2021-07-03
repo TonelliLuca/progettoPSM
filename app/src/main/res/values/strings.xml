@@ -31,5 +31,7 @@
     <string name="profile">Profile</string>
     <string name="mostra_qrcode">Mostra QrCode</string>
     <string name="close">Close</string>
+    <string name="splash_bg">splash bg</string>
+    <string name="fingerprint">fingerprint</string>
 
 </resources>

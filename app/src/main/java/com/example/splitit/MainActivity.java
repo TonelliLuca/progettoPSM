@@ -16,7 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+ public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String FRAGMENT_TAG_HOME = "HomeFragment";
     Toolbar toolbar;
     DrawerLayout drawerLayout;
