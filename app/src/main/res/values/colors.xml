@@ -11,6 +11,7 @@
     <color name="foreground">#2D2F31</color>
     <color name="element">#423D47</color>
     <color name="toolbar">#3c2251</color>
+    <color name="transparent">#003C2251</color>
 
     <!-- Lottie colors-->
     <color name="purple">#ba53de</color>

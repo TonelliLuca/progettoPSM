@@ -18,6 +18,8 @@ import com.google.android.material.navigation.NavigationView;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -80,7 +82,6 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
         final Activity activity = getActivity();
         if(activity != null){
             Utilities.setUpToolbar((AppCompatActivity) getActivity(), "SplitIt");
-            //Utilities.setUpQrcode((AppCompatActivity) getActivity());
             setDialog(activity);
             setRecyclerView(activity);
 

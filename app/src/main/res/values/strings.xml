@@ -33,5 +33,7 @@
     <string name="close">Close</string>
     <string name="splash_bg">splash bg</string>
     <string name="fingerprint">fingerprint</string>
+    <string name="bg_qrcode">bg qrCode</string>
+    <string name="enter_group_name">Enter group name</string>
 
 </resources>
