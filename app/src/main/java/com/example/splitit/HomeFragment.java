@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.example.splitit.RecyclerView.GroupAdapter;
 import com.example.splitit.RecyclerView.GroupItem;
 import com.example.splitit.RecyclerView.OnItemListener;
+import com.example.splitit.ViewModel.ListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -34,6 +35,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -44,6 +49,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
     private static final String LOG="HomeFragment";
     private GroupAdapter adapter;
     private RecyclerView recyclerView;
+    private ListViewModel listViewModel;
 
     @Override
     public void onItemClick(int position) {
@@ -66,12 +72,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
     private void setRecyclerView(final Activity activity){
         recyclerView = requireView().findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-        List<GroupItem> list = new ArrayList();
-        list.add(new GroupItem("ic_baseline:android_24",  "Group1"));
-        list.add(new GroupItem("ic_baseline:android_24",  "Group2"));
-        list.add(new GroupItem("ic_baseline:android_24",  "Group3"));
-        list.add(new GroupItem("ic_baseline:android_24",  "Group4"));
-        adapter=new GroupAdapter(activity, list);
+        adapter=new GroupAdapter(activity);
         recyclerView.setAdapter(adapter);
     }
 
@@ -84,7 +85,13 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
             Utilities.setUpToolbar((AppCompatActivity) getActivity(), "SplitIt");
             setDialog(activity);
             setRecyclerView(activity);
-
+            listViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(ListViewModel.class);
+            listViewModel.getGroupItems().observe((LifecycleOwner) activity, new Observer<List<GroupItem>>() {
+                @Override
+                public void onChanged(List<GroupItem> groupItems) {
+                    adapter.setData(groupItems);
+                }
+            });
             FloatingActionButton floatingActionButton = view.findViewById(R.id.fab_add);
             floatingActionButton.setOnClickListener(v ->
                     Utilities.insertFragment((AppCompatActivity) activity, new AddFragment(), "AddFragment"));
