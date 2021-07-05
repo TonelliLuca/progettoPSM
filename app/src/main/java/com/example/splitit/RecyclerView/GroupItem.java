@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 public class GroupItem {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "group_id")
-    private int id;
+    private long id;
     @ColumnInfo(name = "group_name")
     private String groupName;
     @ColumnInfo(name = "group_img")
@@ -40,11 +40,11 @@ public class GroupItem {
         this.imageResource = imageResource;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

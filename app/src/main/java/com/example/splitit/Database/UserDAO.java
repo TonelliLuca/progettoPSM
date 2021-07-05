@@ -12,11 +12,11 @@ import com.example.splitit.RecyclerView.GroupItem;
 import java.util.List;
 
 @Dao
-public interface GroupItemDAO{
+public interface UserDAO{
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    long addGroupItem(GroupItem gp);
+    void addUser(User u);
     @Transaction
-    @Query("SELECT * FROM `group` ORDER BY group_id DESC ")
-    LiveData<List<GroupItem>> getGroupItems();
+    @Query("SELECT * FROM `user` ORDER BY user_id DESC ")
+    LiveData<List<User>> getUsers();
 }

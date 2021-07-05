@@ -26,6 +26,6 @@ public class AddViewModel extends AndroidViewModel {
 
     public LiveData<Bitmap> getBitmap(){return imageBitmap;}
 
-    public void addGroupItem(GroupItem item){repository.addGroupItem(item);}
+    public long addGroupItem(GroupItem item){return repository.addGroupItem(item);}
 
 }
