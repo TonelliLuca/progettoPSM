@@ -19,6 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/fg_splash" />
 
+
     <ImageView
         android:id="@+id/splash_logo"
         android:layout_width="100dp"
@@ -27,10 +28,10 @@
         android:src="@drawable/logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".1" />
-
+        app:layout_constraintVertical_bias="0.114" />
 
     <ImageView
         android:id="@+id/splash_app_name"

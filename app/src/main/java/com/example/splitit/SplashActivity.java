@@ -8,9 +8,11 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.ImageView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieDrawable;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -27,35 +29,20 @@ public class SplashActivity extends AppCompatActivity {
         splashImg = findViewById(R.id.splash_bg);
         logo = findViewById(R.id.splash_logo);
         lottieAnimationView = findViewById(R.id.raw_splash);
+        lottieAnimationView.setRepeatCount(LottieDrawable.INFINITE);
 
         Intent loginIntent = new Intent(this, LoginActivity.class);
 
-        splashImg.animate().translationY(-2300).setDuration(1000).setStartDelay(4000);
-        logo.animate().translationY(1400).setDuration(1000).setStartDelay(4000);
-        appName.animate().translationY(1400).setDuration(1000).setStartDelay(4000);
-        lottieAnimationView.animate().translationY(1400).setDuration(2000).setStartDelay(4000).setListener(new Animator.AnimatorListener() {
+        splashImg.animate().translationY(-2300).setDuration(1000).setStartDelay(2000);
+        logo.animate().translationYBy(1400).setDuration(1000).setStartDelay(2000);
+        appName.animate().translationY(1400).setDuration(1000).setStartDelay(2000);
+        lottieAnimationView.animate().translationY(1400).setDuration(1500).setStartDelay(2000);
 
-            @Override
-            public void onAnimationStart(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                startActivity(loginIntent);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        });
+        new Handler().postDelayed(() -> {
+            startActivity(loginIntent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
+        }, 3000);
     }
+
 }
