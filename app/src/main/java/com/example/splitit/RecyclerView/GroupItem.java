@@ -18,6 +18,8 @@ public class GroupItem {
     @ColumnInfo(name = "group_admin")
     private int admin;
 
+
+
     public GroupItem(String imageResource, String groupName){
         this.groupName = groupName;
         this.imageResource = imageResource;

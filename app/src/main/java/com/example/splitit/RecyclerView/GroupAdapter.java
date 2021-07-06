@@ -18,8 +18,9 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupViewHolder> {
     private List<GroupItem> groupItemList=new ArrayList<>();;
     private List<GroupItem> groupItemFiltered = new ArrayList<>();
     private Activity activity;
-    
-    public GroupAdapter(Activity activity){
+    private OnItemListener listener;
+    public GroupAdapter(Activity activity, OnItemListener listener){
+        this.listener = listener;
         this.activity = activity;
 
     }
@@ -28,7 +29,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupViewHolder> {
     @Override
     public GroupViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View layoutItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.group_layout, parent, false);
-        return new GroupViewHolder(layoutItem);
+        return new GroupViewHolder(layoutItem,listener);
     }
 
     @Override
@@ -63,5 +64,9 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupViewHolder> {
         this.groupItemList = new ArrayList<>(list);
         this.groupItemFiltered = new ArrayList<>(list);
         notifyDataSetChanged();
+    }
+
+    public GroupItem getItemFiltered(int position){
+        return groupItemList.get(position);
     }
 }

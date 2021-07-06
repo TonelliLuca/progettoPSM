@@ -44,6 +44,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -67,7 +68,14 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
 
     @Override
     public void onItemClick(int position) {
+        AppCompatActivity appCompatActivity=(AppCompatActivity) getActivity();
+        if(appCompatActivity!=null){
+            listViewModel.selected(adapter.getItemFiltered(position));
+            GroupItem a=listViewModel.getSelected().getValue();
+            Log.e("GroupItem","selected id: "+a.getId());
 
+            //Utilities.insertFragment();
+        }
     }
 
 
@@ -137,7 +145,8 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
     private void setRecyclerView(final Activity activity){
         recyclerView = requireView().findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-        adapter=new GroupAdapter(activity);
+        final OnItemListener listener = this;
+        adapter=new GroupAdapter(activity,listener);
         recyclerView.setAdapter(adapter);
     }
 
