@@ -12,6 +12,7 @@ import com.example.splitit.R;
 public class GroupViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
     ImageView groupImage;
     TextView groupName;
+
     private OnItemListener listener;
     public GroupViewHolder(@NonNull View itemView, OnItemListener listener) {
         super(itemView);
@@ -24,5 +25,7 @@ public class GroupViewHolder extends RecyclerView.ViewHolder implements View.OnC
     @Override
     public void onClick(View v) {
         listener.onItemClick(getAdapterPosition());
+
     }
+
 }

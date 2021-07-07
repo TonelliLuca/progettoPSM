@@ -30,6 +30,10 @@
             android:name=".RegistrationActivity"
             android:noHistory="true" />
         <activity android:name=".SettingsActivity" />
+
+        <activity android:name=".DetailsGroupActivity">
+
+        </activity>
     </application>
 
 </manifest>

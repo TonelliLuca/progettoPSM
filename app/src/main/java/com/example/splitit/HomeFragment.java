@@ -64,7 +64,6 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
     private GroupAdapter adapter;
     private RecyclerView recyclerView;
     private ListViewModel listViewModel;
-    private LineChart lineChart;
 
     @Override
     public void onItemClick(int position) {
@@ -92,7 +91,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
     }
 
     public void setLineChart() {
-        lineChart = (LineChart) requireView().findViewById(R.id.lineChart);
+        LineChart lineChart = requireView().findViewById(R.id.lineChart);
         lineChart.setDragEnabled(true);
         //lineChart.setScaleEnabled(false);
         lineChart.setTouchEnabled(true);
@@ -107,8 +106,9 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
         yVal.add(new Entry(5, 50f));
         yVal.add(new Entry(6, 75f));
 
-        LineDataSet set1 = new LineDataSet(yVal, "set 1");
+        LineDataSet set1 = new LineDataSet(yVal, "");
 
+        set1.setValueTextColor(Color.WHITE);
         set1.setLabel("");
         set1.setLineWidth(5f);
         set1.setFillAlpha(500);
@@ -134,6 +134,9 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
         desc.setTextSize(28);
         lineChart.setDescription(desc);
         lineChart.getXAxis().setAxisLineColor(R.color.blue);
+        lineChart.getAxisRight().setTextColor(Color.WHITE);
+        lineChart.getAxisLeft().setTextColor(Color.WHITE);
+        lineChart.getXAxis().setTextColor(Color.WHITE);
         lineChart.getXAxis().setDrawGridLines(false);
         lineChart.getAxisLeft().setDrawGridLines(false);
         lineChart.getAxisRight().setDrawGridLines(false);
@@ -170,8 +173,6 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
             FloatingActionButton floatingActionButton = view.findViewById(R.id.fab_add);
             floatingActionButton.setOnClickListener(v ->
                     Utilities.insertFragment((AppCompatActivity) activity, new AddFragment(), "AddFragment"));
-
-
         }else{
             Log.e(LOG, "Activity is null");
         }
