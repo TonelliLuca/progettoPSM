@@ -40,11 +40,9 @@ public class DetailsFragment extends Fragment {
         final Activity activity=getActivity();
         if(activity!=null){
 
-
             Log.e("DetailsFragment","id group: "+groupId);
             PieChart pieChart = activity.findViewById(R.id.pie_chart);
             pieChart.getLegend().setEnabled(true);
-
 
             ArrayList<PieEntry> NoOfEmp = new ArrayList();
 

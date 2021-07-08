@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class DetailsGroupActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +79,12 @@ public class DetailsGroupActivity extends AppCompatActivity {
         pieChart.getDescription().setEnabled(false);
         */
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
 }

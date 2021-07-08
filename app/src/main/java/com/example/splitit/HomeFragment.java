@@ -68,14 +68,14 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
 
     @Override
     public void onItemClick(int position) {
-        AppCompatActivity appCompatActivity=(AppCompatActivity) getActivity();
+        AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
         if(appCompatActivity!=null){
             listViewModel.selected(adapter.getItemFiltered(position));
-            GroupItem a=listViewModel.getSelected().getValue();
+            GroupItem a = listViewModel.getSelected().getValue();
             Log.e("GroupItem","selected id: "+a.getId());
             Intent intent = new Intent(getActivity(), DetailsGroupActivity.class);
             intent.putExtra("group_ID",a.getId());
-            this.startActivity(intent);
+            startActivity(intent);
             //Utilities.insertFragment();
         }
     }
