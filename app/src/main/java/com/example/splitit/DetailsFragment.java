@@ -105,7 +105,9 @@ public class DetailsFragment extends Fragment {
 
                 @Override
                 public void onChanged(List<GroupWithUsers> list) {
-                    userList = list;
+                    userList = list;                                 //Fra questa è la lista degli utenti, visto che è stato implementato il database senza l'uso di foreign key come fa la prof,
+                                                                     //la lista è una List<GroupWithUsers> che a sua volta è una List<User>
+                                                                     //Guarda printLogList li fa la stampa dei nomi degli utenti nella lista tornata dall query
                     printLogList();
                 }
             });
