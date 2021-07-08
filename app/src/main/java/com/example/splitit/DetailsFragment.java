@@ -12,10 +12,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.example.splitit.Database.GroupWithUsers;
+import com.example.splitit.Database.UserGroupCrossRef;
 import com.example.splitit.Database.UsersWithGroup;
 import com.example.splitit.ViewModel.AddUserViewModel;
 import com.github.mikephil.charting.charts.PieChart;
@@ -31,7 +34,7 @@ import java.util.List;
 public class DetailsFragment extends Fragment {
     private long groupId;
     private AddUserViewModel vm;
-
+    private List<GroupWithUsers> userList;
     public DetailsFragment(long groupId){
         this.groupId = groupId;
     }
@@ -97,11 +100,31 @@ public class DetailsFragment extends Fragment {
             pieChart.getDescription().setEnabled(false);
 
             vm=new ViewModelProvider((ViewModelStoreOwner) activity).get(AddUserViewModel.class);
-            List<GroupWithUsers> listUsers=vm.searchUsers(this.groupId).getValue();
-            Log.e("DetailsFragment",listUsers.toString());
+            vm.searchUsers(groupId).observe((LifecycleOwner) activity, new Observer<List<GroupWithUsers>>(){
 
+
+                @Override
+                public void onChanged(List<GroupWithUsers> list) {
+                    userList = list;
+                    printLogList();
+                }
+            });
+                                                                //*************************************************************************************
+            //vm.removeRef(new UserGroupCrossRef(1,groupId));     *Metodo usato per rimuovere (utente,gruppo) non usarlo con un solo utente           *
+                                                                //*Ci sono un po di log potrebbe crashare prova a cavare il metodo di print qui sotto.*
+                                                                //*Pero sono certo che funzioni rimuove l'associazione a database <3                  *
+                                                                //*************************************************************************************
         }
 
 
+
+    }
+
+
+    private void printLogList(){
+        for(int i=0;i<userList.size();i++){
+            GroupWithUsers g=userList.get(i);
+            Log.e("UserList ",String.valueOf(g.users.get(0).getName()));
+        }
     }
 }

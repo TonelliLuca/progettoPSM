@@ -31,9 +31,17 @@ public class RefRepository {
         });
     }
 
-    public LiveData<List<GroupWithUsers>> searchUsers(){
-        allUserInGroup=refDAO.getUserFromGroup();
-        return allUserInGroup;
+    public LiveData<List<GroupWithUsers>> searchUsers(long val){
+        return refDAO.getUserFromGroup(String.valueOf(val));
+    }
+
+    public void removeRef(UserGroupCrossRef ref){
+        SplititDatabase.databaseWriterExecutor.execute(new Runnable(){
+            @Override
+            public void run() {
+                refDAO.removeRef(ref);
+            }
+        });
     }
 
 

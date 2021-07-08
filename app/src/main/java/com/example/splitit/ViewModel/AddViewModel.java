@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.splitit.Database.GroupRepository;
+import com.example.splitit.Database.User;
 import com.example.splitit.RecyclerView.GroupItem;
 
 
@@ -30,5 +31,6 @@ public class AddViewModel extends AndroidViewModel {
 
     public void addGroupItem(GroupItem item){repository.addGroupItem(item);}
     public LiveData<Long> getLastId(){return lastId; }
+
 
 }

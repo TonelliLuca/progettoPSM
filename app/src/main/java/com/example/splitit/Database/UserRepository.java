@@ -29,5 +29,14 @@ public class UserRepository {
         });
     }
 
+    public void deleteUser(final User user){
+        SplititDatabase.databaseWriterExecutor.execute(new Runnable(){
+            @Override
+            public void run() {
+                userDAO.removeUser(user);
+            }
+        });
+    }
+
 
 }

@@ -2,6 +2,7 @@ package com.example.splitit.Database;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -21,9 +22,16 @@ public interface RefDAO {
 
 */
     @Transaction
-    @Query(value = "SELECT * FROM 'group'")
-    public LiveData<List<GroupWithUsers>> getUserFromGroup();
+    @Query(value = "SELECT * FROM 'group' WHERE group_id=:val")
+    public LiveData<List<GroupWithUsers>> getUserFromGroup(String val);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void addRef(UserGroupCrossRef u);
+
+    @Delete
+    void removeRef(UserGroupCrossRef u);
+
+
+
+
 }

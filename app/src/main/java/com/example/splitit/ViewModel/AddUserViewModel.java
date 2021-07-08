@@ -24,6 +24,8 @@ public class AddUserViewModel extends AndroidViewModel {
     public void addNewRef(UserGroupCrossRef ref){refRep.addRef(ref);}
 
     public LiveData<List<GroupWithUsers>> searchUsers(long val){
-        return refRep.searchUsers();
+        return refRep.searchUsers(val);
     }
+
+    public void removeRef(UserGroupCrossRef ref){refRep.removeRef(ref);}
 }
