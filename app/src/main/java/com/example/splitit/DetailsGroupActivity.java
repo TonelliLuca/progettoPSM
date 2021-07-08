@@ -1,5 +1,6 @@
 package com.example.splitit;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -25,8 +26,12 @@ public class DetailsGroupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.detailed_group);
-        PieChart pieChart = findViewById(R.id.pie_chart);
+        setContentView(R.layout.activity_details);
+        Intent myIntent = getIntent();
+        Long id=myIntent.getLongExtra("group_ID",-1);
+        if (savedInstanceState == null)
+            Utilities.insertFragment(this, new DetailsFragment(id), "FRAGMENT_DETAILS");
+       /* PieChart pieChart = findViewById(R.id.pie_chart);
         pieChart.getLegend().setEnabled(true);
 
 
@@ -73,6 +78,8 @@ public class DetailsGroupActivity extends AppCompatActivity {
         pieChart.setCenterText("Amount $");
         // if no need to add description
         pieChart.getDescription().setEnabled(false);
+        */
+
     }
 
 }

@@ -30,6 +30,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.drawable.ColorDrawable;
@@ -72,7 +73,9 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
             listViewModel.selected(adapter.getItemFiltered(position));
             GroupItem a=listViewModel.getSelected().getValue();
             Log.e("GroupItem","selected id: "+a.getId());
-
+            Intent intent = new Intent(getActivity(), DetailsGroupActivity.class);
+            intent.putExtra("group_ID",a.getId());
+            this.startActivity(intent);
             //Utilities.insertFragment();
         }
     }
