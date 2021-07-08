@@ -78,7 +78,7 @@ public class LoginActivity  extends AppCompatActivity {
 
 
     public void login(View view){
-        if(checkLogin(view)){
+        if(checkLogin()){
             goToHome();
         }
         Snackbar snackbar_error = Snackbar.make(view, R.string.error_login,   Snackbar.LENGTH_SHORT);
@@ -87,13 +87,10 @@ public class LoginActivity  extends AppCompatActivity {
         snackbar_error.show();
     }
 
-    public boolean checkLogin(View view){
+    public boolean checkLogin(){
         EditText emailText = (EditText) findViewById(R.id.etEmailLogin);
         EditText passwordText = (EditText) findViewById(R.id.etPasswordLogin);
-         if(emailText.getText().toString().matches("") || passwordText.getText().toString().matches("")){
-            return false;
-        }
-        return true;
+        return !emailText.getText().toString().matches("") && !passwordText.getText().toString().matches("");
     }
 
     public void goToHome(){

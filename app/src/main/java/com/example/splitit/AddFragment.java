@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
@@ -23,6 +24,7 @@ import com.example.splitit.Database.UserGroupCrossRef;
 import com.example.splitit.RecyclerView.GroupItem;
 import com.example.splitit.ViewModel.AddUserViewModel;
 import com.example.splitit.ViewModel.AddViewModel;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class AddFragment extends Fragment {
@@ -33,10 +35,6 @@ public class AddFragment extends Fragment {
 
     public View onCreateView(@NonNull  LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle sevedInstanceState){
         return inflater.inflate(R.layout.add_group, container, false);
-    }
-
-    public void addGroup(View view){
-
     }
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
@@ -51,6 +49,7 @@ public class AddFragment extends Fragment {
             nameText = activity.findViewById(R.id.groupNameAdd);
             addViewModel.getLastId().observe((LifecycleOwner) activity, new Observer<Long>(){
 
+
                 @Override
                 public void onChanged(Long aLong) {
                     lastId=aLong;
@@ -61,17 +60,30 @@ public class AddFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-                    addViewModel.addGroupItem(new GroupItem("ic_baseline:android_24",nameText.getText().toString()));
+                    addViewModel.addGroupItem(new GroupItem("ic_baseline:android_24", nameText.getText().toString()));
 
-                    addUserRef.addNewRef(new UserGroupCrossRef(new Long(1),new Long(lastId+1)));
+                    addUserRef.addNewRef(new UserGroupCrossRef(new Long(1), new Long(lastId + 1)));
 
-                    ((AppCompatActivity) activity).getSupportFragmentManager().popBackStack();
+                    if (checkAdd()) {
+
+                        ((AppCompatActivity) activity).getSupportFragmentManager().popBackStack();
+
+                    } else {
+                        Snackbar snackbar_error = Snackbar.make(view, R.string.error_login, Snackbar.LENGTH_SHORT);
+                        View snackbar_error_view = snackbar_error.getView();
+                        snackbar_error_view.setBackgroundColor(ContextCompat.getColor(activity, R.color.design_default_color_error));
+                        snackbar_error.show();
+                    }
                 }
-
-
-
             });
 
         }
+    }
+
+    public boolean checkAdd(){
+        if(nameText.getText().toString().matches("")){
+            return false;
+        }
+        return true;
     }
 }
