@@ -11,17 +11,18 @@ import java.util.List;
 
 @Dao
 public interface RefDAO {
+    /*
     @Transaction
     @Query("SELECT * FROM user")
-    public LiveData<List<UsersWithGroup>> getUsersWithGroup();
+    public LiveData<List<GroupWithUsers>> getUsersWithGroup();
     @Transaction
     @Query("SELECT * FROM `group`")
-    public LiveData<List<GroupWithUsers>> getGroupWithUsers();
+    public LiveData<List<UsersWithGroup>> getGroupWithUsers();
 
-
+*/
     @Transaction
-    @Query("SELECT * FROM user WHERE 'group_id'=:val")
-    public LiveData<List<UsersWithGroup>> getUserFromGroup(int val);
+    @Query(value = "SELECT * FROM 'group'")
+    public LiveData<List<GroupWithUsers>> getUserFromGroup();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void addRef(UserGroupCrossRef u);

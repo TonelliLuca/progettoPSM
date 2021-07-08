@@ -12,29 +12,31 @@ import java.util.List;
 public class GroupRepository {
     private GroupItemDAO groupItemDAO;
     private LiveData<List<GroupItem>> groupItemList;
-    private long id;
+    private LiveData<Long> lastId;
+
     public GroupRepository(Application application){
         SplititDatabase db = SplititDatabase.getDatabase(application);
         groupItemDAO = db.groupItemDAO();
         groupItemList = groupItemDAO.getGroupItems();
+        lastId=groupItemDAO.getLastId();
+
     }
 
     public LiveData<List<GroupItem>> getGroupItemList(){return groupItemList;}
 
-    public long addGroupItem(final GroupItem groupItem){
+    public void addGroupItem(final GroupItem groupItem){
 
         SplititDatabase.databaseWriterExecutor.execute(new Runnable(){
             @Override
             public void run() {
-                setVal(groupItemDAO.addGroupItem(groupItem));
+                groupItemDAO.addGroupItem(groupItem);
 
             }
         });
-        return id;
     }
 
-    public void setVal(long val){
-        id=val;
-    }
+    public LiveData<Long> getLastId(){return lastId; }
+
+
 
 }

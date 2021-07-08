@@ -12,12 +12,12 @@ public class RefRepository {
     private RefDAO refDAO;
     private LiveData<List<UsersWithGroup>> userList;
     private LiveData<List<GroupWithUsers>> groupList;
-    private LiveData<List<UsersWithGroup>> allUserInGroup;
+    private LiveData<List<GroupWithUsers>> allUserInGroup;
     public RefRepository(Application application){
         SplititDatabase db = SplititDatabase.getDatabase(application);
         refDAO = db.refDAO();
-        userList = refDAO.getUsersWithGroup();
-        groupList= refDAO.getGroupWithUsers();
+        //userList = refDAO.getUsersWithGroup();
+        //groupList= refDAO.getGroupWithUsers();
     }
 
     public LiveData<List<UsersWithGroup>> getUsersGroupList(){return userList;}
@@ -31,9 +31,11 @@ public class RefRepository {
         });
     }
 
-    public LiveData<List<UsersWithGroup>> searchUsers(int val){
-        allUserInGroup=refDAO.getUserFromGroup(val);
+    public LiveData<List<GroupWithUsers>> searchUsers(){
+        allUserInGroup=refDAO.getUserFromGroup();
         return allUserInGroup;
     }
+
+
 
 }

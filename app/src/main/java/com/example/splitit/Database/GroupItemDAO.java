@@ -19,4 +19,8 @@ public interface GroupItemDAO{
     @Transaction
     @Query("SELECT * FROM `group` ORDER BY group_id DESC ")
     LiveData<List<GroupItem>> getGroupItems();
+
+    @Transaction
+    @Query("SELECT group_id FROM 'group' ORDER BY group_id DESC LIMIT 1")
+    LiveData<Long> getLastId();
 }

@@ -32,4 +32,5 @@ public class ListViewModel extends AndroidViewModel {
     public GroupItem getGroupItem(int position){
         return groupItems.getValue() == null ? null : groupItems.getValue().get(position);
     }
+
 }

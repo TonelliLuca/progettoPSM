@@ -13,6 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
@@ -47,13 +49,22 @@ public class AddFragment extends Fragment {
             AddUserViewModel addUserRef = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddUserViewModel.class);
             Utilities.setUpToolbar((AppCompatActivity) activity, "Make a group");
             nameText = activity.findViewById(R.id.groupNameAdd);
+            addViewModel.getLastId().observe((LifecycleOwner) activity, new Observer<Long>(){
 
+                @Override
+                public void onChanged(Long aLong) {
+                    lastId=aLong;
+                }
+            });
             view.findViewById(R.id.buttonAdd).setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-                    lastId=addViewModel.addGroupItem(new GroupItem("ic_baseline:android_24",nameText.getText().toString()));
-                    addUserRef.addNewRef(new UserGroupCrossRef(new Long(0),new Long(lastId+1)));
+
+                    addViewModel.addGroupItem(new GroupItem("ic_baseline:android_24",nameText.getText().toString()));
+
+                    addUserRef.addNewRef(new UserGroupCrossRef(new Long(1),new Long(lastId+1)));
+
                     ((AppCompatActivity) activity).getSupportFragmentManager().popBackStack();
                 }
 

@@ -29,7 +29,7 @@ public class DetailsGroupActivity extends AppCompatActivity {
         Intent myIntent = getIntent();
         Long id=myIntent.getLongExtra("group_ID",-1);
         if (savedInstanceState == null)
-            Utilities.insertFragment(this, new DetailsFragment(id), "FRAGMENT_DETAILS");
+            Utilities.insertFragment(this, new DetailsFragment(id), DetailsFragment.class.getSimpleName());
        /* PieChart pieChart = findViewById(R.id.pie_chart);
         pieChart.getLegend().setEnabled(true);
 

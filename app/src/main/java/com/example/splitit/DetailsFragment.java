@@ -12,7 +12,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 
+import com.example.splitit.Database.GroupWithUsers;
+import com.example.splitit.Database.UsersWithGroup;
+import com.example.splitit.ViewModel.AddUserViewModel;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
@@ -21,9 +26,11 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DetailsFragment extends Fragment {
     private long groupId;
+    private AddUserViewModel vm;
 
     public DetailsFragment(long groupId){
         this.groupId = groupId;
@@ -41,6 +48,7 @@ public class DetailsFragment extends Fragment {
         if(activity!=null){
 
             Log.e("DetailsFragment","id group: "+groupId);
+
             PieChart pieChart = activity.findViewById(R.id.pie_chart);
             pieChart.getLegend().setEnabled(true);
 
@@ -87,6 +95,13 @@ public class DetailsFragment extends Fragment {
             pieChart.setCenterText("Amount $");
             // if no need to add description
             pieChart.getDescription().setEnabled(false);
+
+            vm=new ViewModelProvider((ViewModelStoreOwner) activity).get(AddUserViewModel.class);
+            List<GroupWithUsers> listUsers=vm.searchUsers(this.groupId).getValue();
+            Log.e("DetailsFragment",listUsers.toString());
+
         }
+
+
     }
 }
