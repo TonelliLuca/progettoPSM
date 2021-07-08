@@ -76,7 +76,6 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
             Intent intent = new Intent(getActivity(), DetailsGroupActivity.class);
             intent.putExtra("group_ID",a.getId());
             startActivity(intent);
-            //Utilities.insertFragment();
         }
     }
 

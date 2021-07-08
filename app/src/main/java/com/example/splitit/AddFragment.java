@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
@@ -21,6 +22,7 @@ import com.example.splitit.Database.UserGroupCrossRef;
 import com.example.splitit.RecyclerView.GroupItem;
 import com.example.splitit.ViewModel.AddUserViewModel;
 import com.example.splitit.ViewModel.AddViewModel;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class AddFragment extends Fragment {
@@ -31,10 +33,6 @@ public class AddFragment extends Fragment {
 
     public View onCreateView(@NonNull  LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle sevedInstanceState){
         return inflater.inflate(R.layout.add_group, container, false);
-    }
-
-    public void addGroup(View view){
-
     }
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
@@ -48,19 +46,27 @@ public class AddFragment extends Fragment {
             Utilities.setUpToolbar((AppCompatActivity) activity, "Make a group");
             nameText = activity.findViewById(R.id.groupNameAdd);
 
-            view.findViewById(R.id.buttonAdd).setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    lastId=addViewModel.addGroupItem(new GroupItem("ic_baseline:android_24",nameText.getText().toString()));
-                    addUserRef.addNewRef(new UserGroupCrossRef(new Long(0),new Long(lastId+1)));
+            view.findViewById(R.id.buttonAdd).setOnClickListener(v -> {
+                if (checkAdd()) {
+                    lastId = addViewModel.addGroupItem(new GroupItem("ic_baseline:android_24", nameText.getText().toString()));
+                    addUserRef.addNewRef(new UserGroupCrossRef(0L, lastId + 1));
                     ((AppCompatActivity) activity).getSupportFragmentManager().popBackStack();
+
+                } else {
+                    Snackbar snackbar_error = Snackbar.make(view, R.string.error_login, Snackbar.LENGTH_SHORT);
+                    View snackbar_error_view = snackbar_error.getView();
+                    snackbar_error_view.setBackgroundColor(ContextCompat.getColor(activity, R.color.design_default_color_error));
+                    snackbar_error.show();
                 }
-
-
-
             });
 
         }
+    }
+
+    public boolean checkAdd(){
+        if(nameText.getText().toString().matches("")){
+            return false;
+        }
+        return true;
     }
 }
