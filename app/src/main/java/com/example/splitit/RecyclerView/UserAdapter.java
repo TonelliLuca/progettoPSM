@@ -15,8 +15,8 @@ import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<GroupViewHolder> {
     private static final int SIZE = 100;
-    private List<GroupItem> groupItemList=new ArrayList<>();;
-    private List<GroupItem> groupItemFiltered = new ArrayList<>();
+    private List<GroupItem> userItemList=new ArrayList<>();;
+    private List<GroupItem> userItemFiltered = new ArrayList<>();
     private Activity activity;
     private OnItemListener listener;
 
@@ -28,13 +28,13 @@ public class UserAdapter extends RecyclerView.Adapter<GroupViewHolder> {
     @NonNull
     @Override
     public GroupViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View layoutItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.group_layout, parent, false);
+        View layoutItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_card_layout, parent, false);
         return new GroupViewHolder(layoutItem,listener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull GroupViewHolder holder, int position) {
-        GroupItem currentItem = groupItemList.get(position);
+        GroupItem currentItem = userItemList.get(position);
 
 
         String image_path = currentItem.getImageResource();
@@ -57,16 +57,16 @@ public class UserAdapter extends RecyclerView.Adapter<GroupViewHolder> {
 
     @Override
     public int getItemCount() {
-        return groupItemList.size();
+        return userItemList.size();
     }
 
     public void setData(List<GroupItem> list) {
-        this.groupItemList = new ArrayList<>(list);
-        this.groupItemFiltered = new ArrayList<>(list);
+        this.userItemList = new ArrayList<>(list);
+        this.userItemFiltered = new ArrayList<>(list);
         notifyDataSetChanged();
     }
 
     public GroupItem getItemFiltered(int position){
-        return groupItemList.get(position);
+        return userItemList.get(position);
     }
 }

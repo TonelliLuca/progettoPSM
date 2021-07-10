@@ -10,14 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.splitit.R;
 
 public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-    ImageView groupImage;
-    TextView groupName;
+    ImageView userImage;
+    TextView userName;
+    TextView user_amount;
 
     private OnItemListener listener;
     public UserViewHolder(@NonNull View itemView, OnItemListener listener) {
         super(itemView);
-        groupName = itemView.findViewById(R.id.groupName);
-        groupImage = itemView.findViewById(R.id.groupImage);
+        userImage = itemView.findViewById(R.id.user_image);
+        userName = itemView.findViewById(R.id.user_name);
+        user_amount = itemView.findViewById(R.id.somma_utente);
         this.listener=listener;
         itemView.setOnClickListener(this);
     }

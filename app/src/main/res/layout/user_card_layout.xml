@@ -18,7 +18,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/groupImage"
+            android:id="@+id/user_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@color/purple_500"
@@ -56,7 +56,7 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/delete_euser"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
