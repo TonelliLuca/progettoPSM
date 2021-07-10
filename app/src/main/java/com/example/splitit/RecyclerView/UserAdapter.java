@@ -8,17 +8,19 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.splitit.Database.UserGroupCrossRef;
 import com.example.splitit.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserAdapter extends RecyclerView.Adapter<GroupViewHolder> {
+public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
     private static final int SIZE = 100;
-    private List<GroupItem> userItemList=new ArrayList<>();;
-    private List<GroupItem> userItemFiltered = new ArrayList<>();
+    private List<User> userItemList=new ArrayList<>();;
+    private List<User> userItemFiltered = new ArrayList<>();
     private Activity activity;
     private OnItemListener listener;
+    private List<UserGroupCrossRef> balance;
 
     public UserAdapter(Activity activity, OnItemListener listener){
         this.listener = listener;
@@ -27,17 +29,23 @@ public class UserAdapter extends RecyclerView.Adapter<GroupViewHolder> {
 
     @NonNull
     @Override
-    public GroupViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View layoutItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_card_layout, parent, false);
-        return new GroupViewHolder(layoutItem,listener);
+        return new UserViewHolder(layoutItem,listener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GroupViewHolder holder, int position) {
-        GroupItem currentItem = userItemList.get(position);
+    public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
+        User currentItem = userItemList.get(position);
+        UserGroupCrossRef ref=null;
+        for(int i =0;i<balance.size();i++){
+            if(balance.get(i).getUser_id()== currentItem.getId()){
+                ref=balance.get(i);
+            }
+        }
 
 
-        String image_path = currentItem.getImageResource();
+        String image_path = currentItem.getImg();
 
         /*if (image_path.contains("ic_")) {
             Drawable drawable = ContextCompat.getDrawable(activity, activity.getResources()
@@ -51,8 +59,10 @@ public class UserAdapter extends RecyclerView.Adapter<GroupViewHolder> {
             }
         }*/
 
-        holder.groupName.setText(currentItem.getGroupName());
-        System.out.println(currentItem.getGroupName());
+        holder.userName.setText(currentItem.getName());
+        holder.user_amount.setText(String.valueOf(ref.getBalance()));
+
+
     }
 
     @Override
@@ -60,13 +70,19 @@ public class UserAdapter extends RecyclerView.Adapter<GroupViewHolder> {
         return userItemList.size();
     }
 
-    public void setData(List<GroupItem> list) {
+    public void setData(List<User> list) {
         this.userItemList = new ArrayList<>(list);
         this.userItemFiltered = new ArrayList<>(list);
         notifyDataSetChanged();
     }
 
-    public GroupItem getItemFiltered(int position){
+    public void setValues( List<UserGroupCrossRef> ref){
+    this.balance=new ArrayList<>(ref);
+    notifyDataSetChanged();
+    }
+
+
+    public User getItemFiltered(int position){
         return userItemList.get(position);
     }
 }

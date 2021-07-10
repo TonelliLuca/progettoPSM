@@ -24,6 +24,8 @@ import com.example.splitit.Database.UserGroupCrossRef;
 import com.example.splitit.Database.UsersWithGroup;
 import com.example.splitit.RecyclerView.GroupAdapter;
 import com.example.splitit.RecyclerView.OnItemListener;
+import com.example.splitit.RecyclerView.User;
+import com.example.splitit.RecyclerView.UserAdapter;
 import com.example.splitit.ViewModel.AddUserViewModel;
 
 import com.example.splitit.ViewModel.ListViewModel;
@@ -41,8 +43,10 @@ import java.util.List;
 public class DetailsFragment extends Fragment implements OnItemListener, NavigationView.OnNavigationItemSelectedListener{
     private long groupId;
     private AddUserViewModel vm;
-    private List<GroupWithUsers> userList;
-
+    private List<User> userList;
+    private UserAdapter adapter;
+    private RecyclerView recyclerView;
+    private List<UserGroupCrossRef> refUser;
 
     public DetailsFragment(long groupId){
         this.groupId = groupId;
@@ -116,17 +120,27 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
 
                 @Override
                 public void onChanged(List<GroupWithUsers> list) {
-                    userList = list;                                 //Fra questa è la lista degli utenti, visto che è stato implementato il database senza l'uso di foreign key come fa la prof,
-                                                                     //la lista è una List<GroupWithUsers> che a sua volta è una List<User>
-                                                                     //Guarda printLogList li fa la stampa dei nomi degli utenti nella lista tornata dall query
+                    userList = list.get(0).users;
                     printLogList();
+                    adapter.setData(userList);
                 }
             });
-                                                                //*************************************************************************************
-            //vm.removeRef(new UserGroupCrossRef(1,groupId));     *Metodo usato per rimuovere (utente,gruppo) non usarlo con un solo utente           *
-                                                                //*Ci sono un po di log potrebbe crashare prova a cavare il metodo di print qui sotto.*
-                                                                //*Pero sono certo che funzioni rimuove l'associazione a database <3                  *
-                                                                //*************************************************************************************
+            vm.getAllUsersBalance(groupId).observe((LifecycleOwner) activity, new Observer<List<UserGroupCrossRef>>(){
+
+
+                @Override
+                public void onChanged(List<UserGroupCrossRef> userGroupCrossRefs) {
+                    refUser=userGroupCrossRefs;
+                    adapter.setValues(userGroupCrossRefs);
+                }
+
+
+            });
+
+
+
+
+
         }
 
 
@@ -135,17 +149,20 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
 
 
     private void printLogList(){
+        Log.e("UserList ", "Users size:"+userList.size());
         for(int i=0;i<userList.size();i++){
-            GroupWithUsers g=userList.get(i);
-            Log.e("UserList ",String.valueOf(g.users.get(0).getName()));
+
+
+            Log.e("UserList ", String.valueOf(userList.get(i).getName()));
+
         }
     }
 
     private void setRecyclerView(final Activity activity){
-        RecyclerView recyclerView = requireView().findViewById(R.id.recyclerViewUser);
+        recyclerView = requireView().findViewById(R.id.recyclerViewUser);
         recyclerView.setHasFixedSize(true);
-        final OnItemListener listener = (OnItemListener) this;
-        GroupAdapter adapter = new GroupAdapter(activity, listener);
+        final OnItemListener listener = this;
+        adapter = new UserAdapter(activity, listener);
         recyclerView.setAdapter(adapter);
     }
 

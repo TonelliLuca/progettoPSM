@@ -8,7 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.splitit.Database.GroupRepository;
-import com.example.splitit.Database.User;
+import com.example.splitit.RecyclerView.User;
 import com.example.splitit.RecyclerView.GroupItem;
 
 import java.util.List;

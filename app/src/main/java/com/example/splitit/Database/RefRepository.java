@@ -33,6 +33,10 @@ public class RefRepository {
         return refDAO.getUserFromGroup(String.valueOf(val));
     }
 
+    public LiveData<List<UserGroupCrossRef>> getAllUsersBalance(long val){
+        return refDAO.getAllUserBalance(String.valueOf(val));
+    }
+
     public void removeRef(UserGroupCrossRef ref){
         SplititDatabase.databaseWriterExecutor.execute(new Runnable(){
             @Override
