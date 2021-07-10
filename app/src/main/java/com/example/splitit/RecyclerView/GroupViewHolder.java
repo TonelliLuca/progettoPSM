@@ -13,7 +13,7 @@ public class GroupViewHolder extends RecyclerView.ViewHolder implements View.OnC
     ImageView groupImage;
     TextView groupName;
 
-    private OnItemListener listener;
+    private final OnItemListener listener;
     public GroupViewHolder(@NonNull View itemView, OnItemListener listener) {
         super(itemView);
         groupName = itemView.findViewById(R.id.groupName);

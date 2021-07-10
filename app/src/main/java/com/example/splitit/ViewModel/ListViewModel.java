@@ -14,7 +14,7 @@ import com.example.splitit.RecyclerView.GroupItem;
 import java.util.List;
 
 public class ListViewModel extends AndroidViewModel {
-    private LiveData<List<GroupItem>> groupItems;
+    private final LiveData<List<GroupItem>> groupItems;
     private final MutableLiveData<GroupItem> itemSelected = new MutableLiveData<>();
 
     public ListViewModel(@NonNull Application application) {

@@ -16,7 +16,7 @@ import com.example.splitit.RecyclerView.GroupItem;
 
 public class AddViewModel extends AndroidViewModel {
 
-    private GroupRepository repository;
+    private final GroupRepository repository;
     private final MutableLiveData<Bitmap> imageBitmap = new MutableLiveData<>();
     private final LiveData<Long> lastId;
     public AddViewModel(@NonNull Application application) {

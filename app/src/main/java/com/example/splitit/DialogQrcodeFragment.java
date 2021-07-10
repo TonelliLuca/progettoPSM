@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 public class DialogQrcodeFragment extends DialogFragment {
-    private QRGen qrg= new QRGen();
+    private final QRGen qrg= new QRGen();
     TextView textView ;
     ImageView imageView;
 

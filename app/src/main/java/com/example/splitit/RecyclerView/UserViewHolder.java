@@ -14,7 +14,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     TextView userName;
     TextView user_amount;
 
-    private OnItemListener listener;
+    private final OnItemListener listener;
     public UserViewHolder(@NonNull View itemView, OnItemListener listener) {
         super(itemView);
         userImage = itemView.findViewById(R.id.user_image);

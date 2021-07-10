@@ -26,7 +26,7 @@ import com.google.android.material.snackbar.Snackbar;
 public class AddFragment extends Fragment {
 
     private EditText nameText;
-    private long lastId;
+    private long lastId=0;
 
 
     public View onCreateView(@NonNull  LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle sevedInstanceState){
@@ -48,7 +48,8 @@ public class AddFragment extends Fragment {
 
                 @Override
                 public void onChanged(Long aLong) {
-                    lastId=aLong;
+                    if(aLong != null)
+                        lastId=aLong;
                 }
             });
             view.findViewById(R.id.buttonAdd).setOnClickListener(new View.OnClickListener() {
@@ -77,9 +78,6 @@ public class AddFragment extends Fragment {
     }
 
     public boolean checkAdd(){
-        if(nameText.getText().toString().matches("")){
-            return false;
-        }
-        return true;
+        return !nameText.getText().toString().matches("");
     }
 }

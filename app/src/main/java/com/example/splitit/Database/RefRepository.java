@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class RefRepository {
-    private RefDAO refDAO;
+    private final RefDAO refDAO;
     private LiveData<List<UsersWithGroup>> userList;
     private LiveData<List<GroupWithUsers>> groupList;
     private LiveData<List<GroupWithUsers>> allUserInGroup;

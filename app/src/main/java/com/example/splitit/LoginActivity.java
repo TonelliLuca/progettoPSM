@@ -25,8 +25,6 @@ import static android.hardware.biometrics.BiometricManager.Authenticators.BIOMET
 
 public class LoginActivity  extends AppCompatActivity {
 
-    private ImageView fingerprint;
-    private Executor executor;
     private BiometricPrompt biometricPrompt;
     private BiometricPrompt.PromptInfo promptInfo;
 
@@ -37,7 +35,7 @@ public class LoginActivity  extends AppCompatActivity {
         setContentView(R.layout.login);
 
         //init biometric
-        executor = ContextCompat.getMainExecutor(this);
+        Executor executor = ContextCompat.getMainExecutor(this);
         biometricPrompt = new BiometricPrompt(LoginActivity.this, executor, new BiometricPrompt.AuthenticationCallback() {
             @Override
             public void onAuthenticationError (int errorCode, @NonNull CharSequence errString){
@@ -88,8 +86,8 @@ public class LoginActivity  extends AppCompatActivity {
     }
 
     public boolean checkLogin(){
-        EditText emailText = (EditText) findViewById(R.id.etEmailLogin);
-        EditText passwordText = (EditText) findViewById(R.id.etPasswordLogin);
+        EditText emailText = findViewById(R.id.etEmailLogin);
+        EditText passwordText = findViewById(R.id.etPasswordLogin);
         return !emailText.getText().toString().matches("") && !passwordText.getText().toString().matches("");
     }
 

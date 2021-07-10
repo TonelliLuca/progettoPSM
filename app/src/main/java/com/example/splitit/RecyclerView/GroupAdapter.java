@@ -15,10 +15,10 @@ import java.util.List;
 
 public class GroupAdapter extends RecyclerView.Adapter<GroupViewHolder> {
     private static final int SIZE = 1000;
-    private List<GroupItem> groupItemList=new ArrayList<>();;
+    private List<GroupItem> groupItemList=new ArrayList<>();
     private List<GroupItem> groupItemFiltered = new ArrayList<>();
-    private Activity activity;
-    private OnItemListener listener;
+    private final Activity activity;
+    private final OnItemListener listener;
     public GroupAdapter(Activity activity, OnItemListener listener){
         this.listener = listener;
         this.activity = activity;

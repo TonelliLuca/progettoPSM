@@ -41,7 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DetailsFragment extends Fragment implements OnItemListener, NavigationView.OnNavigationItemSelectedListener{
-    private long groupId;
+    private final long groupId;
     private AddUserViewModel vm;
     private List<User> userList;
     private UserAdapter adapter;

@@ -16,10 +16,10 @@ import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
     private static final int SIZE = 100;
-    private List<User> userItemList=new ArrayList<>();;
+    private List<User> userItemList=new ArrayList<>();
     private List<User> userItemFiltered = new ArrayList<>();
-    private Activity activity;
-    private OnItemListener listener;
+    private final Activity activity;
+    private final OnItemListener listener;
     private List<UserGroupCrossRef> balance;
 
     public UserAdapter(Activity activity, OnItemListener listener){

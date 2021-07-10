@@ -10,8 +10,8 @@ import java.util.List;
 
 
 public class UserRepository {
-    private UserDAO userDAO;
-    private LiveData<List<User>> userList;
+    private final UserDAO userDAO;
+    private final LiveData<List<User>> userList;
     public UserRepository(Application application){
         SplititDatabase db = SplititDatabase.getDatabase(application);
         userDAO = db.userDAO();

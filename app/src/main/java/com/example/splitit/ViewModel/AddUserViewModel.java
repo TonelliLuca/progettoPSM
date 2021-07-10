@@ -14,7 +14,7 @@ import com.example.splitit.Database.UsersWithGroup;
 import java.util.List;
 
 public class AddUserViewModel extends AndroidViewModel {
-    private RefRepository refRep;
+    private final RefRepository refRep;
 
     public AddUserViewModel(@NonNull Application application) {
         super(application);

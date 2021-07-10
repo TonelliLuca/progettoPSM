@@ -10,9 +10,9 @@ import java.util.List;
 
 
 public class GroupRepository {
-    private GroupItemDAO groupItemDAO;
-    private LiveData<List<GroupItem>> groupItemList;
-    private LiveData<Long> lastId;
+    private final GroupItemDAO groupItemDAO;
+    private final LiveData<List<GroupItem>> groupItemList;
+    private final LiveData<Long> lastId;
 
     public GroupRepository(Application application){
         SplititDatabase db = SplititDatabase.getDatabase(application);
