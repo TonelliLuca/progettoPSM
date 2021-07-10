@@ -35,5 +35,6 @@
     <string name="fingerprint">fingerprint</string>
     <string name="bg_qrcode">bg qrCode</string>
     <string name="enter_group_name">Enter group name</string>
+    <string name="deleteuser">deleteUser</string>
 
 </resources>
