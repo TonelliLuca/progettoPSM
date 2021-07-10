@@ -4,7 +4,7 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.splitit.RecyclerView.GroupItem;
+import com.example.splitit.RecyclerView.User;
 
 import java.util.List;
 

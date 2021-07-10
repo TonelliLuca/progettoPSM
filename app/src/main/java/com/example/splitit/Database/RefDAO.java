@@ -16,6 +16,7 @@ public interface RefDAO {
     @Transaction
     @Query("SELECT * FROM user")
     public LiveData<List<GroupWithUsers>> getUsersWithGroup();
+
     @Transaction
     @Query("SELECT * FROM `group`")
     public LiveData<List<UsersWithGroup>> getGroupWithUsers();
@@ -24,6 +25,7 @@ public interface RefDAO {
     @Transaction
     @Query(value = "SELECT * FROM 'group' WHERE group_id=:val")
     public LiveData<List<GroupWithUsers>> getUserFromGroup(String val);
+
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void addRef(UserGroupCrossRef u);

@@ -2,12 +2,12 @@ package com.example.splitit.Database;
 
 import android.content.Context;
 
-import androidx.room.AutoMigration;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.splitit.RecyclerView.GroupItem;
+import com.example.splitit.RecyclerView.User;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

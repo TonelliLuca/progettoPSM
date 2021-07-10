@@ -5,8 +5,8 @@ import androidx.room.Junction;
 import androidx.room.Relation;
 
 import com.example.splitit.RecyclerView.GroupItem;
+import com.example.splitit.RecyclerView.User;
 
-import java.security.acl.Group;
 import java.util.List;
 
 public class GroupWithUsers {

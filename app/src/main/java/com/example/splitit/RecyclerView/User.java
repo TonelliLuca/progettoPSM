@@ -1,4 +1,4 @@
-package com.example.splitit.Database;
+package com.example.splitit.RecyclerView;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -6,9 +6,6 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName="user")
 public class User {
-
-
-
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name="user_id")
@@ -22,7 +19,7 @@ public class User {
     @ColumnInfo(name="user_code")
     private final String code;
 
-    public User(String name, String email,String code,String img){
+    public User(String name, String email, String code, String img){
         this.name=name;
         this.email= email;
         this.img=img;

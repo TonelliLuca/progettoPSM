@@ -8,7 +8,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
-import com.example.splitit.RecyclerView.GroupItem;
+import com.example.splitit.RecyclerView.User;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public interface UserDAO{
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void addUser(User u);
     @Transaction
-    @Query("SELECT * FROM `user` ORDER BY user_id DESC ")
+    @Query("SELECT * FROM User ORDER BY user_id DESC ")
     LiveData<List<User>> getUsers();
 
     @Delete

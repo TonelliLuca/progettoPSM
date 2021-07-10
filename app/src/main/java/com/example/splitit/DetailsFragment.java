@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,25 +17,33 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.splitit.Database.GroupWithUsers;
 import com.example.splitit.Database.UserGroupCrossRef;
 import com.example.splitit.Database.UsersWithGroup;
+import com.example.splitit.RecyclerView.GroupAdapter;
+import com.example.splitit.RecyclerView.OnItemListener;
 import com.example.splitit.ViewModel.AddUserViewModel;
+
+import com.example.splitit.ViewModel.ListViewModel;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailsFragment extends Fragment {
+public class DetailsFragment extends Fragment implements OnItemListener, NavigationView.OnNavigationItemSelectedListener{
     private long groupId;
     private AddUserViewModel vm;
     private List<GroupWithUsers> userList;
+
+
     public DetailsFragment(long groupId){
         this.groupId = groupId;
     }
@@ -99,6 +108,8 @@ public class DetailsFragment extends Fragment {
             // if no need to add description
             pieChart.getDescription().setEnabled(false);
 
+            setRecyclerView(activity);
+
             vm=new ViewModelProvider((ViewModelStoreOwner) activity).get(AddUserViewModel.class);
             vm.searchUsers(groupId).observe((LifecycleOwner) activity, new Observer<List<GroupWithUsers>>(){
 
@@ -128,5 +139,23 @@ public class DetailsFragment extends Fragment {
             GroupWithUsers g=userList.get(i);
             Log.e("UserList ",String.valueOf(g.users.get(0).getName()));
         }
+    }
+
+    private void setRecyclerView(final Activity activity){
+        RecyclerView recyclerView = requireView().findViewById(R.id.recyclerViewUser);
+        recyclerView.setHasFixedSize(true);
+        final OnItemListener listener = (OnItemListener) this;
+        GroupAdapter adapter = new GroupAdapter(activity, listener);
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
     }
 }

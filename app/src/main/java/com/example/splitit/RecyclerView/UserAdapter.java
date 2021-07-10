@@ -13,16 +13,16 @@ import com.example.splitit.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupAdapter extends RecyclerView.Adapter<GroupViewHolder> {
-    private static final int SIZE = 1000;
+public class UserAdapter extends RecyclerView.Adapter<GroupViewHolder> {
+    private static final int SIZE = 100;
     private List<GroupItem> groupItemList=new ArrayList<>();;
     private List<GroupItem> groupItemFiltered = new ArrayList<>();
     private Activity activity;
     private OnItemListener listener;
-    public GroupAdapter(Activity activity, OnItemListener listener){
+
+    public UserAdapter(Activity activity, OnItemListener listener){
         this.listener = listener;
         this.activity = activity;
-
     }
 
     @NonNull
