@@ -37,6 +37,15 @@ public class GroupRepository {
 
     public LiveData<Long> getLastId(){return lastId; }
 
+    public void removeGroup(GroupItem g){
+        SplititDatabase.databaseWriterExecutor.execute(new Runnable(){
+            @Override
+            public void run() {
+                groupItemDAO.removeGroup(g);
+
+            }
+        });
+    }
 
 
 }

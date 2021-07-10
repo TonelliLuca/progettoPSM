@@ -2,6 +2,7 @@ package com.example.splitit.Database;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -23,4 +24,7 @@ public interface GroupItemDAO{
     @Transaction
     @Query("SELECT group_id FROM 'group' ORDER BY group_id DESC LIMIT 1")
     LiveData<Long> getLastId();
+
+    @Delete
+    void removeGroup(GroupItem g);
 }

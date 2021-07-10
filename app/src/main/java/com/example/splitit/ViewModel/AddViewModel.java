@@ -32,5 +32,7 @@ public class AddViewModel extends AndroidViewModel {
     public void addGroupItem(GroupItem item){repository.addGroupItem(item);}
     public LiveData<Long> getLastId(){return lastId; }
 
+    public void removeGroup(GroupItem g){repository.removeGroup(g);}
+
 
 }
