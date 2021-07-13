@@ -43,34 +43,26 @@ public class AddFragment extends Fragment {
             AddUserViewModel addUserRef = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddUserViewModel.class);
             Utilities.setUpToolbar((AppCompatActivity) activity, "Make a group");
             nameText = activity.findViewById(R.id.groupNameAdd);
-            addViewModel.getLastId().observe((LifecycleOwner) activity, new Observer<Long>(){
-
-
-                @Override
-                public void onChanged(Long aLong) {
-                    if(aLong != null)
-                        lastId=aLong;
-                }
+            addViewModel.getLastId().observe((LifecycleOwner) activity, aLong -> {
+                if(aLong != null)
+                    lastId=aLong;
             });
-            view.findViewById(R.id.buttonAdd).setOnClickListener(new View.OnClickListener() {
 
-                @Override
-                public void onClick(View v) {
+            view.findViewById(R.id.buttonAdd).setOnClickListener(v -> {
 
-                    addViewModel.addGroupItem(new GroupItem("ic_baseline:android_24", nameText.getText().toString()));
+                addViewModel.addGroupItem(new GroupItem("ic_baseline:android_24", nameText.getText().toString()));
 
-                    addUserRef.addNewRef(new UserGroupCrossRef(new Long(1), new Long(lastId + 1)));
+                addUserRef.addNewRef(new UserGroupCrossRef(1L, lastId + 1));
 
-                    if (checkAdd()) {
+                if (checkAdd()) {
 
-                        ((AppCompatActivity) activity).getSupportFragmentManager().popBackStack();
+                    ((AppCompatActivity) activity).getSupportFragmentManager().popBackStack();
 
-                    } else {
-                        Snackbar snackbar_error = Snackbar.make(view, R.string.error_login, Snackbar.LENGTH_SHORT);
-                        View snackbar_error_view = snackbar_error.getView();
-                        snackbar_error_view.setBackgroundColor(ContextCompat.getColor(activity, R.color.design_default_color_error));
-                        snackbar_error.show();
-                    }
+                } else {
+                    Snackbar snackbar_error = Snackbar.make(view, R.string.error_login, Snackbar.LENGTH_SHORT);
+                    View snackbar_error_view = snackbar_error.getView();
+                    snackbar_error_view.setBackgroundColor(ContextCompat.getColor(activity, R.color.design_default_color_error));
+                    snackbar_error.show();
                 }
             });
 

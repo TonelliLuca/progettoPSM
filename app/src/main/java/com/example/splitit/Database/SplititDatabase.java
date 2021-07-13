@@ -24,6 +24,7 @@ public abstract class SplititDatabase extends RoomDatabase {
     public abstract GroupItemDAO groupItemDAO();
     public abstract UserDAO userDAO();
     public abstract RefDAO refDAO();
+
     static SplititDatabase getDatabase(final Context context){
         if(INSTANCE == null){
             synchronized (SplititDatabase.class){

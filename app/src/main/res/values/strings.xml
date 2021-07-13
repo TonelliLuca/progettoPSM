@@ -36,5 +36,6 @@
     <string name="bg_qrcode">bg qrCode</string>
     <string name="enter_group_name">Enter group name</string>
     <string name="deleteuser">deleteUser</string>
+    <string name="clicca_per_l_autenticazione_biometrica">Clicca per l\'autenticazione biometrica</string>
 
 </resources>
