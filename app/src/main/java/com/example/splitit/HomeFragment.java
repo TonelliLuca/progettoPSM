@@ -62,6 +62,11 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
         }
     }
 
+    @Override
+    public void onDelete(long id,int posu, int posr) {
+
+    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

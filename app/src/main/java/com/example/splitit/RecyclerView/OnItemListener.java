@@ -5,4 +5,5 @@ package com.example.splitit.RecyclerView;
  */
 public interface OnItemListener{
     void onItemClick(int position);
+    void onDelete(long id,int posu,int posr);
 }

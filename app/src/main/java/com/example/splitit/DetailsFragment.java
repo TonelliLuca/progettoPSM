@@ -1,8 +1,10 @@
 package com.example.splitit;
 
 import android.app.Activity;
+import android.app.AsyncNotedAppOp;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,17 +14,20 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.splitit.Database.GroupWithUsers;
 import com.example.splitit.Database.UserGroupCrossRef;
 import com.example.splitit.Database.UsersWithGroup;
 import com.example.splitit.RecyclerView.GroupAdapter;
+import com.example.splitit.RecyclerView.GroupItem;
 import com.example.splitit.RecyclerView.OnItemListener;
 import com.example.splitit.RecyclerView.User;
 import com.example.splitit.RecyclerView.UserAdapter;
@@ -47,6 +52,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
     private UserAdapter adapter;
     private RecyclerView recyclerView;
     private List<UserGroupCrossRef> refUser;
+    private UserGroupCrossRef userToDelete;
 
     public DetailsFragment(long groupId){
         this.groupId = groupId;
@@ -115,16 +121,6 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
             setRecyclerView(activity);
 
             vm=new ViewModelProvider((ViewModelStoreOwner) activity).get(AddUserViewModel.class);
-            vm.searchUsers(groupId).observe((LifecycleOwner) activity, new Observer<List<GroupWithUsers>>(){
-
-
-                @Override
-                public void onChanged(List<GroupWithUsers> list) {
-                    userList = list.get(0).users;
-                    printLogList();
-                    adapter.setData(userList);
-                }
-            });
             vm.getAllUsersBalance(groupId).observe((LifecycleOwner) activity, new Observer<List<UserGroupCrossRef>>(){
 
 
@@ -136,6 +132,17 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
 
 
             });
+            vm.searchUsers(groupId).observe((LifecycleOwner) activity, new Observer<List<GroupWithUsers>>(){
+
+
+                @Override
+                public void onChanged(List<GroupWithUsers> list) {
+                    userList = list.get(0).users;
+                    printLogList();
+                    adapter.setData(userList);
+                }
+            });
+
 
 
 
@@ -162,7 +169,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
         recyclerView = requireView().findViewById(R.id.recyclerViewUser);
         recyclerView.setHasFixedSize(true);
         final OnItemListener listener = this;
-        adapter = new UserAdapter(activity, listener);
+        adapter = new UserAdapter(activity, listener,groupId);
         recyclerView.setAdapter(adapter);
     }
 
@@ -172,7 +179,30 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
     }
 
     @Override
+    public void onDelete(long id,int posu, int posr) {
+        AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
+
+        if(appCompatActivity!=null) {
+            Runnable a=new Runnable() {
+                @Override
+                public void run() {
+                    userToDelete=vm.searchSpecRef(groupId, id);
+                    vm.removeRef(userToDelete);
+
+                }
+            };
+            AsyncTask.execute(a);
+
+
+        }
+        adapter.uploadData(posu,posr);
+        adapter.notifyDataSetChanged();
+
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;
     }
+
 }

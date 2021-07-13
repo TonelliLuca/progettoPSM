@@ -1,6 +1,7 @@
 package com.example.splitit.Database;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -11,6 +12,7 @@ public class RefRepository {
     private LiveData<List<UsersWithGroup>> userList;
     private LiveData<List<GroupWithUsers>> groupList;
     private LiveData<List<GroupWithUsers>> allUserInGroup;
+    private LiveData<UserGroupCrossRef> refFound;
     public RefRepository(Application application){
         SplititDatabase db = SplititDatabase.getDatabase(application);
         refDAO = db.refDAO();
@@ -44,6 +46,13 @@ public class RefRepository {
                 refDAO.removeRef(ref);
             }
         });
+    }
+    
+    public UserGroupCrossRef searchSpecRef(long groupId,long userId){
+        Log.e("RefRepo","find ref group: "+ groupId+ " user: "+userId);
+
+        return refDAO.searchSpecRef(String.valueOf(groupId),String.valueOf(userId));
+
     }
 
 

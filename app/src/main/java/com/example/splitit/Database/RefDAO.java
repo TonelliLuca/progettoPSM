@@ -36,6 +36,10 @@ public interface RefDAO {
     @Delete
     void removeRef(UserGroupCrossRef u);
 
+    @Transaction
+    @Query(value = "SELECT * FROM UserGroupCrossRef WHERE group_id=:groupId AND user_id=:userId")
+    UserGroupCrossRef searchSpecRef(String groupId,String userId);
+
 
 
 
