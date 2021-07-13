@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "906068410959",
+    "project_id": "splitit-319714",
+    "storage_bucket": "splitit-319714.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906068410959:android:b9599a379f1da01a33603a",
+        "android_client_info": {
+          "package_name": "com.example.splitit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "906068410959-6inmotigti6kkgjimr6d97v3bi4meqv3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdZPjEjh5YzKLkwjaXjfXSRvN0dJeAbAs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "906068410959-6inmotigti6kkgjimr6d97v3bi4meqv3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
