@@ -1,38 +1,47 @@
 package com.example.splitit;
 
 import android.content.Intent;
-
-import androidx.annotation.NonNull;
-import androidx.biometric.BiometricPrompt;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.splitit.OnlineDatabase.OnlineDatabase;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executor;
-
-import static android.hardware.biometrics.BiometricManager.Authenticators.BIOMETRIC_STRONG;
 
 public class LoginActivity  extends AppCompatActivity {
 
     private BiometricPrompt biometricPrompt;
     private BiometricPrompt.PromptInfo promptInfo;
+    private EditText etEmailLogin;
+    private EditText etPasswordLogin;
+
 
     @RequiresApi(api = Build.VERSION_CODES.R)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        etEmailLogin = findViewById(R.id.etEmailLogin);
+        etPasswordLogin = findViewById(R.id.etPasswordLogin);
+
 
         //init biometric
         Executor executor = ContextCompat.getMainExecutor(this);
@@ -74,21 +83,60 @@ public class LoginActivity  extends AppCompatActivity {
         overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
 
+    public Runnable loginUser(View view) {
+        Runnable task = () -> {
 
-    public void login(View view){
-        if(checkLogin()){
-            goToHome();
-        }
+            RequestQueue MyRequestQueue = Volley.newRequestQueue(this);
+            String URL = "http://10.0.2.2/splitit/login.php";
+
+            StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    //This code is executed if the server responds, whether or not the response contains data.
+                    //The String 'response' contains the server's response.
+                    if(response.equals("success")){
+                        goToHome();
+                    }else if(response.equals("failure")){
+                        showErrorLogin(view);
+                    }
+                }
+            }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //This code is executed if there is an error.
+                    showErrorLogin(view);
+                }
+            }) {
+                protected Map<String, String> getParams() {
+                    Map<String, String> MyData = new HashMap<String, String>();
+                    MyData.put("email", etEmailLogin.getText().toString()); //Add the data you'd like to send to the server.
+                    MyData.put("password", etPasswordLogin.getText().toString()); //Add the data you'd like to send to the server.
+                    return MyData;
+                }
+            };
+
+            MyRequestQueue.add(MyStringRequest);
+        };
+        return task;
+
+    }
+    public boolean checkLogin(){
+        return !etEmailLogin.getText().toString().matches("") && !etPasswordLogin.getText().toString().matches("");
+    }
+
+    public void showErrorLogin(View view){
         Snackbar snackbar_error = Snackbar.make(view, R.string.error_login,   Snackbar.LENGTH_SHORT);
         View snackbar_error_view = snackbar_error.getView();
         snackbar_error_view.setBackgroundColor(ContextCompat.getColor(this, R.color.design_default_color_error));
         snackbar_error.show();
     }
 
-    public boolean checkLogin(){
-        EditText emailText = findViewById(R.id.etEmailLogin);
-        EditText passwordText = findViewById(R.id.etPasswordLogin);
-        return !emailText.getText().toString().matches("") && !passwordText.getText().toString().matches("");
+    public void login(View view){
+        if(checkLogin()){
+            OnlineDatabase.execute(loginUser(view));
+        }else{
+            showErrorLogin(view);
+        }
     }
 
     public void goToHome(){
