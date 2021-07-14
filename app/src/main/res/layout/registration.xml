@@ -72,7 +72,7 @@
         android:drawableStart="@drawable/ic_baseline_lock_24" />
 
     <EditText
-        android:id="@+id/editTextTextPassword2"
+        android:id="@+id/etPasswordRegistrationCheck"
         android:layout_width="250dp"
         android:layout_height="46dp"
         android:layout_marginTop="48dp"
@@ -98,5 +98,5 @@
         app:backgroundTintMode="multiply"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2" />
+        app:layout_constraintTop_toBottomOf="@+id/etPasswordRegistrationCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

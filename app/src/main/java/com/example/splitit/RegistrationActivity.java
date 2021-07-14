@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -17,6 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.splitit.OnlineDatabase.OnlineDatabase;
 import com.example.splitit.RecyclerView.User;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -39,6 +41,8 @@ public class RegistrationActivity extends AppCompatActivity {
         EditText nome;
         EditText email;
         private EditText password;
+        private EditText passwordCheck;
+        private boolean check;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -47,18 +51,23 @@ public class RegistrationActivity extends AppCompatActivity {
             nome = findViewById(R.id.editTextNomeUtente);
             email = findViewById(R.id.editTextTextEmailAddress);
             password = findViewById(R.id.editTextTextPassword);
+            passwordCheck = findViewById(R.id.etPasswordRegistrationCheck);
+            this.check = false;
         }
 
 
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         public void checkRegistration(View view){
-            OnlineDatabase.execute(addUser());
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            finish();
+            if(nome.getText().toString().matches("") || email.getText().toString().matches("")
+                    || password.getText().toString().matches("") || passwordCheck.getText().toString().matches("")){
+                showErrorRegister(view, 1);
+            }else{
+                OnlineDatabase.execute(addUser(view));
+            }
         }
 
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-        public Runnable addUser(){
+        public Runnable addUser(View view){
             Runnable task = () -> {
                 RequestQueue MyRequestQueue = Volley.newRequestQueue(this);
                 String url = "http://10.0.2.2/splitit/registration.php";
@@ -67,11 +76,19 @@ public class RegistrationActivity extends AppCompatActivity {
                     //This code is executed if the server responds, whether or not the response contains data.
                     //The String 'response' contains the server's response.
                     System.out.println(response);
+                    if(response.equals("success")){
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        finish();
+                    }else if(response.equals("failure")){
+                        this.check = false;
+                        showErrorRegister(view, 0);
+                    }
                 }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         //This code is executed if there is an error.
                         System.out.println(error.getMessage());
+                        showErrorRegister(view, 1);
                     }
                 }) {
                     protected Map<String, String> getParams() {
@@ -86,49 +103,21 @@ public class RegistrationActivity extends AppCompatActivity {
                 };
 
                 MyRequestQueue.add(MyStringRequest);
-
-                /*try {
-                    String result = "";
-                    URL url = new URL("http://10.0.2.2/splitit/registration.php");
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestMethod("POST");
-
-                    OutputStream outputStream = conn.getOutputStream();
-                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8));
-                    String data = URLEncoder.encode("nome", "UTF-8")+"="+URLEncoder.encode(nome.getText().toString(), "UTF-8")
-                            +"&&"+URLEncoder.encode("email", "UTF-8")+"="+URLEncoder.encode(email.getText().toString(), "UTF-8")
-                            +"&&"+URLEncoder.encode("password", "UTF-8")+"="+URLEncoder.encode(password.getText().toString(), "UTF-8")
-                            +"&&"+URLEncoder.encode("img", "UTF-8")+"="+URLEncoder.encode("ic_baseline:android_24", "UTF-8")
-                            +"&&"+URLEncoder.encode("code", "UTF-8")+"="+URLEncoder.encode(randomAlphaNumericCode(10), "UTF-8");
-                    System.out.println(data);
-                    writer.write(data);
-                    writer.flush();
-                    writer.close();
-                    outputStream.close();
-
-                    InputStream inputStream = conn.getInputStream();
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-                    String message = "";
-                    while((message = reader.readLine()) != null ){
-                        result += message;
-                    }
-
-                    System.out.println(result);
-                    reader.close();
-                    inputStream.close();
-                    conn.disconnect();
-
-
-                } catch (MalformedURLException e) {
-                    System.out.println(e.getMessage());
-                    System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
-                    System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-                }*/
             };
             return task;
         }
+
+    public void showErrorRegister(View view, int value){
+        Snackbar snackbar_error;
+        if(value==0){
+            snackbar_error = Snackbar.make(view, R.string.error_register_mail,   Snackbar.LENGTH_SHORT);
+        }else{
+            snackbar_error = Snackbar.make(view, R.string.error_register,   Snackbar.LENGTH_SHORT);
+        }
+        View snackbar_error_view = snackbar_error.getView();
+        snackbar_error_view.setBackgroundColor(ContextCompat.getColor(this, R.color.design_default_color_error));
+        snackbar_error.show();
+    }
 
 
     public static String randomAlphaNumericCode(int count) {
