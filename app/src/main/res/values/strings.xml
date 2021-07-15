@@ -13,6 +13,8 @@
     <string name="registration_tv">Compila il form e procedi con la registrazione</string>
     <string name="error_register_mail">Errore! La mail è già stata registrata.</string>
     <string name="error_register">Errore! Controlla i dati e riprova.</string>
+    <string name="error_register_password">Errore! La password non coincide.</string>
+
     <string name="la_tua_email">La tua email</string>
     <string name="la_tua_password">La tua password</string>
     <string name="reinserisci_la_password">Reinserisci la Password</string>

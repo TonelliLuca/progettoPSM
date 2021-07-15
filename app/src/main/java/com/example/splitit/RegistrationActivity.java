@@ -61,6 +61,8 @@ public class RegistrationActivity extends AppCompatActivity {
             if(nome.getText().toString().matches("") || email.getText().toString().matches("")
                     || password.getText().toString().matches("") || passwordCheck.getText().toString().matches("")){
                 showErrorRegister(view, 1);
+            }else if(!password.getText().toString().matches(passwordCheck.getText().toString())){
+                showErrorRegister(view, 2);
             }else{
                 OnlineDatabase.execute(addUser(view));
             }
@@ -111,8 +113,10 @@ public class RegistrationActivity extends AppCompatActivity {
         Snackbar snackbar_error;
         if(value==0){
             snackbar_error = Snackbar.make(view, R.string.error_register_mail,   Snackbar.LENGTH_SHORT);
-        }else{
+        }else if(value==1){
             snackbar_error = Snackbar.make(view, R.string.error_register,   Snackbar.LENGTH_SHORT);
+        }else{
+            snackbar_error = Snackbar.make(view, R.string.error_register_password,   Snackbar.LENGTH_SHORT);
         }
         View snackbar_error_view = snackbar_error.getView();
         snackbar_error_view.setBackgroundColor(ContextCompat.getColor(this, R.color.design_default_color_error));
