@@ -5,6 +5,7 @@ import android.app.AsyncNotedAppOp;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
@@ -43,7 +45,12 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class DetailsFragment extends Fragment implements OnItemListener, NavigationView.OnNavigationItemSelectedListener{
     private final long groupId;
@@ -53,6 +60,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
     private RecyclerView recyclerView;
     private List<UserGroupCrossRef> refUser;
     private UserGroupCrossRef userToDelete;
+    private PieChart pieChart;
 
     public DetailsFragment(long groupId){
         this.groupId = groupId;
@@ -64,46 +72,20 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
 
     }
 
-    public void onViewCreated(@NonNull View view,@Nullable Bundle savedInstanceState){
+
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view,savedInstanceState);
         final Activity activity=getActivity();
         if(activity!=null){
 
             Log.e("DetailsFragment","id group: "+groupId);
 
-            PieChart pieChart = activity.findViewById(R.id.pie_chart);
+            pieChart = activity.findViewById(R.id.pie_chart);
             pieChart.getLegend().setEnabled(true);
 
-            ArrayList<PieEntry> NoOfEmp = new ArrayList();
 
-            NoOfEmp.add(new PieEntry(945f, 0));
-            NoOfEmp.add(new PieEntry(1040f, 1));
-            NoOfEmp.add(new PieEntry(1133f, 2));
-            NoOfEmp.add(new PieEntry(1240f, 3));
-            NoOfEmp.add(new PieEntry(1369f, 4));
-            NoOfEmp.add(new PieEntry(1487f, 5));
-            NoOfEmp.add(new PieEntry(1501f, 6));
-            NoOfEmp.add(new PieEntry(1645f, 7));
-            NoOfEmp.add(new PieEntry(1578f, 8));
-            NoOfEmp.add(new PieEntry(1695f, 9));
-            PieDataSet dataSet = new PieDataSet(NoOfEmp, "");
 
-            ArrayList year = new ArrayList();
 
-            year.add("2008");
-            year.add("2009");
-            year.add("2010");
-            year.add("2011");
-            year.add("2012");
-            year.add("2013");
-            year.add("2014");
-            year.add("2015");
-            year.add("2016");
-            year.add("2017");
-            PieData data = new PieData(dataSet);
-            pieChart.setData(data);
-            dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-            pieChart.animateXY(2000, 2000);
             Legend l = pieChart.getLegend();
             l.setTextSize(14f);
             l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
@@ -128,6 +110,9 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                 public void onChanged(List<UserGroupCrossRef> userGroupCrossRefs) {
                     refUser=userGroupCrossRefs;
                     adapter.setValues(userGroupCrossRefs);
+                    updateGraph();
+                    
+
                 }
 
 
@@ -140,8 +125,11 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                     userList = list.get(0).users;
                     printLogList();
                     adapter.setData(userList);
+                    updateGraph();
+                    //printLogList();
                 }
             });
+
 
 
 
@@ -160,7 +148,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
         for(int i=0;i<userList.size();i++){
 
 
-            Log.e("UserList ", String.valueOf(userList.get(i).getName()));
+            Log.e("UserList ", String.valueOf(userList.get(i).getId())+" "+userList.get(i).getName());
 
         }
     }
@@ -178,12 +166,13 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
 
     }
 
+
     @Override
     public void onDelete(long id,int posu, int posr) {
         AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
 
         if(appCompatActivity!=null) {
-            Runnable a=new Runnable() {
+            Runnable task = new Runnable() {
                 @Override
                 public void run() {
                     userToDelete=vm.searchSpecRef(groupId, id);
@@ -191,18 +180,50 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
 
                 }
             };
-            AsyncTask.execute(a);
+            ExecutorService ex=Executors.newFixedThreadPool(1);
+            ex.execute(task);
 
 
         }
+
         adapter.uploadData(posu,posr);
         adapter.notifyDataSetChanged();
+        updateGraph();
 
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;
+    }
+
+
+
+    public void updateGraph(){
+        if(userList == null || refUser == null){
+            return;
+        }
+
+
+        ArrayList<PieEntry> NoOfEmp = new ArrayList();
+
+        for(int i=0;i<userList.size();i++){
+            for(int j=0;j<refUser.size();j++){
+                if(userList.get(i).getId() == refUser.get(j).getUserId()){
+                    //Log.e("Graph",(float)refUser.get(j).getBalance()+" "+userList.get(i).getName()+" "+userList.get(i).getId()+" = "+refUser.get(j).getUser_id());
+                    NoOfEmp.add(new PieEntry((float)refUser.get(j).getBalance(), userList.get(i).getName()));
+                }
+            }
+
+        }
+
+
+        PieDataSet dataSet = new PieDataSet(NoOfEmp, "");
+        dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        PieData data = new PieData(dataSet);
+        pieChart.setData(data);
+        pieChart.animateXY(2000, 2000);
+
     }
 
 }
