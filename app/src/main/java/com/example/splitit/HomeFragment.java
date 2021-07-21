@@ -52,6 +52,8 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
     private GroupAdapter adapter;
     private RecyclerView recyclerView;
     private ListViewModel listViewModel;
+    String user_code=null;
+    String user_id=null;
 
     @Override
     public void onItemClick(int position) {
@@ -153,6 +155,10 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
         super.onViewCreated(view, savedInstanceState);
         final Activity activity = getActivity();
         if(activity != null){
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+            user_code = sharedPref.getString(getString(R.string.user_code),"0");
+            user_id = sharedPref.getString(getString(R.string.user_id),"-1");
+            Log.e(LOG, "user code: "+user_code+" User id: "+user_id);
             Utilities.setUpToolbar((AppCompatActivity) getActivity(), "SplitIt");
             setDialog(activity);
             setRecyclerView(activity);
@@ -168,11 +174,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
             floatingActionButton.setOnClickListener(v -> 
                     Utilities.insertFragment((AppCompatActivity) activity, new AddFragment(), "AddFragment"));
 
-            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-            String code = sharedPref.getString(getString(R.string.user_code),"0");
-            String id = sharedPref.getString(getString(R.string.user_id),"-1");
-            Log.e(LOG, "user code: "+code+" User id: "+id);
         }else{
             Log.e(LOG, "Activity is null");
         }
