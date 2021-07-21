@@ -111,7 +111,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                     refUser=userGroupCrossRefs;
                     adapter.setValues(userGroupCrossRefs);
                     updateGraph();
-                    
+
 
                 }
 

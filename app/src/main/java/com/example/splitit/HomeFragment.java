@@ -21,16 +21,20 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -161,8 +165,14 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
                 }
             });
             FloatingActionButton floatingActionButton = view.findViewById(R.id.fab_add);
-            floatingActionButton.setOnClickListener(v ->
+            floatingActionButton.setOnClickListener(v -> 
                     Utilities.insertFragment((AppCompatActivity) activity, new AddFragment(), "AddFragment"));
+
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+            String code = sharedPref.getString(getString(R.string.user_code),"0");
+            String id = sharedPref.getString(getString(R.string.user_id),"-1");
+            Log.e(LOG, "user code: "+code+" User id: "+id);
         }else{
             Log.e(LOG, "Activity is null");
         }
