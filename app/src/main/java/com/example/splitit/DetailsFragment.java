@@ -122,11 +122,13 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
 
                 @Override
                 public void onChanged(List<GroupWithUsers> list) {
-                    userList = list.get(0).users;
-                    printLogList();
-                    adapter.setData(userList);
-                    updateGraph();
-                    //printLogList();
+                    if(list.size()>0) {
+                        userList = list.get(0).users;
+                        printLogList();
+                        adapter.setData(userList);
+                        updateGraph();
+                        //printLogList();
+                    }
                 }
             });
 

@@ -15,9 +15,11 @@ public class UserGroupCrossRef {
     private double balance=0;
 
 
-    public UserGroupCrossRef(long user_id,long group_id){
+    public UserGroupCrossRef(long user_id,long group_id,boolean pay, double balance){
         this.user_id=user_id;
         this.group_id=group_id;
+        this.pay=pay;
+        this.balance=balance;
     }
 
     public long getUser_id() {

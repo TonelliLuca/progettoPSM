@@ -1,7 +1,9 @@
 package com.example.splitit;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,7 @@ public class AddFragment extends Fragment {
 
     private EditText nameText;
     private long lastId=0;
+    private long userId;
 
 
     public View onCreateView(@NonNull  LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle sevedInstanceState){
@@ -38,7 +41,8 @@ public class AddFragment extends Fragment {
         final Activity activity=getActivity();
 
         if(activity!=null){
-
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+            userId = Long.valueOf(sharedPref.getString(getString(R.string.user_id),"-1"));
             AddViewModel addViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddViewModel.class);
             AddUserViewModel addUserRef = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddUserViewModel.class);
             Utilities.setUpToolbar((AppCompatActivity) activity, "Make a group");
@@ -50,9 +54,9 @@ public class AddFragment extends Fragment {
 
             view.findViewById(R.id.buttonAdd).setOnClickListener(v -> {
 
-                addViewModel.addGroupItem(new GroupItem("ic_baseline:android_24", nameText.getText().toString()));
+                addViewModel.addGroupItem(new GroupItem(1,"ic_baseline:android_24", nameText.getText().toString(),userId,false));
 
-                addUserRef.addNewRef(new UserGroupCrossRef(1L, lastId + 1));
+                addUserRef.addNewRef(new UserGroupCrossRef(userId, lastId + 1,false,0));
 
                 if (checkAdd()) {
 

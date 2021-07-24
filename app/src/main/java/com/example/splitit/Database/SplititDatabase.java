@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-@Database( version=2,entities = {GroupItem.class, User.class, UserGroupCrossRef.class})
+@Database( version=4,entities = {GroupItem.class, User.class, UserGroupCrossRef.class})
 public abstract class SplititDatabase extends RoomDatabase {
     private static volatile SplititDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS=4;

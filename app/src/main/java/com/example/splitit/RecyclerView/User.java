@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName="user")
 public class User {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name="user_id")
     private long id;
     @ColumnInfo(name="user_name")
@@ -19,12 +19,16 @@ public class User {
     @ColumnInfo(name="user_code")
     private final String code;
 
-    public User(String name, String email, String code, String img){
+
+    public User(long id,String name, String email, String code, String img){
         this.name=name;
         this.email= email;
         this.img=img;
         this.code=code;
+        this.id=id;
+
     }
+
 
 
     public void setId(long id) {

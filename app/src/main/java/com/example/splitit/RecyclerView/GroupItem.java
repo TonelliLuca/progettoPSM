@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName="group")
 public class GroupItem {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "group_id")
     private long id;
     @ColumnInfo(name = "group_name")
@@ -16,16 +16,22 @@ public class GroupItem {
     @ColumnInfo(name = "group_complete")
     private boolean compete;
     @ColumnInfo(name = "group_admin")
-    private int admin;
+    private long admin;
 
 
 
-    public GroupItem(String imageResource, String groupName){
+
+    public GroupItem(long id,String imageResource, String groupName,long admin,boolean compete){
         this.groupName = groupName;
         this.imageResource = imageResource;
-        this.compete=false;
-        this.admin=0;
+        this.compete=compete;
+        this.admin=admin;
+        this.id=id;
+
+
     }
+
+
 
     public String getGroupName() {
         return groupName;
@@ -58,11 +64,11 @@ public class GroupItem {
         this.compete = compete;
     }
 
-    public int getAdmin() {
+    public long getAdmin() {
         return admin;
     }
 
-    public void setAdmin(int admin) {
+    public void setAdmin(long admin) {
         this.admin = admin;
     }
 }

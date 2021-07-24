@@ -6,9 +6,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.splitit.Database.UserGroupCrossRef;
+import com.example.splitit.OnlineDatabase.OnlineDatabase;
 import com.example.splitit.RecyclerView.GroupAdapter;
 import com.example.splitit.RecyclerView.GroupItem;
 import com.example.splitit.RecyclerView.OnItemListener;
+import com.example.splitit.RecyclerView.User;
+import com.example.splitit.ViewModel.AddUserViewModel;
+import com.example.splitit.ViewModel.AddViewModel;
 import com.example.splitit.ViewModel.ListViewModel;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
@@ -45,13 +56,17 @@ import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HomeFragment extends Fragment implements OnItemListener, NavigationView.OnNavigationItemSelectedListener {
     private static final String LOG="HomeFragment";
     private GroupAdapter adapter;
     private RecyclerView recyclerView;
     private ListViewModel listViewModel;
+    private AddViewModel addViewModel;
+    private AddUserViewModel addUser;
     String user_code=null;
     String user_id=null;
 
@@ -155,15 +170,22 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
         super.onViewCreated(view, savedInstanceState);
         final Activity activity = getActivity();
         if(activity != null){
+
+            addUser = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddUserViewModel.class);
+            addViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddViewModel.class);
+            listViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(ListViewModel.class);
+            OnlineDatabase.execute(getGroupsOnline(view));
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
             user_code = sharedPref.getString(getString(R.string.user_code),"0");
             user_id = sharedPref.getString(getString(R.string.user_id),"-1");
             Log.e(LOG, "user code: "+user_code+" User id: "+user_id);
+            OnlineDatabase.execute(getActualUser(view));
             Utilities.setUpToolbar((AppCompatActivity) getActivity(), "SplitIt");
             setDialog(activity);
             setRecyclerView(activity);
             setLineChart();
-            listViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(ListViewModel.class);
+
+
             listViewModel.getGroupItems().observe((LifecycleOwner) activity, new Observer<List<GroupItem>>() {
                 @Override
                 public void onChanged(List<GroupItem> groupItems) {
@@ -196,6 +218,125 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return true;
+    }
+
+
+    public Runnable getGroupsOnline(View view) {
+        Runnable task = () -> {
+
+            RequestQueue MyRequestQueue = Volley.newRequestQueue(this.getContext());
+            String URL = "http://10.0.2.2/splitit/comunication.php";
+
+            StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    //This code is executed if the server responds, whether or not the response contains data.
+                    //The String 'response' contains the server's response.
+
+                    if(response.equals("failure")){
+                        Log.e(LOG,"failed");
+
+                    }else{
+                        Log.e(LOG,response.toString());
+                        saveGroups(response.toString());
+                    }
+                }
+            }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //This code is executed if there is an error.
+                    Log.e(LOG,"error response");
+
+                }
+            }) {
+                protected Map<String, String> getParams() {
+                    Map<String, String> MyData = new HashMap<String, String>();
+                    MyData.put("id", String.valueOf(user_id)); //Add the data you'd like to send to the server.
+                    MyData.put("request",String.valueOf(0));
+                    return MyData;
+                }
+            };
+
+            MyRequestQueue.add(MyStringRequest);
+        };
+        return task;
+
+    }
+
+    private void saveGroups(String s){
+        ArrayList<GroupItem> list = Utilities.parseGroupItems(s);
+        Log.e(LOG,"Groups num:"+list.size());
+        if(list.size()>0){
+            for(int i = 0; i<list.size();i++){
+                GroupItem g = list.get(i);
+                addViewModel.addGroupItem(g);
+
+            }
+        }
+        ArrayList<UserGroupCrossRef> listRef = Utilities.parseUserGroupCrossRef(s);
+        Log.e(LOG,"Ref num:"+list.size());
+        if(listRef.size()>0){
+            for(int i = 0; i<listRef.size();i++){
+                UserGroupCrossRef r = listRef.get(i);
+                addUser.addNewRef(r);
+
+            }
+        }
+    }
+
+    public Runnable getActualUser(View view) {
+        Runnable task = () -> {
+
+            RequestQueue MyRequestQueue = Volley.newRequestQueue(this.getContext());
+            String URL = "http://10.0.2.2/splitit/comunication.php";
+
+            StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    //This code is executed if the server responds, whether or not the response contains data.
+                    //The String 'response' contains the server's response.
+
+                    if(response.equals("failure")){
+                        Log.e(LOG,"failed");
+
+                    }else{
+                        Log.e(LOG,response.toString());
+                        saveUser(response.toString());
+                    }
+                }
+            }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //This code is executed if there is an error.
+                    Log.e(LOG,"error response");
+
+                }
+            }) {
+                protected Map<String, String> getParams() {
+                    Map<String, String> MyData = new HashMap<String, String>();
+                    MyData.put("id", String.valueOf(user_id)); //Add the data you'd like to send to the server.
+                    MyData.put("request",String.valueOf(1));
+                    return MyData;
+                }
+            };
+
+            MyRequestQueue.add(MyStringRequest);
+        };
+        return task;
+
+    }
+
+
+    private void saveUser(String s){
+        ArrayList<User> list = Utilities.parseUser(s);
+        Log.e(LOG,"User num:"+list.size());
+        if(list.size()>0){
+            for(int i = 0; i<list.size();i++){
+                User u = list.get(i);
+                addUser.addUser(u);
+
+            }
+        }
     }
 
 
