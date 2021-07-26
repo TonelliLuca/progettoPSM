@@ -186,7 +186,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
             setLineChart();
 
 
-            listViewModel.getGroupItems().observe((LifecycleOwner) activity, new Observer<List<GroupItem>>() {
+            listViewModel.getGroupItems(user_id).observe((LifecycleOwner) activity, new Observer<List<GroupItem>>() {
                 @Override
                 public void onChanged(List<GroupItem> groupItems) {
                     adapter.setData(groupItems);

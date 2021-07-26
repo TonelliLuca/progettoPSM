@@ -11,18 +11,18 @@ import java.util.List;
 
 public class GroupRepository {
     private final GroupItemDAO groupItemDAO;
-    private final LiveData<List<GroupItem>> groupItemList;
+
     private final LiveData<Long> lastId;
 
     public GroupRepository(Application application){
         SplititDatabase db = SplititDatabase.getDatabase(application);
         groupItemDAO = db.groupItemDAO();
-        groupItemList = groupItemDAO.getGroupItems();
+
         lastId=groupItemDAO.getLastId();
 
     }
 
-    public LiveData<List<GroupItem>> getGroupItemList(){return groupItemList;}
+    public LiveData<List<GroupItem>> getGroupItemList(String id){return groupItemDAO.getGroupItems(id);}
 
     public void addGroupItem(final GroupItem groupItem){
 

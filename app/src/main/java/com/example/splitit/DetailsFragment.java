@@ -172,7 +172,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
     @Override
     public void onDelete(long id,int posu, int posr) {
         AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
-
+        //TODO eliminazione della referenza su db online 
         if(appCompatActivity!=null) {
             Runnable task = new Runnable() {
                 @Override

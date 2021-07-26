@@ -18,8 +18,8 @@ public interface GroupItemDAO{
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     long addGroupItem(GroupItem gp);
     @Transaction
-    @Query("SELECT * FROM `group` ORDER BY group_id DESC ")
-    LiveData<List<GroupItem>> getGroupItems();
+    @Query("SELECT `group`.group_id,`group`.group_name,`group`.group_img,`group`.group_admin,`group`.group_complete FROM `group` JOIN UserGroupCrossRef ON UserGroupCrossRef.group_id=`group`.group_id WHERE UserGroupCrossRef.user_id=:val ORDER BY `group`.group_id DESC ")
+    LiveData<List<GroupItem>> getGroupItems(String val);
 
     @Transaction
     @Query("SELECT group_id FROM 'group' ORDER BY group_id DESC LIMIT 1")
