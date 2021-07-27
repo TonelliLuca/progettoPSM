@@ -34,7 +34,7 @@
     <string name="transactions">Transactions</string>
     <string name="storico">Storico</string>
     <string name="bilancio">Bilancio</string>
-    <string name="profile">Profile</string>
+    <string name="profile">Profilo</string>
     <string name="mostra_qrcode">Mostra QrCode</string>
     <string name="close">Close</string>
     <string name="splash_bg">splash bg</string>
@@ -45,5 +45,10 @@
     <string name="clicca_per_l_autenticazione_biometrica">Clicca per l\'autenticazione biometrica</string>
     <string name="user_code">user_code</string>
     <string name="user_id">user_id</string>
+    <string name="tv_user_code">tv_user_code</string>
+    <string name="user_img">user_img</string>
+    <string name="scheda_informazioni">Scheda informazioni</string>
+    <string name="user_name">user_name</string>
+    <string name="billing">billing</string>
 
 </resources>

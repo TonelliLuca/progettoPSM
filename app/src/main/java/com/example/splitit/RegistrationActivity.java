@@ -55,7 +55,6 @@ public class RegistrationActivity extends AppCompatActivity {
             this.check = false;
         }
 
-
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         public void checkRegistration(View view){
             if(nome.getText().toString().matches("") || email.getText().toString().matches("")
@@ -122,7 +121,6 @@ public class RegistrationActivity extends AppCompatActivity {
         snackbar_error_view.setBackgroundColor(ContextCompat.getColor(this, R.color.design_default_color_error));
         snackbar_error.show();
     }
-
 
     public static String randomAlphaNumericCode(int count) {
         StringBuilder builder = new StringBuilder();

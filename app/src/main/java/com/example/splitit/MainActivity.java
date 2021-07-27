@@ -12,6 +12,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -20,6 +24,7 @@ import com.google.android.material.navigation.NavigationView;
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+    FragmentManager mFragmentManager;
 
 
     @Override
@@ -39,13 +44,33 @@ import com.google.android.material.navigation.NavigationView;
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
+
         navigationView.setCheckedItem(R.id.nav_home);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                    if(id == R.id.nav_dashboard) {
+                        loadMenuFragment(new DetailsUserFragment());
+                    }
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
 
 
         if (savedInstanceState == null)
             Utilities.insertFragment(this, new HomeFragment(), FRAGMENT_TAG_HOME);
     }
+
+     public void loadMenuFragment(Fragment fragment) {
+         mFragmentManager = this.getSupportFragmentManager();
+         FragmentTransaction transaction = mFragmentManager.beginTransaction();
+         transaction.replace(R.id.activity_main_layout, fragment);
+         transaction.addToBackStack(null);
+         transaction.commit();
+     }
 
 
     @Override
@@ -69,8 +94,11 @@ import com.google.android.material.navigation.NavigationView;
 
     @Override
     public void onBackPressed(){
+        System.out.println(mFragmentManager.getBackStackEntryCount());
         if(drawerLayout.isDrawerOpen(GravityCompat.START)){
             drawerLayout.closeDrawer(GravityCompat.START);
+        }else if (mFragmentManager.getBackStackEntryCount() > 0) {
+            mFragmentManager.popBackStackImmediate();
         }else{
             super.onBackPressed();
         }
