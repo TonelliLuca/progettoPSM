@@ -25,9 +25,16 @@ import androidx.lifecycle.ViewModelStoreOwner;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.splitit.Database.GroupWithUsers;
 import com.example.splitit.Database.UserGroupCrossRef;
 import com.example.splitit.Database.UsersWithGroup;
+import com.example.splitit.OnlineDatabase.OnlineDatabase;
 import com.example.splitit.RecyclerView.GroupAdapter;
 import com.example.splitit.RecyclerView.GroupItem;
 import com.example.splitit.RecyclerView.OnItemListener;
@@ -47,7 +54,9 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -172,7 +181,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
     @Override
     public void onDelete(long id,int posu, int posr) {
         AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
-        //TODO eliminazione della referenza su db online 
+        OnlineDatabase.execute(deleteRef(getView(),String.valueOf(id),String.valueOf(groupId)));
         if(appCompatActivity!=null) {
             Runnable task = new Runnable() {
                 @Override
@@ -225,6 +234,50 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
         PieData data = new PieData(dataSet);
         pieChart.setData(data);
         pieChart.animateXY(2000, 2000);
+
+    }
+
+
+    public Runnable deleteRef(View view,String idU,String idG) {
+        Runnable task = () -> {
+
+            RequestQueue MyRequestQueue = Volley.newRequestQueue(this.getContext());
+            String URL = "http://10.0.2.2/splitit/comunication.php";
+
+            StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    //This code is executed if the server responds, whether or not the response contains data.
+                    //The String 'response' contains the server's response.
+
+                    if(response.equals("failure")){
+                        Log.e("DetailsFragment","failed");
+
+                    }else{
+                        Log.e("DetailsFragment",response.toString());
+
+                    }
+                }
+            }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //This code is executed if there is an error.
+                    Log.e("DetailsFragment","error response");
+
+                }
+            }) {
+                protected Map<String, String> getParams() {
+                    Map<String, String> MyData = new HashMap<String, String>();
+                    MyData.put("id", idU); //Add the data you'd like to send to the server.
+                    MyData.put("group_id", idG);
+                    MyData.put("request",String.valueOf(3));
+                    return MyData;
+                }
+            };
+
+            MyRequestQueue.add(MyStringRequest);
+        };
+        return task;
 
     }
 
