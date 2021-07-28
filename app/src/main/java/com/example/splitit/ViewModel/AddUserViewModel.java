@@ -34,4 +34,5 @@ public class AddUserViewModel extends AndroidViewModel {
     public void removeRef(UserGroupCrossRef ref){refRep.removeRef(ref);}
     public UserGroupCrossRef searchSpecRef(long groupId,long userId){return refRep.searchSpecRef(groupId,userId);};
     public void addUser(User u){userRep.addUser(u);}
+    public LiveData<List<Double>> getAllPayments(String userId){return refRep.getAllPayments(userId);}
 }

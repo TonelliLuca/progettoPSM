@@ -67,6 +67,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
     private ListViewModel listViewModel;
     private AddViewModel addViewModel;
     private AddUserViewModel addUser;
+    private LineChart lineChart;
     String user_code=null;
     String user_id=null;
 
@@ -101,22 +102,15 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
 
     }
 
-    public void setLineChart() {
-        LineChart lineChart = requireView().findViewById(R.id.lineChart);
-        lineChart.setDragEnabled(true);
-        //lineChart.setScaleEnabled(false);
-        lineChart.setTouchEnabled(true);
+    public void setLineChart(List<Double> list) {
 
         ArrayList<Entry> yVal = new ArrayList<>();
 
-        yVal.add(new Entry(0, 60f));
-        yVal.add(new Entry(1, 70f));
-        yVal.add(new Entry(2, 80f));
-        yVal.add(new Entry(3, 90f));
-        yVal.add(new Entry(4, 30f));
-        yVal.add(new Entry(5, 50f));
-        yVal.add(new Entry(6, 75f));
 
+
+        for(int i=0;i<list.size(); i++){
+            yVal.add(new Entry(i, Float.valueOf(String.valueOf(list.get(i)))));
+        }
         LineDataSet set1 = new LineDataSet(yVal, "");
 
         set1.setValueTextColor(Color.WHITE);
@@ -153,6 +147,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
         lineChart.getAxisRight().setDrawGridLines(false);
 
         lineChart.setData(data);
+        lineChart.invalidate();
 
     }
 
@@ -174,6 +169,12 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
             addUser = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddUserViewModel.class);
             addViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddViewModel.class);
             listViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(ListViewModel.class);
+
+            lineChart = requireView().findViewById(R.id.lineChart);
+            lineChart.setDragEnabled(true);
+            //lineChart.setScaleEnabled(false);
+            lineChart.setTouchEnabled(true);
+
             OnlineDatabase.execute(getGroupsOnline(view));
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
             user_code = sharedPref.getString(getString(R.string.user_code),"0");
@@ -183,7 +184,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
             Utilities.setUpToolbar((AppCompatActivity) getActivity(), "SplitIt");
             setDialog(activity);
             setRecyclerView(activity);
-            setLineChart();
+
 
 
             listViewModel.getGroupItems(user_id).observe((LifecycleOwner) activity, new Observer<List<GroupItem>>() {
@@ -192,6 +193,16 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
                     adapter.setData(groupItems);
                 }
             });
+
+            addUser.getAllPayments(user_id).observe((LifecycleOwner) activity, new Observer<List<Double>>() {
+
+                @Override
+                public void onChanged(List<Double> doubles) {
+                    setLineChart(doubles);
+                    Log.e("LineChart",String.valueOf(doubles.size()));
+                }
+            });
+
             FloatingActionButton floatingActionButton = view.findViewById(R.id.fab_add);
             floatingActionButton.setOnClickListener(v -> 
                     Utilities.insertFragment((AppCompatActivity) activity, new AddFragment(), "AddFragment"));

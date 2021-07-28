@@ -40,7 +40,9 @@ public interface RefDAO {
     @Query(value = "SELECT * FROM UserGroupCrossRef WHERE group_id=:groupId AND user_id=:userId")
     UserGroupCrossRef searchSpecRef(String groupId,String userId);
 
-
+    @Transaction
+    @Query(value = "SELECT ref_balance FROM UserGroupCrossRef WHERE  user_id=:val AND ref_pay==1")
+    LiveData<List<Double>> getAllPayments(String val);
 
 
 }
