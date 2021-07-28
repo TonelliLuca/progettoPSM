@@ -68,8 +68,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pie_chart"
             app:layout_constraintVertical_bias="0.0"
-            tools:listitem="@layout/user_card_layout" />
+            tools:listitem="@layout/user_card_layout" >
 
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/btn_add_to_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="155dp"
+            android:layout_marginLeft="155dp"
+            android:layout_marginEnd="155dp"
+            android:layout_marginRight="155dp"
+            android:text="@string/aggiungi_utente"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recyclerViewUser" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

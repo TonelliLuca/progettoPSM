@@ -50,5 +50,10 @@
     <string name="scheda_informazioni">Scheda informazioni</string>
     <string name="user_name">user_name</string>
     <string name="billing">billing</string>
+    <string name="aggiungi_utente">Aggiungi utente</string>
+    <string name="scanned_data">scanned_data</string>
+    <string name="metodo_di_aggiunta">Scegli metodo di aggiunta</string>
+    <string name="scannerizza_qrCode">Scannerizza QrCode</string>
+    <string name="digita_codice">Digita codice</string>
 
 </resources>

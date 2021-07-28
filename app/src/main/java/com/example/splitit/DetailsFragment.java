@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -70,6 +71,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
     private List<UserGroupCrossRef> refUser;
     private UserGroupCrossRef userToDelete;
     private PieChart pieChart;
+    private Button btn_addUser;
 
     public DetailsFragment(long groupId){
         this.groupId = groupId;
@@ -92,9 +94,6 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
             pieChart = activity.findViewById(R.id.pie_chart);
             pieChart.getLegend().setEnabled(true);
 
-
-
-
             Legend l = pieChart.getLegend();
             l.setTextSize(14f);
             l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
@@ -114,7 +113,6 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
             vm=new ViewModelProvider((ViewModelStoreOwner) activity).get(AddUserViewModel.class);
             vm.getAllUsersBalance(groupId).observe((LifecycleOwner) activity, new Observer<List<UserGroupCrossRef>>(){
 
-
                 @Override
                 public void onChanged(List<UserGroupCrossRef> userGroupCrossRefs) {
                     refUser=userGroupCrossRefs;
@@ -123,12 +121,9 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
 
 
                 }
-
-
             });
+
             vm.searchUsers(groupId).observe((LifecycleOwner) activity, new Observer<List<GroupWithUsers>>(){
-
-
                 @Override
                 public void onChanged(List<GroupWithUsers> list) {
                     if(list.size()>0) {
@@ -141,18 +136,19 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                 }
             });
 
-
-
-
-
-
-
         }
 
-
+        setDialog();
 
     }
 
+    public void setDialog(){
+        btn_addUser = requireView().findViewById(R.id.btn_add_to_group);
+        btn_addUser.setOnClickListener(v -> {
+            DialogAddUserSelection dialog = new DialogAddUserSelection();
+            dialog.show(getChildFragmentManager(), "User Selection Dialog");
+        });
+    }
 
     private void printLogList(){
         Log.e("UserList ", "Users size:"+userList.size());

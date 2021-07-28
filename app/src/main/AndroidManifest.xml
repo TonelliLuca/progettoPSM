@@ -3,8 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.splitit">
 
+    <!--Permission for internet access-->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--Permission for biometric-->
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <!--Permission for camera-->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!--Permission to vibrate-->
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:usesCleartextTraffic="true"
