@@ -29,15 +29,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/qr_code_view" />
 
+    <TextView
+        android:id="@+id/tv_user_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="102dp"
+        android:layout_marginLeft="102dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="102dp"
+        android:layout_marginRight="102dp"
+        android:layout_marginBottom="6dp"
+        android:text="@string/tv_user_code"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/close_dialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/qr_code_view"
+        app:layout_constraintVertical_bias="0.0" />
+
     <ImageView
         android:id="@+id/qr_code_view"
         android:layout_width="297dp"
         android:layout_height="277dp"
-        android:layout_marginTop="36dp"
+        android:gravity="center"
+        android:layout_gravity="center"
         android:contentDescription="@string/qrcode"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@android:drawable/ic_menu_help" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
