@@ -20,6 +20,8 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+
 import java.util.Objects;
 
 public class DialogAddUserSelection extends DialogFragment{
@@ -45,6 +47,10 @@ public class DialogAddUserSelection extends DialogFragment{
             submit = view.findViewById(R.id.btn_submit);
 
             addQrCode.setOnClickListener(v -> {
+                IntentIntegrator intentIntegrator = new IntentIntegrator(getActivity());
+                intentIntegrator.setPrompt("Scan a barcode or QR Code");
+                intentIntegrator.setOrientationLocked(true);
+                intentIntegrator.initiateScan();
             });
         }
     }

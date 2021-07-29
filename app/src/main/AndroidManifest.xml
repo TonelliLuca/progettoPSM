@@ -7,7 +7,8 @@
     <uses-permission android:name="android.permission.USE_BIOMETRIC" /> <!-- Permission for camera -->
     <uses-permission android:name="android.permission.CAMERA" /> <!-- Permission to vibrate -->
     <uses-permission android:name="android.permission.VIBRATE" />
-
+    <uses-sdk
+        tools:overrideLibrary="com.google.zxing.client.android" />
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -34,6 +35,8 @@
             android:noHistory="true" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".DetailsGroupActivity" />
+
+
     </application>
 
 </manifest>
