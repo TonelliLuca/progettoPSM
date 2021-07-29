@@ -47,10 +47,12 @@ public class DialogAddUserSelection extends DialogFragment{
             submit = view.findViewById(R.id.btn_submit);
 
             addQrCode.setOnClickListener(v -> {
+
                 IntentIntegrator intentIntegrator = new IntentIntegrator(getActivity());
                 intentIntegrator.setPrompt("Scan a barcode or QR Code");
                 intentIntegrator.setOrientationLocked(true);
                 intentIntegrator.initiateScan();
+
             });
         }
     }
