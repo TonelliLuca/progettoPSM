@@ -55,6 +55,14 @@
 
         </com.github.mikephil.charting.charts.PieChart>
 
+        <include layout="@layout/user_balance"
+            app:layout_constraintTop_toBottomOf="@+id/pie_chart"
+            
+            android:id="@+id/userBalance"
+            >
+
+        </include>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewUser"
             android:layout_width="match_parent"
@@ -66,7 +74,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pie_chart"
+            app:layout_constraintTop_toBottomOf="@+id/userBalance"
             app:layout_constraintVertical_bias="0.0"
             tools:listitem="@layout/user_card_layout" >
 

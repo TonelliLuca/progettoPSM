@@ -30,7 +30,7 @@ public interface RefDAO {
     @Query(value ="SELECT * FROM UserGroupCrossRef WHERE group_id=:val")
     LiveData<List<UserGroupCrossRef>> getAllUserBalance(String val);
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addRef(UserGroupCrossRef u);
 
     @Delete

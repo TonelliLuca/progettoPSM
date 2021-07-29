@@ -118,6 +118,7 @@ public class LoginActivity  extends AppCompatActivity {
             }) {
                 protected Map<String, String> getParams() {
                     Map<String, String> MyData = new HashMap<String, String>();
+
                     MyData.put("email", etEmailLogin.getText().toString()); //Add the data you'd like to send to the server.
                     MyData.put("password", etPasswordLogin.getText().toString()); //Add the data you'd like to send to the server.
                     return MyData;
