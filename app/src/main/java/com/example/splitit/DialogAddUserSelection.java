@@ -45,6 +45,7 @@ public class DialogAddUserSelection extends DialogFragment{
             submit = view.findViewById(R.id.btn_submit);
 
             addQrCode.setOnClickListener(v -> {
+
             });
         }
     }

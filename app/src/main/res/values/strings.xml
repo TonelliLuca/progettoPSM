@@ -56,5 +56,7 @@
     <string name="scannerizza_qrCode">Scannerizza QrCode</string>
     <string name="digita_codice">Digita codice</string>
     <string name="digita_il_codice">Digita il codice</string>
+    <string name="il_mio_importo">Il mio importo</string>
+    <string name="digita_l_importo">Digita l\'importo</string>
 
 </resources>
