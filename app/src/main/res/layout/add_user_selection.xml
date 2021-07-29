@@ -1,56 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
     android:layout_gravity="center"
-    android:background="@color/cardview_light_background">
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/background_login">
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/metodo_di_aggiunta"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <EditText
+        android:id="@+id/btn_add_code"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_margin="8dp"
+        android:layout_gravity="center"
+        android:hint="@string/digita_il_codice"
+        android:textColorHint="#555555"
+        android:maxLength="10"
+        android:background="@drawable/edit_text_bg"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
     <Button
         android:id="@+id/btn_qr_reader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:layout_marginLeft="55dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginRight="56dp"
+        android:layout_margin="8dp"
+        android:layout_gravity="center"
         android:background="@drawable/element_shape"
         android:gravity="center"
         android:text="@string/scannerizza_qrCode"
         android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_add_code" />
+        android:textSize="20sp" />
 
     <Button
-        android:id="@+id/btn_add_code"
+        android:id="@+id/btn_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:layout_marginLeft="55dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginRight="56dp"
+        android:layout_margin="8dp"
+        android:layout_gravity="center"
         android:background="@drawable/element_shape"
         android:gravity="center"
-        android:text="@string/digita_codice"
+        android:text="@string/aggiungi_utente"
         android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView4" />
+        android:textSize="20sp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>
