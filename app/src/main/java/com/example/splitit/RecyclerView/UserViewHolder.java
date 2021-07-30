@@ -1,5 +1,7 @@
 package com.example.splitit.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,7 +40,22 @@ public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.delete_user){
-            listener.onDelete(idUser,posU,posR);
+            new AlertDialog.Builder(v.getContext())
+                    .setTitle("Rimuovi utente")
+                    .setMessage("Sei sicuro di voler rimuovere l'utente dal gruppo?")
+
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            listener.onDelete(idUser,posU,posR);
+                        }
+                    })
+
+                    // A null listener allows the button to dismiss the dialog and take no further action.
+                    .setNegativeButton(android.R.string.no, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
         }
 
 

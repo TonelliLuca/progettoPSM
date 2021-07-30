@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_home"
     tools:context=".DetailsGroupActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,7 +13,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/iv_group_image"
             android:layout_width="133dp"
             android:layout_height="130dp"
             android:layout_marginStart="139dp"
@@ -27,7 +28,7 @@
             app:srcCompat="@drawable/ic_baseline_group_24" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tv_group_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="176dp"
@@ -41,7 +42,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_group_image" />
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pie_chart"
@@ -51,7 +52,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.454"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2">
+            app:layout_constraintTop_toBottomOf="@+id/tv_group_name">
 
         </com.github.mikephil.charting.charts.PieChart>
 

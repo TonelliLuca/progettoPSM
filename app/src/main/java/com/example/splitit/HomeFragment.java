@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.splitit.Database.UserGroupCrossRef;
@@ -32,7 +30,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -45,12 +42,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,7 +58,6 @@ import java.util.Map;
 public class HomeFragment extends Fragment implements OnItemListener, NavigationView.OnNavigationItemSelectedListener {
     private static final String LOG="HomeFragment";
     private GroupAdapter adapter;
-    private RecyclerView recyclerView;
     private ListViewModel listViewModel;
     private AddViewModel addViewModel;
     private AddUserViewModel addUser;
@@ -77,9 +71,12 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
         if(appCompatActivity!=null){
             listViewModel.selected(adapter.getItemFiltered(position));
             GroupItem a = listViewModel.getSelected().getValue();
+            assert a != null;
             Log.e("GroupItem","selected id: "+a.getId());
             Intent intent = new Intent(getActivity(), DetailsGroupActivity.class);
             intent.putExtra("group_ID",a.getId());
+            intent.putExtra("group_NAME",a.getGroupName());
+            intent.putExtra("group_NAME",a.getImageResource());
             startActivity(intent);
         }
     }
@@ -109,7 +106,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
 
 
         for(int i=0;i<list.size(); i++){
-            yVal.add(new Entry(i, Float.valueOf(String.valueOf(list.get(i)))));
+            yVal.add(new Entry(i, Float.parseFloat(String.valueOf(list.get(i)))));
         }
         LineDataSet set1 = new LineDataSet(yVal, "");
 
@@ -152,7 +149,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
     }
 
     private void setRecyclerView(final Activity activity){
-        recyclerView = requireView().findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = requireView().findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         final OnItemListener listener = this;
         adapter=new GroupAdapter(activity,listener);
@@ -175,32 +172,23 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
             //lineChart.setScaleEnabled(false);
             lineChart.setTouchEnabled(true);
 
-            OnlineDatabase.execute(getGroupsOnline(view));
+            OnlineDatabase.execute(getGroupsOnline());
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
             user_code = sharedPref.getString(getString(R.string.user_code),"0");
             user_id = sharedPref.getString(getString(R.string.user_id),"-1");
             Log.e(LOG, "user code: "+user_code+" User id: "+user_id);
-            OnlineDatabase.execute(getActualUser(view));
+            OnlineDatabase.execute(getActualUser());
             Utilities.setUpToolbar((AppCompatActivity) getActivity(), "SplitIt");
-            setDialog(activity);
+            setDialog();
             setRecyclerView(activity);
 
 
 
-            listViewModel.getGroupItems(user_id).observe((LifecycleOwner) activity, new Observer<List<GroupItem>>() {
-                @Override
-                public void onChanged(List<GroupItem> groupItems) {
-                    adapter.setData(groupItems);
-                }
-            });
+            listViewModel.getGroupItems(user_id).observe((LifecycleOwner) activity, groupItems -> adapter.setData(groupItems));
 
-            addUser.getAllPayments(user_id).observe((LifecycleOwner) activity, new Observer<List<Double>>() {
-
-                @Override
-                public void onChanged(List<Double> doubles) {
-                    setLineChart(doubles);
-                    Log.e("LineChart",String.valueOf(doubles.size()));
-                }
+            addUser.getAllPayments(user_id).observe((LifecycleOwner) activity, doubles -> {
+                setLineChart(doubles);
+                Log.e("LineChart",String.valueOf(doubles.size()));
             });
 
             FloatingActionButton floatingActionButton = view.findViewById(R.id.fab_add);
@@ -214,7 +202,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
 
     }
 
-    public void setDialog(final Activity activity){
+    public void setDialog(){
         Button qrButton = requireView().findViewById(R.id.btn_qrcode);
 
         qrButton.setOnClickListener(v -> {
@@ -232,36 +220,31 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
     }
 
 
-    public Runnable getGroupsOnline(View view) {
-        Runnable task = () -> {
+    public Runnable getGroupsOnline() {
+        return () -> {
 
-            RequestQueue MyRequestQueue = Volley.newRequestQueue(this.getContext());
+            RequestQueue MyRequestQueue = Volley.newRequestQueue(this.requireContext());
             String URL = "http://10.0.2.2/splitit/comunication.php";
 
-            StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    //This code is executed if the server responds, whether or not the response contains data.
-                    //The String 'response' contains the server's response.
+            //Create an error listener to handle errors appropriately.
+            StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, response -> {
+                //This code is executed if the server responds, whether or not the response contains data.
+                //The String 'response' contains the server's response.
 
-                    if(response.equals("failure")){
-                        Log.e(LOG,"failed");
+                if(response.equals("failure")){
+                    Log.e(LOG,"failed");
 
-                    }else{
-                        Log.e(LOG,response.toString());
-                        saveGroups(response.toString());
-                    }
+                }else{
+                    Log.e(LOG, response);
+                    saveGroups(response);
                 }
-            }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    //This code is executed if there is an error.
-                    Log.e(LOG,"error response");
+            }, error -> {
+                //This code is executed if there is an error.
+                Log.e(LOG,"error response");
 
-                }
             }) {
                 protected Map<String, String> getParams() {
-                    Map<String, String> MyData = new HashMap<String, String>();
+                    Map<String, String> MyData = new HashMap<>();
                     MyData.put("id", String.valueOf(user_id)); //Add the data you'd like to send to the server.
                     MyData.put("request",String.valueOf(0));
                     return MyData;
@@ -270,7 +253,6 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
 
             MyRequestQueue.add(MyStringRequest);
         };
-        return task;
 
     }
 
@@ -295,36 +277,31 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
         }
     }
 
-    public Runnable getActualUser(View view) {
-        Runnable task = () -> {
+    public Runnable getActualUser() {
+        return () -> {
 
-            RequestQueue MyRequestQueue = Volley.newRequestQueue(this.getContext());
+            RequestQueue MyRequestQueue = Volley.newRequestQueue(this.requireContext());
             String URL = "http://10.0.2.2/splitit/comunication.php";
 
-            StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    //This code is executed if the server responds, whether or not the response contains data.
-                    //The String 'response' contains the server's response.
+            //Create an error listener to handle errors appropriately.
+            StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, response -> {
+                //This code is executed if the server responds, whether or not the response contains data.
+                //The String 'response' contains the server's response.
 
-                    if(response.equals("failure")){
-                        Log.e(LOG,"failed");
+                if(response.equals("failure")){
+                    Log.e(LOG,"failed");
 
-                    }else{
-                        Log.e(LOG,response.toString());
-                        saveUser(response.toString());
-                    }
+                }else{
+                    Log.e(LOG, response);
+                    saveUser(response);
                 }
-            }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    //This code is executed if there is an error.
-                    Log.e(LOG,"error response");
+            }, error -> {
+                //This code is executed if there is an error.
+                Log.e(LOG,"error response");
 
-                }
             }) {
                 protected Map<String, String> getParams() {
-                    Map<String, String> MyData = new HashMap<String, String>();
+                    Map<String, String> MyData = new HashMap<>();
                     MyData.put("id", String.valueOf(user_id)); //Add the data you'd like to send to the server.
                     MyData.put("request",String.valueOf(1));
                     return MyData;
@@ -333,7 +310,6 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
 
             MyRequestQueue.add(MyStringRequest);
         };
-        return task;
 
     }
 

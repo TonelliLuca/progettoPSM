@@ -1,11 +1,8 @@
 package com.example.splitit;
 
 import android.app.Activity;
-import android.app.AsyncNotedAppOp;
-import android.content.Intent;
+import android.app.AlertDialog;
 import android.graphics.Color;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,10 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
@@ -34,16 +32,12 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.splitit.Database.GroupWithUsers;
 import com.example.splitit.Database.UserGroupCrossRef;
-import com.example.splitit.Database.UsersWithGroup;
 import com.example.splitit.OnlineDatabase.OnlineDatabase;
-import com.example.splitit.RecyclerView.GroupAdapter;
-import com.example.splitit.RecyclerView.GroupItem;
 import com.example.splitit.RecyclerView.OnItemListener;
 import com.example.splitit.RecyclerView.User;
 import com.example.splitit.RecyclerView.UserAdapter;
 import com.example.splitit.ViewModel.AddUserViewModel;
 
-import com.example.splitit.ViewModel.ListViewModel;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
@@ -53,17 +47,16 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class DetailsFragment extends Fragment implements OnItemListener, NavigationView.OnNavigationItemSelectedListener{
     private final long groupId;
+    private final String groupName;
+    private final String groupImage;
     private AddUserViewModel vm;
     private List<User> userList;
     private UserAdapter adapter;
@@ -72,9 +65,13 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
     private UserGroupCrossRef userToDelete;
     private PieChart pieChart;
     private Button btn_addUser;
+    private TextView tv_groupName;
+    private ImageView iv_grouImage;
 
-    public DetailsFragment(long groupId){
+    public DetailsFragment(long groupId, String groupName, String groupImage){
+        this.groupName = groupName;
         this.groupId = groupId;
+        this.groupImage = groupImage;
     }
 
 
@@ -88,6 +85,10 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
         super.onViewCreated(view,savedInstanceState);
         final Activity activity=getActivity();
         if(activity!=null){
+            iv_grouImage = activity.findViewById(R.id.iv_group_image);
+            iv_grouImage.setImageResource(R.drawable.avatar);
+            tv_groupName = activity.findViewById(R.id.tv_group_name);
+            tv_groupName.setText(groupName);
 
             Log.e("DetailsFragment","id group: "+groupId);
 
@@ -130,7 +131,6 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                         printLogList();
                         adapter.setData(userList);
                         updateGraph();
-                        //printLogList();
                     }
                 }
             });
@@ -178,20 +178,14 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
         AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
         OnlineDatabase.execute(deleteRef(getView(),String.valueOf(id),String.valueOf(groupId)));
         if(appCompatActivity!=null) {
-            Runnable task = new Runnable() {
-                @Override
-                public void run() {
-                    userToDelete=vm.searchSpecRef(groupId, id);
-                    vm.removeRef(userToDelete);
-
-                }
+            Runnable task = () -> {
+                userToDelete=vm.searchSpecRef(groupId, id);
+                vm.removeRef(userToDelete);
             };
+
             ExecutorService ex=Executors.newFixedThreadPool(1);
             ex.execute(task);
-
-
         }
-
         adapter.uploadData(posu,posr);
         adapter.notifyDataSetChanged();
         updateGraph();

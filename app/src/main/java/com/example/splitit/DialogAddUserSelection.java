@@ -42,7 +42,7 @@ public class DialogAddUserSelection extends DialogFragment{
         super.onViewCreated(view, savedInstanceState);
         final Activity activity = getActivity();
         if (activity != null) {
-            addCode = view.findViewById(R.id.btn_add_code);
+            addCode = view.findViewById(R.id.et_add_code);
             addQrCode = view.findViewById(R.id.btn_qr_reader);
             submit = view.findViewById(R.id.btn_submit);
 

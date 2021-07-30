@@ -1,7 +1,6 @@
 package com.example.splitit;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -9,22 +8,9 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.github.mikephil.charting.animation.Easing;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.TreeMap;
 
 public class DetailsGroupActivity extends AppCompatActivity {
     @Override
@@ -32,9 +18,12 @@ public class DetailsGroupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         Intent myIntent = getIntent();
-        Long id=myIntent.getLongExtra("group_ID",-1);
+        String groupName = myIntent.getStringExtra("group_NAME");
+        String groupImage = myIntent.getStringExtra("group_IMAGE");
+        long id = myIntent.getLongExtra("group_ID",-1);
+
         if (savedInstanceState == null)
-            Utilities.insertFragment(this, new DetailsFragment(id), DetailsFragment.class.getSimpleName());
+            Utilities.insertFragment(this, new DetailsFragment(id, groupName, groupImage), DetailsFragment.class.getSimpleName());
 
 
     }

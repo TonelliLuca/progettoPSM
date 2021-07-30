@@ -20,35 +20,41 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <RelativeLayout
-        android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp">
 
 
         <EditText
-            android:background="@drawable/edit_text_bg"
             android:id="@+id/editText"
             android:layout_width="200dp"
             android:layout_height="30dp"
-            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="19dp"
+            android:layout_marginRight="19dp"
+            android:layout_marginTop="10dp"
+            android:layout_toStartOf="@+id/imageButton"
+            android:layout_toLeftOf="@+id/imageButton"
+            android:background="@drawable/edit_text_bg"
             android:gravity="center"
+            android:hint="@string/digita_l_importo"
+            android:textColorHint="#67686A"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:hint="@string/digita_l_importo"
-            android:textColorHint="#67686A"
             app:layout_constraintVertical_bias="0.771" />
 
         <ImageButton
             android:id="@+id/imageButton"
-            android:layout_width="37dp"
-            android:layout_height="32dp"
+            android:layout_width="53dp"
+            android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            app:srcCompat="@android:drawable/ic_menu_send" />
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/transparent"
+            app:srcCompat="@drawable/ic_baseline_send_24" />
 
     </RelativeLayout>
 </LinearLayout>
