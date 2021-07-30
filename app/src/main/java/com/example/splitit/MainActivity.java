@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
@@ -44,12 +45,17 @@ import java.util.HashMap;
 import java.util.Map;
 
  public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+     //TODO fai logout
+     //TODO grafici (usa query desktop)
+
     private static final String FRAGMENT_TAG_HOME = "HomeFragment";
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     FragmentManager mFragmentManager;
     ImageView headerImageView;
+    TextView headerUserName;
     String user_id;
     String userImageName;
 
@@ -161,10 +167,14 @@ import java.util.Map;
 
                 if(response.equals("failure")){
                     Log.e("MAIN Activity","failed");
-
                 }else{
-                    getImage(response);
-                    Log.e("MAIN Activity", response);
+                    String[] parts = response.split(":");
+                    String imageName = parts[0];
+                    String userName = parts[1];
+                    getImage(imageName);
+                    headerUserName = navigationView.getHeaderView(0).findViewById(R.id.header_user_name);
+                    headerUserName.setText(userName);
+                    Log.i("MAIN Activity", response);
                 }
             }, error -> {
                 //This code is executed if there is an error.
@@ -186,7 +196,7 @@ import java.util.Map;
     }
 
      public void getImage(String name){
-
+        //TODO stonda immagine
         Picasso.get().load("http://10.0.2.2/splitit/images/" + name).into(headerImageView);
      }
 

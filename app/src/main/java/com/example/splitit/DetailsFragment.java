@@ -54,6 +54,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class DetailsFragment extends Fragment implements OnItemListener, NavigationView.OnNavigationItemSelectedListener{
+    //TODO filtri utente admin
+    //TODO implementa service autoaggiornamento
+    //TODO submit avvenuto pagamento gruppo
+
     private final long groupId;
     private final String groupName;
     private final String groupImage;
