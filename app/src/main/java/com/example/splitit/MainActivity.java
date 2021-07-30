@@ -6,18 +6,42 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.Toast;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.splitit.OnlineDatabase.OnlineDatabase;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
  public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String FRAGMENT_TAG_HOME = "HomeFragment";
@@ -25,6 +49,9 @@ import com.google.android.material.navigation.NavigationView;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     FragmentManager mFragmentManager;
+    ImageView headerImageView;
+    String user_id;
+    String userImageName;
 
 
     @Override
@@ -32,10 +59,21 @@ import com.google.android.material.navigation.NavigationView;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        user_id = sharedPref.getString(getString(R.string.user_id),"-1");
+        Log.e("MAIN",
+                " User id: "+user_id);
+
         /*declaration variables for navigation*/
+
         drawerLayout = findViewById(R.id.activity_main_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
+
+        headerImageView = navigationView.getHeaderView(0).findViewById(R.id.header_user_image);
+        OnlineDatabase.execute(getUserImageName());
+
+
 
         /*set action bar*/
         setSupportActionBar(toolbar);
@@ -58,6 +96,7 @@ import com.google.android.material.navigation.NavigationView;
                 return true;
             }
         });
+
 
 
         if (savedInstanceState == null)
@@ -94,7 +133,6 @@ import com.google.android.material.navigation.NavigationView;
 
     @Override
     public void onBackPressed(){
-        System.out.println(mFragmentManager.getBackStackEntryCount());
         if(drawerLayout.isDrawerOpen(GravityCompat.START)){
             drawerLayout.closeDrawer(GravityCompat.START);
         }else if (mFragmentManager.getBackStackEntryCount() > 0) {
@@ -109,4 +147,47 @@ import com.google.android.material.navigation.NavigationView;
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return true;
     }
-}
+
+    public Runnable getUserImageName(){
+        Runnable task = () -> {
+
+            RequestQueue MyRequestQueue = Volley.newRequestQueue(this);
+            String URL = "http://10.0.2.2/splitit/comunication.php";
+
+            //Create an error listener to handle errors appropriately.
+            StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, response -> {
+                //This code is executed if the server responds, whether or not the response contains data.
+                //The String 'response' contains the server's response.
+
+                if(response.equals("failure")){
+                    Log.e("MAIN Activity","failed");
+
+                }else{
+                    getImage(response);
+                    Log.e("MAIN Activity", response);
+                }
+            }, error -> {
+                //This code is executed if there is an error.
+                Log.e("MAIN Activity","error response");
+
+            }) {
+                protected Map<String, String> getParams() {
+                    Map<String, String> MyData = new HashMap<>();
+                    MyData.put("id", String.valueOf(user_id)); //Add the data you'd like to send to the server.
+                    MyData.put("request",String.valueOf(6));
+                    return MyData;
+                }
+            };
+
+            MyRequestQueue.add(MyStringRequest);
+        };
+        return task;
+
+    }
+
+     public void getImage(String name){
+
+        Picasso.get().load("http://10.0.2.2/splitit/images/" + name).into(headerImageView);
+     }
+
+ }

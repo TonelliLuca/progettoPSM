@@ -9,11 +9,15 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -23,18 +27,24 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
 
     ImageView userImageView;
-    private static final String ROOT_URL = "http://10.0.0.2/splitit/images/";
+    private static final String ROOT_URL = "http://10.0.2.2/splitit/uploadImage.php";
     private static final int REQUEST_PERMISSIONS = 100;
     private static final int PICK_IMAGE_REQUEST =1 ;
     private Bitmap bitmap;
@@ -47,6 +57,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         //initializing views
         userImageView =  findViewById(R.id.user_image);
+
 
         //adding click listener to button
         findViewById(R.id.user_image).setOnClickListener(new View.OnClickListener() {
@@ -68,6 +79,8 @@ public class ProfileActivity extends AppCompatActivity {
                     Log.e("Else", "Else");
                     showFileChooser();
                 }
+
+
             }
         });
     }
@@ -87,6 +100,7 @@ public class ProfileActivity extends AppCompatActivity {
             filePath = getPath(picUri);
             if (filePath != null) {
                 try {
+
 
                     Log.d("filePath", String.valueOf(filePath));
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), picUri);
@@ -135,19 +149,30 @@ public class ProfileActivity extends AppCompatActivity {
                 new Response.Listener<NetworkResponse>() {
                     @Override
                     public void onResponse(NetworkResponse response) {
-                        try {
-                            JSONObject obj = new JSONObject(new String(response.data));
-                            Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        //System.out.println(response.toString());
+                        //JSONArray obj = new JSONArray(new String(response.data));
+                        String string = new String(response.data);
+                        Toast.makeText(getApplicationContext(),"Caricamento completato", Toast.LENGTH_SHORT).show();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                        System.out.println( error.getMessage());
+                        //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
                         Log.e("GotError",""+error.getMessage());
+                        Log.d("GotError", "Failed with error msg:\t" + error.getMessage());
+                        Log.d("GotError", "Error StackTrace: \t" + error.getStackTrace());
+                        // edited here
+                        try {
+                            byte[] htmlBodyBytes = error.networkResponse.data;
+                            Log.e("GotError", new String(htmlBodyBytes), error);
+                        } catch (NullPointerException e) {
+                            e.printStackTrace();
+                        }
+                        if (error.getMessage() == null){
+
+                        }
                     }
                 }) {
 

@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
             Intent intent = new Intent(getActivity(), DetailsGroupActivity.class);
             intent.putExtra("group_ID",a.getId());
             intent.putExtra("group_NAME",a.getGroupName());
-            intent.putExtra("group_NAME",a.getImageResource());
+            intent.putExtra("group_IMAGE",a.getImageResource());
             startActivity(intent);
         }
     }
@@ -173,10 +173,12 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
             lineChart.setTouchEnabled(true);
 
             OnlineDatabase.execute(getGroupsOnline());
+
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
-            user_code = sharedPref.getString(getString(R.string.user_code),"0");
+            user_code = sharedPref.getString(getString(R.string.user_code),"0")    ;
             user_id = sharedPref.getString(getString(R.string.user_id),"-1");
             Log.e(LOG, "user code: "+user_code+" User id: "+user_id);
+
             OnlineDatabase.execute(getActualUser());
             Utilities.setUpToolbar((AppCompatActivity) getActivity(), "SplitIt");
             setDialog();
