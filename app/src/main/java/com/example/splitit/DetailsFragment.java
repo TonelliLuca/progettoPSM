@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -55,6 +57,7 @@ import java.util.concurrent.Executors;
 
 public class DetailsFragment extends Fragment implements OnItemListener, NavigationView.OnNavigationItemSelectedListener{
     private final long groupId;
+    private final String userId;
     private final String groupName;
     private final String groupImage;
     private AddUserViewModel vm;
@@ -67,11 +70,14 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
     private Button btn_addUser;
     private TextView tv_groupName;
     private ImageView iv_grouImage;
+    private EditText et_balance;
+    private ImageButton btn_send_balance;
 
-    public DetailsFragment(long groupId, String groupName, String groupImage){
+    public DetailsFragment(long groupId, String groupName, String groupImage, String userId){
         this.groupName = groupName;
         this.groupId = groupId;
         this.groupImage = groupImage;
+        this.userId = userId;
     }
 
 
@@ -89,7 +95,8 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
             iv_grouImage.setImageResource(R.drawable.avatar);
             tv_groupName = activity.findViewById(R.id.tv_group_name);
             tv_groupName.setText(groupName);
-
+            btn_send_balance = activity.findViewById(R.id.btn_send_balance);
+            et_balance = activity.findViewById(R.id.et_balance);
             Log.e("DetailsFragment","id group: "+groupId);
 
             pieChart = activity.findViewById(R.id.pie_chart);
@@ -135,6 +142,12 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                 }
             });
 
+
+            btn_send_balance.setOnClickListener(v -> {
+                OnlineDatabase.execute(setNewBalance());
+                Log.e("DetailsFragment","Send Balance");
+            });
+
         }
 
         setDialog();
@@ -144,7 +157,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
     public void setDialog(){
         btn_addUser = requireView().findViewById(R.id.btn_add_to_group);
         btn_addUser.setOnClickListener(v -> {
-            DialogAddUserSelection dialog = new DialogAddUserSelection();
+            DialogAddUserSelection dialog = new DialogAddUserSelection(groupId);
             dialog.show(getChildFragmentManager(), "User Selection Dialog");
         });
     }
@@ -262,6 +275,56 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                     MyData.put("id", idU); //Add the data you'd like to send to the server.
                     MyData.put("group_id", idG);
                     MyData.put("request",String.valueOf(3));
+                    return MyData;
+                }
+            };
+
+            MyRequestQueue.add(MyStringRequest);
+        };
+        return task;
+
+    }
+
+    public Runnable setNewBalance() {
+        Runnable task = () -> {
+
+            RequestQueue MyRequestQueue = Volley.newRequestQueue(this.getContext());
+            String URL = "http://10.0.2.2/splitit/comunication.php";
+
+            StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    //This code is executed if the server responds, whether or not the response contains data.
+                    //The String 'response' contains the server's response.
+
+                    if(response.equals("failure")){
+                        Log.e("DetailsFragment","failed");
+
+                    }else{
+                        Log.e("DetailsFragment",response.toString());
+
+                    }
+                }
+            }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //This code is executed if there is an error.
+                    Log.e("DetailsFragment","error response");
+
+                }
+            }) {
+                protected Map<String, String> getParams() {
+
+                    Map<String, String> MyData = new HashMap<String, String>();
+                    MyData.put("id", userId); //Add the data you'd like to send to the server.
+                    MyData.put("idGruppo", String.valueOf(groupId));
+                    MyData.put("request",String.valueOf(5));
+                    if(et_balance.getText().toString().matches("")){
+                        MyData.put("bilancio",String.valueOf(0));
+                    }else{
+                        MyData.put("bilancio",et_balance.getText().toString());
+                    }
+
                     return MyData;
                 }
             };

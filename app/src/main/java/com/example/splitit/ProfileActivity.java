@@ -130,7 +130,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void uploadBitmap(final Bitmap bitmap) {
-
+/*
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, ROOT_URL,
                 new Response.Listener<NetworkResponse>() {
                     @Override
@@ -163,6 +163,10 @@ public class ProfileActivity extends AppCompatActivity {
 
         //adding the request to volley
         Volley.newRequestQueue(this).add(volleyMultipartRequest);
+    */
     }
+
+
+
 
 }

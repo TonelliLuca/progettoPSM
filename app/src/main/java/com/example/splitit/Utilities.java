@@ -104,10 +104,10 @@ public class Utilities {
 
     static ArrayList<User> parseUser(String s){
         ArrayList<User> list = new ArrayList<>();
-        Log.e("Utility","parse User String s: "+s);
+        Log.e("UtilityU","parse User String s: "+s);
         try{
             JSONArray jArray= new JSONArray(s);
-            Log.e("Utility","JSONArray length: "+jArray.length());
+            Log.e("UtilityU","JSONArray length: "+jArray.length());
             for (int i=0; i < jArray.length(); i++){
                 try {
                     JSONObject oneObject = jArray.getJSONObject(i);
@@ -118,14 +118,16 @@ public class Utilities {
                     String email = oneObject.getString("email");
                     String img = oneObject.getString("img");
                     String code = oneObject.getString("code");
-                    Log.e("Utility","Row object params: id:"+id+" nome:"+name+" email:"+email+" img:"+img+" code:"+code);
+                    Log.e("UtilityU","Row object params: id:"+id+" nome:"+name+" email:"+email+" img:"+img+" code:"+code);
                     list.add(new User(id,name,email,code,img));
                 } catch (JSONException e) {
-                    Log.e("Utility",e.getMessage());
+                    Log.e("UtilityU",e.getMessage());
                 }
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            Log.e("UtilityU",e.getMessage());
+
         }
         return list;
 
