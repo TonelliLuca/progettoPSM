@@ -49,8 +49,8 @@ public class DialogAddUserSelection extends DialogFragment{
             addQrCode.setOnClickListener(v -> {
 
                 IntentIntegrator intentIntegrator = new IntentIntegrator(getActivity());
-                intentIntegrator.setPrompt("Scan a barcode or QR Code");
-                intentIntegrator.setOrientationLocked(true);
+                intentIntegrator.setPrompt("Scan a QR Code");
+                intentIntegrator.setOrientationLocked(false);
                 intentIntegrator.initiateScan();
 
             });
