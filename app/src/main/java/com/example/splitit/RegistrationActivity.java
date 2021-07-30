@@ -97,7 +97,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         MyData.put("nome", nome.getText().toString()); //Add the data you'd like to send to the server.
                         MyData.put("email", email.getText().toString()); //Add the data you'd like to send to the server.
                         MyData.put("password", password.getText().toString()); //Add the data you'd like to send to the server.
-                        MyData.put("img", "ic_baseline:android_24"); //Add the data you'd like to send to the server.
+                        MyData.put("img", "avatar.png"); //Add the data you'd like to send to the server.
                         MyData.put("code", randomAlphaNumericCode(10)); //Add the data you'd like to send to the server.
                         return MyData;
                     }

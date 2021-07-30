@@ -7,12 +7,15 @@
     android:gravity="bottom">
 
     <ImageView
+
+        android:id="@+id/header_user_image"
         android:layout_width="123dp"
         android:layout_height="93dp"
         android:contentDescription="@string/user_img"
         android:src="@drawable/avatar" />
 
     <TextView
+        android:id="@+id/header_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/nome_utente"
