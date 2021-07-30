@@ -103,8 +103,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
             l.setForm(Legend.LegendForm.LINE);
             l.setTextColor(Color.WHITE);
             l.setEnabled(true);
-            // calling method to set center text
-            pieChart.setCenterText("Amount $");
+
             // if no need to add description
             pieChart.getDescription().setEnabled(false);
 
@@ -213,12 +212,13 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
 
 
         ArrayList<PieEntry> NoOfEmp = new ArrayList();
-
+        float total=0;
         for(int i=0;i<userList.size();i++){
             for(int j=0;j<refUser.size();j++){
                 if(userList.get(i).getId() == refUser.get(j).getUserId()){
                     //Log.e("Graph",(float)refUser.get(j).getBalance()+" "+userList.get(i).getName()+" "+userList.get(i).getId()+" = "+refUser.get(j).getUser_id());
                     NoOfEmp.add(new PieEntry((float)refUser.get(j).getBalance(), userList.get(i).getName()));
+                    total+=(float)refUser.get(j).getBalance();
                 }
             }
 
@@ -230,6 +230,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
         PieData data = new PieData(dataSet);
         pieChart.setData(data);
         pieChart.animateXY(2000, 2000);
+        pieChart.setCenterText(String.valueOf(total).concat("€"));
 
     }
 
