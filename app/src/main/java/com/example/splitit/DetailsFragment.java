@@ -3,7 +3,9 @@ package com.example.splitit;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -52,6 +54,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -126,9 +130,25 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
 
                 @Override
                 public void onChanged(List<UserGroupCrossRef> userGroupCrossRefs) {
-                    refUser=userGroupCrossRefs;
-                    adapter.setValues(userGroupCrossRefs);
-                    updateGraph();
+                    List<UserGroupCrossRef> refUser1=userGroupCrossRefs;
+                    if(refUser != null && refUser1.size()==refUser.size()){
+
+                        for(int i = 0; i<refUser.size(); i++){
+                            if(refUser.get(i).getBalance() != refUser1.get(i).getBalance()){
+                                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                                refUser = refUser1;
+                                adapter.setValues(refUser1);
+                                updateGraph();
+                                return;
+                            }
+                        }
+
+                    }else{
+                        System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+                        refUser = refUser1;
+                        adapter.setValues(refUser1);
+                        updateGraph();
+                    }
 
 
                 }
@@ -138,10 +158,28 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                 @Override
                 public void onChanged(List<GroupWithUsers> list) {
                     if(list.size()>0) {
-                        userList = list.get(0).users;
-                        printLogList();
-                        adapter.setData(userList);
-                        updateGraph();
+                        List<User> userList1 = list.get(0).users;
+                        if(userList != null && userList.size() == userList1.size()){
+
+                            for(int i = 0; i<userList.size(); i++){
+                                if(userList1.get(i).getId() != userList.get(i).getId()){
+                                    userList = userList1;
+                                    printLogList();
+                                    adapter.setData(userList);
+                                    updateGraph();
+                                    System.out.println("cccccccccccccccccccccccccccccccccccccccc");
+                                    return;
+                                }
+                            }
+
+                        }else{
+                            userList = userList1;
+                            printLogList();
+                            adapter.setData(userList);
+                            updateGraph();
+                            System.out.println("cccccccccccccccccccccccccccccccccccccccc");
+                        }
+
                     }
                 }
             });
@@ -155,7 +193,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
         }
 
         setDialog();
-
+        callAsynchronousTask();
     }
 
     public void setDialog(){
@@ -222,7 +260,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
         }
 
 
-        ArrayList<PieEntry> NoOfEmp = new ArrayList();
+        ArrayList<PieEntry> NoOfEmp = new ArrayList<>();
         float total=0;
         for(int i=0;i<userList.size();i++){
             for(int j=0;j<refUser.size();j++){
@@ -338,5 +376,87 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
         return task;
 
     }
+
+    public Runnable getBalance() {
+        if(this.getContext() != null) {
+            Runnable task = () -> {
+                RequestQueue MyRequestQueue = Volley.newRequestQueue(this.getContext());
+                String URL = "http://10.0.2.2/splitit/comunication.php";
+
+                StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //This code is executed if the server responds, whether or not the response contains data.
+                        //The String 'response' contains the server's response.
+
+                        if (response.equals("failure")) {
+                            Log.e("DetailsFragment", "failed");
+
+                        } else {
+                            Log.e("DetailsFragment", response.toString());
+                            saveBalance(response);
+                        }
+                    }
+                }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //This code is executed if there is an error.
+                        Log.e("DetailsFragment", "error response");
+
+                    }
+                }) {
+                    protected Map<String, String> getParams() {
+
+                        Map<String, String> MyData = new HashMap<String, String>();
+                        MyData.put("id", userId); //Add the data you'd like to send to the server.
+                        MyData.put("idGruppo", String.valueOf(groupId));
+                        MyData.put("request", String.valueOf(7));
+
+                        return MyData;
+                    }
+                };
+
+                MyRequestQueue.add(MyStringRequest);
+            };
+            return task;
+        }else{
+            return null;
+        }
+
+    }
+
+
+    private void callAsynchronousTask() {
+        final Handler handler = new Handler();
+        Timer timer = new Timer();
+        TimerTask doAsynchronousTask = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    public void run() {
+                        try {
+                            if(getBalance()==null){
+                                this.wait();
+
+                            }else {
+                                OnlineDatabase.execute(getBalance());
+                            }
+                        } catch (Exception e) {
+                                // TODO Auto-generated catch block
+                        }
+                    }
+                });
+            }
+        };
+        timer.schedule(doAsynchronousTask, 0, 1000); //execute in every 50000 ms
+    }
+
+    private void saveBalance(String response){
+        ArrayList <UserGroupCrossRef> res = Utilities.parseUserGroupCrossRef(response);
+        for(int i = 0 ; i<res.size(); i++){
+            vm.addNewRef(res.get(i));
+        }
+    }
+
 
 }
