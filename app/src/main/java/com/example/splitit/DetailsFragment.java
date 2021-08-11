@@ -220,7 +220,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
         for(int i=0;i<userList.size();i++){
 
 
-            Log.e("UserList ", String.valueOf(userList.get(i).getId())+" "+userList.get(i).getName());
+            Log.e("UserList ", userList.get(i).getId() +" "+userList.get(i).getName());
 
         }
     }
@@ -311,7 +311,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                         Log.e("DetailsFragment","failed");
 
                     }else{
-                        Log.e("DetailsFragment",response.toString());
+                        Log.e("DetailsFragment", response);
 
                     }
                 }
@@ -354,7 +354,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                         Log.e("DetailsFragment","failed");
 
                     }else{
-                        Log.e("DetailsFragment",response.toString());
+                        Log.e("DetailsFragment", response);
 
                     }
                 }
@@ -404,7 +404,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                             Log.e("DetailsFragment", "failed");
 
                         } else {
-                            Log.e("DetailsFragment", response.toString());
+                            Log.e("DetailsFragment", response);
                             saveBalance(response);
                         }
                     }

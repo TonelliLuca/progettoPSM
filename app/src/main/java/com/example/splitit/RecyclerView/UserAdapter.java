@@ -27,8 +27,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
     private final Activity activity;
     private final OnItemListener listener;
     private List<UserGroupCrossRef> balance;
-    private AddUserViewModel vm;
-    private long groupId;
+    private final AddUserViewModel vm;
+    private final long groupId;
     public UserAdapter(Activity activity, OnItemListener listener, long groupId){
         this.listener = listener;
         this.activity = activity;

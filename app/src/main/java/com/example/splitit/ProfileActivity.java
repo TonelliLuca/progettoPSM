@@ -102,7 +102,7 @@ public class ProfileActivity extends AppCompatActivity {
                 try {
 
 
-                    Log.d("filePath", String.valueOf(filePath));
+                    Log.d("filePath", filePath);
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), picUri);
                     uploadBitmap(bitmap);
                     userImageView.setImageBitmap(bitmap);

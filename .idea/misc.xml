@@ -14,7 +14,10 @@
         <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/layout/user_balance.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/giaco/Desktop/progettoPSM/progettoPSM/app/src/main/res/drawable/button_style.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/giaco/Desktop/progettoPSM/progettoPSM/app/src/main/res/drawable/edit_text_bg.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/giaco/Desktop/progettoPSM/progettoPSM/app/src/main/res/drawable/ic_add_img.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/giaco/Desktop/progettoPSM/progettoPSM/app/src/main/res/drawable/ic_back_img.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/giaco/Desktop/progettoPSM/progettoPSM/app/src/main/res/drawable/ic_baseline_send_24.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/giaco/Desktop/progettoPSM/progettoPSM/app/src/main/res/drawable/ic_side_bg.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/giaco/Desktop/progettoPSM/progettoPSM/app/src/main/res/drawable/profile_bg.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/giaco/Desktop/progettoPSM/progettoPSM/app/src/main/res/drawable/radius_circle.xml" value="0.21875" />
         <entry key="..\:/Users/giaco/Desktop/progettoPSM/progettoPSM/app/src/main/res/drawable/rounded_radius.xml" value="0.21875" />
@@ -27,8 +30,11 @@
         <entry key="..\:/Users/giaco/Desktop/progettoPSM/progettoPSM/app/src/main/res/layout/detailed_group.xml" value="0.3625" />
         <entry key="..\:/Users/giaco/Desktop/progettoPSM/progettoPSM/app/src/main/res/layout/detailed_user.xml" value="0.3625" />
         <entry key="..\:/Users/giaco/Desktop/progettoPSM/progettoPSM/app/src/main/res/layout/fragment_profile.xml" value="0.3625" />
+        <entry key="..\:/Users/giaco/Desktop/progettoPSM/progettoPSM/app/src/main/res/layout/fragment_registrarion_activity2.xml" value="0.3625" />
+        <entry key="..\:/Users/giaco/Desktop/progettoPSM/progettoPSM/app/src/main/res/layout/group_layout.xml" value="0.3625" />
         <entry key="..\:/Users/giaco/Desktop/progettoPSM/progettoPSM/app/src/main/res/layout/header.xml" value="0.3625" />
         <entry key="..\:/Users/giaco/Desktop/progettoPSM/progettoPSM/app/src/main/res/layout/home.xml" value="0.27943840579710144" />
+        <entry key="..\:/Users/giaco/Desktop/progettoPSM/progettoPSM/app/src/main/res/layout/login.xml" value="0.3625" />
         <entry key="..\:/Users/giaco/Desktop/progettoPSM/progettoPSM/app/src/main/res/layout/qr_code.xml" value="0.3625" />
         <entry key="..\:/Users/giaco/Desktop/progettoPSM/progettoPSM/app/src/main/res/layout/registration.xml" value="0.3625" />
         <entry key="..\:/Users/giaco/Desktop/progettoPSM/progettoPSM/app/src/main/res/layout/topbar.xml" value="0.3625" />

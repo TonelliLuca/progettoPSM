@@ -110,8 +110,8 @@ public class AddFragment extends Fragment {
                         Log.e("AddFragment","failed");
 
                     }else{
-                        Log.e("AddFragment",response.toString());
-                        setLastId(response.toString());
+                        Log.e("AddFragment", response);
+                        setLastId(response);
                     }
                 }
             }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.

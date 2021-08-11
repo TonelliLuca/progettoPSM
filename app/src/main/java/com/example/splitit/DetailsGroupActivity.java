@@ -51,7 +51,7 @@ public class DetailsGroupActivity extends AppCompatActivity {
             } else {
                 // if the intentResult is not null we'll set
                 // the content and format of scan message
-                EditText userCode = (EditText)findViewById(R.id.et_add_code);
+                EditText userCode = findViewById(R.id.et_add_code);
                 userCode.setText(intentResult.getContents());
                 Log.e("ActivityDetails",intentResult.getContents());
                 Log.e("ActivityDetails",intentResult.getFormatName());
