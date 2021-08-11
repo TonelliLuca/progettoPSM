@@ -42,6 +42,7 @@ import com.example.splitit.RecyclerView.User;
 import com.example.splitit.RecyclerView.UserAdapter;
 import com.example.splitit.ViewModel.AddUserViewModel;
 
+import com.example.splitit.ViewModel.AddViewModel;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
@@ -61,13 +62,14 @@ import java.util.concurrent.Executors;
 
 public class DetailsFragment extends Fragment implements OnItemListener, NavigationView.OnNavigationItemSelectedListener{
     //TODO filtri utente admin
-    //TODO implementa service autoaggiornamento
+
     //TODO submit avvenuto pagamento gruppo
 
     private final long groupId;
     private final String userId;
     private final String groupName;
     private final String groupImage;
+    private AddViewModel vmGroup;
     private AddUserViewModel vm;
     private List<User> userList;
     private UserAdapter adapter;
@@ -80,6 +82,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
     private ImageView iv_grouImage;
     private EditText et_balance;
     private ImageButton btn_send_balance;
+    private boolean admin=false;
 
     public DetailsFragment(long groupId, String groupName, String groupImage, String userId){
         this.groupName = groupName;
@@ -124,7 +127,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
             pieChart.getDescription().setEnabled(false);
 
             setRecyclerView(activity);
-
+            vmGroup = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddViewModel.class);
             vm=new ViewModelProvider((ViewModelStoreOwner) activity).get(AddUserViewModel.class);
             vm.getAllUsersBalance(groupId).observe((LifecycleOwner) activity, new Observer<List<UserGroupCrossRef>>(){
 
@@ -135,7 +138,6 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
 
                         for(int i = 0; i<refUser.size(); i++){
                             if(refUser.get(i).getBalance() != refUser1.get(i).getBalance()){
-                                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                                 refUser = refUser1;
                                 adapter.setValues(refUser1);
                                 updateGraph();
@@ -144,7 +146,6 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                         }
 
                     }else{
-                        System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
                         refUser = refUser1;
                         adapter.setValues(refUser1);
                         updateGraph();
@@ -167,7 +168,6 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                                     printLogList();
                                     adapter.setData(userList);
                                     updateGraph();
-                                    System.out.println("cccccccccccccccccccccccccccccccccccccccc");
                                     return;
                                 }
                             }
@@ -177,11 +177,22 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                             printLogList();
                             adapter.setData(userList);
                             updateGraph();
-                            System.out.println("cccccccccccccccccccccccccccccccccccccccc");
+
                         }
 
                     }
                 }
+            });
+
+            vmGroup.getGroupAdmin(String.valueOf(groupId)).observe((LifecycleOwner) activity, new Observer<Long>(){
+
+                        @Override
+                        public void onChanged(Long aLong) {
+                            if(aLong.equals(Long.valueOf(userId))){
+                                admin=true;
+
+                            }
+                        }
             });
 
 
@@ -456,6 +467,55 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
         for(int i = 0 ; i<res.size(); i++){
             vm.addNewRef(res.get(i));
         }
+    }
+
+    public Runnable payGroupOnline() {
+        if(this.getContext() != null) {
+            Runnable task = () -> {
+                RequestQueue MyRequestQueue = Volley.newRequestQueue(this.getContext());
+                String URL = "http://10.0.2.2/splitit/comunication.php";
+
+                StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //This code is executed if the server responds, whether or not the response contains data.
+                        //The String 'response' contains the server's response.
+
+                        if (response.equals("failure")) {
+                            Log.e("DetailsFragment", "failed");
+
+
+                        } else {
+                            Log.e("DetailsFragment", response.toString());
+                            vm.payGroup(String.valueOf(groupId));
+                        }
+                    }
+                }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //This code is executed if there is an error.
+                        Log.e("DetailsFragment", "error response");
+
+                    }
+                }) {
+                    protected Map<String, String> getParams() {
+
+                        Map<String, String> MyData = new HashMap<String, String>();
+                        MyData.put("id", userId); //Add the data you'd like to send to the server.
+                        MyData.put("idGruppo", String.valueOf(groupId));
+                        MyData.put("request", String.valueOf(8));
+
+                        return MyData;
+                    }
+                };
+
+                MyRequestQueue.add(MyStringRequest);
+            };
+            return task;
+        }else{
+            return null;
+        }
+
     }
 
 

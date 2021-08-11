@@ -57,6 +57,6 @@ public class RefRepository {
 
     public LiveData<List<Double>> getAllPayments(String userId){return refDAO.getAllPayments(userId);}
 
-
+    public void payGroup(String id){refDAO.payGroup(id);}
 
 }

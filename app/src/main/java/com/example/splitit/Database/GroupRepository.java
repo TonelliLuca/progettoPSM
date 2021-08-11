@@ -47,5 +47,7 @@ public class GroupRepository {
         });
     }
 
+    public LiveData<Long> getGroupAdmin(String id){return groupItemDAO.getGroupAdmin(id);}
+
 
 }

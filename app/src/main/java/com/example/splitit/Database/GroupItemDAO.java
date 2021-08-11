@@ -27,4 +27,8 @@ public interface GroupItemDAO{
 
     @Delete
     void removeGroup(GroupItem g);
+
+    @Transaction
+    @Query("SELECT group_admin FROM 'group' WHERE group_id=:id")
+    LiveData<Long> getGroupAdmin(String id);
 }

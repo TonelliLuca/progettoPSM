@@ -7,6 +7,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -43,6 +44,10 @@ public interface RefDAO {
     @Transaction
     @Query(value = "SELECT ref_balance FROM UserGroupCrossRef WHERE  user_id=:val AND ref_pay==1")
     LiveData<List<Double>> getAllPayments(String val);
+
+    @Transaction
+    @Query(value = "UPDATE UserGroupCrossRef SET ref_pay = 1 WHERE group_id=:id")
+    void payGroup(String id);
 
 
 }
