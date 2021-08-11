@@ -77,6 +77,8 @@ public class LoginActivity  extends AppCompatActivity {
                 .build();
     }
 
+
+
     public void biometricAuthentication(View v){
         biometricPrompt.authenticate(promptInfo);
     }
@@ -84,7 +86,7 @@ public class LoginActivity  extends AppCompatActivity {
     public void register(View view){
         Intent intentRegistration = new Intent(this, RegistrationActivity.class);
         startActivity(intentRegistration);
-        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.stay);
     }
 
     public Runnable loginUser(View view) {
@@ -103,8 +105,8 @@ public class LoginActivity  extends AppCompatActivity {
                         Log.e("login","failure");
                         showErrorLogin(view);
                     }else{
-                        Log.e("login",response.toString());
-                        saveProfile(response.toString());
+                        Log.e("login", response);
+                        saveProfile(response);
                         goToHome();
                     }
                 }
@@ -157,7 +159,7 @@ public class LoginActivity  extends AppCompatActivity {
     }
 
     public void saveProfile(String val){
-        String values[]=val.split(":");
+        String[] values =val.split(":");
         SharedPreferences sharedPref =   PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(getString(R.string.user_code), values[0]);

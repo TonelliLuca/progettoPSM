@@ -130,4 +130,15 @@ public class RegistrationActivity extends AppCompatActivity {
         }
         return builder.toString();
     }
+
+    public void onReturnPressed(View view){
+        onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, android.R.anim.fade_out);
+        finish();
+    }
 }

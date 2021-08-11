@@ -44,7 +44,7 @@ public class DialogAddUserSelection extends DialogFragment{
     private EditText addCode;
     private Button addQrCode;
     private Button submit;
-    private long groupId;
+    private final long groupId;
     private AddUserViewModel addUser;
 
     public DialogAddUserSelection(long groupId){
@@ -112,8 +112,8 @@ public class DialogAddUserSelection extends DialogFragment{
                         toast.show();
 
                     }else{
-                        Log.e("DialogUser",response.toString());
-                        saveLocalUser(response.toString());
+                        Log.e("DialogUser", response);
+                        saveLocalUser(response);
                     }
                 }
             }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.

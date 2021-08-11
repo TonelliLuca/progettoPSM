@@ -1,120 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinatorLayout"
+    android:layout_gravity="center"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background_login">
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/coordinatorLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_login">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="44dp"
+                android:contentDescription="@string/logo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/logo" />
+
+            <EditText
+                android:id="@+id/etEmailLogin"
+                android:layout_width="250dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="72dp"
+                android:autofillHints="@string/nome_utente"
+                android:drawableStart="@drawable/ic_baseline_person_24"
+                android:drawableLeft="@drawable/ic_baseline_person_24"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+            <EditText
+                android:id="@+id/etPasswordLogin"
+                android:layout_width="255dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="40dp"
+                android:autofillHints="@string/password"
+                android:drawableStart="@drawable/ic_baseline_lock_24"
+                android:drawableLeft="@drawable/ic_baseline_lock_24"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etEmailLogin" />
+
+            <Button
+                android:id="@+id/buttonLogin"
+                android:layout_width="186dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="52dp"
+                android:background="@drawable/gradient_btn"
+                android:onClick="login"
+                android:text="@string/login"
+                android:textColor="#FFFFFF"
+                app:backgroundTint="@color/purple_200"
+                app:backgroundTintMode="multiply"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etPasswordLogin" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/gradient_btn"
+                android:onClick="register"
+                android:text="@string/registration_btn"
+                android:textColor="#FFFFFF"
+                app:backgroundTint="@color/purple_200"
+                app:backgroundTintMode="multiply"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
+
+            <ImageView
+                android:id="@+id/bioauth_btn"
+                android:layout_width="82dp"
+                android:layout_height="84dp"
+                android:layout_marginStart="194dp"
+                android:layout_marginLeft="194dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="194dp"
+                android:layout_marginRight="194dp"
+                android:contentDescription="@string/fingerprint"
+                android:onClick="biometricAuthentication"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.508"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button"
+                app:srcCompat="@drawable/ic_baseline_fingerprint_24" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="175dp"
+                android:layout_marginLeft="175dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="178dp"
+                android:layout_marginRight="178dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/clicca_per_l_autenticazione_biometrica"
+                android:textColor="#FFFCFC"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bioauth_btn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="11dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ic_side_bg" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="44dp"
-        android:contentDescription="@string/logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
-
-    <EditText
-        android:id="@+id/etEmailLogin"
-        android:layout_width="250dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="72dp"
-        android:gravity="center"
-        android:drawableStart="@drawable/ic_baseline_person_24"
-        android:drawableLeft="@drawable/ic_baseline_person_24"
-        android:ems="10"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        android:autofillHints="@string/nome_utente" />
-
-    <EditText
-        android:id="@+id/etPasswordLogin"
-        android:layout_width="255dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="40dp"
-        android:gravity="center"
-        android:drawableStart="@drawable/ic_baseline_lock_24"
-        android:drawableLeft="@drawable/ic_baseline_lock_24"
-        android:ems="10"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEmailLogin"
-        android:autofillHints="@string/password"/>
-
-    <Button
-        android:id="@+id/buttonLogin"
-        android:layout_width="186dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="52dp"
-        android:background="@drawable/gradient_btn"
-        android:onClick="login"
-        android:text="@string/login"
-        android:textColor="#FFFFFF"
-        app:backgroundTint="@color/purple_200"
-        app:backgroundTintMode="multiply"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPasswordLogin" />
-
-    <Button
-        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/gradient_btn"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="7dp"
+        android:layout_marginRight="7dp"
+        android:contentDescription="@string/registration_btn"
+        android:minWidth="48dp"
         android:onClick="register"
-        android:text="@string/registration_btn"
-        android:textColor="#FFFFFF"
-        app:backgroundTint="@color/purple_200"
-        app:backgroundTintMode="multiply"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
+        app:srcCompat="@drawable/ic_add_img"
+        android:layout_alignParentEnd="true" />
 
-    <ImageView
-        android:id="@+id/bioauth_btn"
-        android:layout_width="82dp"
-        android:layout_height="84dp"
-        android:layout_marginStart="194dp"
-        android:layout_marginLeft="194dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="194dp"
-        android:layout_marginRight="194dp"
-        android:contentDescription="@string/fingerprint"
-        android:onClick="biometricAuthentication"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:srcCompat="@drawable/ic_baseline_fingerprint_24" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="175dp"
-        android:layout_marginLeft="175dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="178dp"
-        android:layout_marginRight="178dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/clicca_per_l_autenticazione_biometrica"
-        android:textColor="#FFFCFC"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bioauth_btn" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

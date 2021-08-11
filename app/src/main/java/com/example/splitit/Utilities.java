@@ -61,7 +61,7 @@ public class Utilities {
                     String img = oneObject.getString("img");
                     long id = oneObject.getLong("id");
                     long admin = oneObject.getLong("admin");
-                    boolean completo = Integer.parseInt(oneObject.getString("completo"))==0?false:true;
+                    boolean completo = Integer.parseInt(oneObject.getString("completo")) != 0;
                     Log.e("Utility","Row object params: nome:"+name+" img:"+img+" id:"+id+" admin:"+admin+" completo:"+ completo);
                     list.add(new GroupItem(id,img,name,admin,completo));
                 } catch (JSONException e) {
@@ -88,7 +88,7 @@ public class Utilities {
                     double balance = oneObject.getDouble("bilancio");
                     long id_user = oneObject.getLong("idUtente");
                     long id_group = oneObject.getLong("idGruppo");
-                    boolean pay = Integer.parseInt(oneObject.getString("pagato"))==0?false:true;
+                    boolean pay = Integer.parseInt(oneObject.getString("pagato")) != 0;
                     Log.e("Utility","Row object params: user_id:"+id_user+" group_id:"+id_group+" pagato:"+pay+" bilancio:"+balance);
                     list.add(new UserGroupCrossRef(id_user,id_group,pay,balance));
                 } catch (JSONException e) {

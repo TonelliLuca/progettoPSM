@@ -6,7 +6,7 @@ plugins {
 android {
     compileSdkVersion 30
     buildToolsVersion '30.0.3'
-   
+
     defaultConfig {
         applicationId "com.example.splitit"
         minSdkVersion 16
@@ -43,7 +43,7 @@ dependencies {
     implementation 'androidx.fragment:fragment:1.3.6'
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
 
