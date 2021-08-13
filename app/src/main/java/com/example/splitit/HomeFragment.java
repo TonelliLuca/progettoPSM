@@ -35,6 +35,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -54,6 +55,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HomeFragment extends Fragment implements OnItemListener, NavigationView.OnNavigationItemSelectedListener {
     private static final String LOG="HomeFragment";
@@ -199,6 +202,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
             floatingActionButton.setOnClickListener(v -> 
                     Utilities.insertFragment((AppCompatActivity) activity, new AddFragment(), "AddFragment"));
 
+            this.callAsynchronousTask();
 
         }else{
             Log.e(LOG, "Activity is null");
@@ -328,6 +332,33 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
 
             }
         }
+    }
+
+
+
+    private void callAsynchronousTask() {
+        final Handler handler = new Handler();
+        Timer timer = new Timer();
+        TimerTask doAsynchronousTask = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    public void run() {
+                        try {
+                            if(getGroupsOnline()==null){
+                                this.wait();
+
+                            }else {
+                                OnlineDatabase.execute(getGroupsOnline());
+                            }
+                        } catch (Exception e) {
+                            // TODO Auto-generated catch block
+                        }
+                    }
+                });
+            }
+        };
+        timer.schedule(doAsynchronousTask, 0, 1000); //execute in every 50000 ms
     }
 
 
