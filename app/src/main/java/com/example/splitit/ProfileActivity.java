@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -14,6 +15,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -23,9 +25,12 @@ import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.splitit.OnlineDatabase.OnlineDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,6 +53,7 @@ public class ProfileActivity extends AppCompatActivity {
     private static final int REQUEST_PERMISSIONS = 100;
     private static final int PICK_IMAGE_REQUEST =1 ;
     private Bitmap bitmap;
+    private String user_id;
     private String filePath;
 
     @Override
@@ -100,11 +106,10 @@ public class ProfileActivity extends AppCompatActivity {
             filePath = getPath(picUri);
             if (filePath != null) {
                 try {
-
-
                     Log.d("filePath", filePath);
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), picUri);
                     uploadBitmap(bitmap);
+                    OnlineDatabase.execute(setUserImageName());
                     userImageView.setImageBitmap(bitmap);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -139,12 +144,12 @@ public class ProfileActivity extends AppCompatActivity {
 
     public byte[] getFileDataFromDrawable(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, byteArrayOutputStream);
         return byteArrayOutputStream.toByteArray();
     }
 
     private void uploadBitmap(final Bitmap bitmap) {
-/*
+
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, ROOT_URL,
                 new Response.Listener<NetworkResponse>() {
                     @Override
@@ -180,15 +185,56 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             protected Map<String, DataPart> getByteData() {
                 Map<String, DataPart> params = new HashMap<>();
-                long imagename = System.currentTimeMillis();
-                params.put("image", new DataPart(imagename + ".png", getFileDataFromDrawable(bitmap)));
+                //System.currentTimeMillis()
+                params.put("image", new DataPart(user_id + ".png", getFileDataFromDrawable(bitmap)));
                 return params;
             }
         };
 
         //adding the request to volley
         Volley.newRequestQueue(this).add(volleyMultipartRequest);
-    */
+
+    }
+
+    public Runnable setUserImageName(){
+        Runnable task = () -> {
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+            user_id = sharedPref.getString(getString(R.string.user_id),"-1");
+
+            RequestQueue MyRequestQueue = Volley.newRequestQueue(this);
+
+            String URL = "http://10.0.2.2/splitit/comunication.php";
+
+            //Create an error listener to handle errors appropriately.
+            StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, response -> {
+                //This code is executed if the server responds, whether or not the response contains data.
+                //The String 'response' contains the server's response.
+
+                if(response.equals("failure")){
+                    Log.e("Profile","failed");
+                }else{
+                    Log.e("Profile",response);
+                }
+            }, error -> {
+                //This code is executed if there is an error.
+                Log.e("Profile","error response");
+
+            }) {
+                protected Map<String, String> getParams() {
+                    Map<String, String> MyData = new HashMap<>();
+                    Log.e("Profile" , user_id);
+                    MyData.put("id", String.valueOf(user_id)); //Add the data you'd like to send to the server.
+                    MyData.put("img_name", String.valueOf(user_id)); //Add the data you'd like to send to the server.
+                    MyData.put("request",String.valueOf(9));
+                    return MyData;
+                }
+            };
+
+            MyRequestQueue.add(MyStringRequest);
+
+        };
+        return task;
+
     }
 
 

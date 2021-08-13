@@ -231,6 +231,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
         final OnItemListener listener = this;
         adapter = new UserAdapter(activity, listener,groupId);
         recyclerView.setAdapter(adapter);
+
     }
 
     @Override
@@ -402,7 +403,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
 
                         if (response.equals("failure")) {
                             Log.e("DetailsFragment", "failed");
-
+                            System.out.println(userId + "," + groupId);
                         } else {
                             Log.e("DetailsFragment", response);
                             saveBalance(response);
@@ -453,13 +454,13 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                                 OnlineDatabase.execute(getBalance());
                             }
                         } catch (Exception e) {
-                                // TODO Auto-generated catch block
+                                e.getStackTrace();
                         }
                     }
                 });
             }
         };
-        timer.schedule(doAsynchronousTask, 0, 1000); //execute in every 50000 ms
+        timer.schedule(doAsynchronousTask, 0, 1000); //execute in every 1000 ms
     }
 
     private void saveBalance(String response){

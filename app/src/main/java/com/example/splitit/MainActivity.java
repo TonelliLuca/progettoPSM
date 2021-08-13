@@ -16,6 +16,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.splitit.OnlineDatabase.OnlineDatabase;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -49,65 +51,63 @@ import java.util.Map;
      //TODO fai logout
      //TODO grafici (usa query desktop)
 
-    private static final String FRAGMENT_TAG_HOME = "HomeFragment";
-    Toolbar toolbar;
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    FragmentManager mFragmentManager;
-    ImageView headerImageView;
-    TextView headerUserName;
-    String user_id;
-    String userImageName;
+     private static final String FRAGMENT_TAG_HOME = "HomeFragment";
+     Toolbar toolbar;
+     DrawerLayout drawerLayout;
+     NavigationView navigationView;
+     FragmentManager mFragmentManager;
+     ActionBarDrawerToggle toggle;
+     ImageView headerImageView;
+     TextView headerUserName;
+     String user_id;
+     String imageName;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_main);
 
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        user_id = sharedPref.getString(getString(R.string.user_id),"-1");
-        Log.e("MAIN",
-                " User id: "+user_id);
+         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+         user_id = sharedPref.getString(getString(R.string.user_id), "-1");
 
-        /*declaration variables for navigation*/
+         /*declaration variables for navigation*/
 
-        drawerLayout = findViewById(R.id.activity_main_layout);
-        navigationView = findViewById(R.id.nav_view);
-        toolbar = findViewById(R.id.toolbar);
+         drawerLayout = findViewById(R.id.activity_main_layout);
+         navigationView = findViewById(R.id.nav_view);
+         toolbar = findViewById(R.id.toolbar);
 
-        headerImageView = navigationView.getHeaderView(0).findViewById(R.id.header_user_image);
-        OnlineDatabase.execute(getUserImageName());
+         headerImageView = navigationView.getHeaderView(0).findViewById(R.id.header_user_image);
+         OnlineDatabase.execute(getUserImageName());
 
 
-
-        /*set action bar*/
-        setSupportActionBar(toolbar);
-        /*creation navigation bar menu*/
-        navigationView.bringToFront();
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-
-        navigationView.setCheckedItem(R.id.nav_home);
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                int id = menuItem.getItemId();
-                    if(id == R.id.nav_dashboard) {
-                        loadMenuFragment(new DetailsUserFragment());
-                    }
-                drawerLayout.closeDrawer(GravityCompat.START);
-                return true;
-            }
-        });
+         /*set action bar*/
+         setSupportActionBar(toolbar);
+         /*creation navigation bar menu*/
+         navigationView.bringToFront();
+         toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+         drawerLayout.addDrawerListener(toggle);
+         toggle.syncState();
 
 
+         navigationView.setCheckedItem(R.id.nav_home);
 
-        if (savedInstanceState == null)
-            Utilities.insertFragment(this, new HomeFragment(), FRAGMENT_TAG_HOME);
-    }
+         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+             @Override
+             public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+                 int id = menuItem.getItemId();
+                 if (id == R.id.nav_dashboard) {
+                     loadMenuFragment(new DetailsUserFragment());
+                 }
+                 drawerLayout.closeDrawer(GravityCompat.START);
+                 return true;
+             }
+         });
+
+         if (savedInstanceState == null)
+             Utilities.insertFragment(this, new HomeFragment(), FRAGMENT_TAG_HOME);
+     }
 
      public void loadMenuFragment(Fragment fragment) {
          mFragmentManager = this.getSupportFragmentManager();
@@ -118,86 +118,86 @@ import java.util.Map;
      }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.top_app_bar, menu);
-        Log.e("Menu Creation", "Menu created");
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item){
-        super.onOptionsItemSelected(item);
-        Log.e("Intent menu", "Starting menu intent "+item.getItemId());
-        if(item.getItemId()==R.id.app_bar_option){
-            Intent intent = new Intent(this, SettingsActivity.class);
-            this.startActivity(intent);
-            return true;
-        }
-        return false;
-    }
+     @Override
+     public boolean onCreateOptionsMenu(Menu menu) {
+         getMenuInflater().inflate(R.menu.top_app_bar, menu);
+         Log.e("Menu Creation", "Menu created");
+         return true;
+     }
+
+     @Override
+     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+         super.onOptionsItemSelected(item);
+         Log.e("Intent menu", "Starting menu intent " + item.getItemId());
+         if (item.getItemId() == R.id.app_bar_option) {
+             Intent intent = new Intent(this, SettingsActivity.class);
+             this.startActivity(intent);
+             return true;
+         }
+         return false;
+     }
+
+     @Override
+     public void onResume() {
+         super.onResume();
+         Utilities.getImage(user_id, headerImageView);
+     }
 
 
-    @Override
-    public void onBackPressed(){
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
-            drawerLayout.closeDrawer(GravityCompat.START);
-        }else if (mFragmentManager.getBackStackEntryCount() > 0) {
-            mFragmentManager.popBackStackImmediate();
-        }else{
-            super.onBackPressed();
-        }
-    }
+     @Override
+     public void onBackPressed() {
+         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+             drawerLayout.closeDrawer(GravityCompat.START);
+         } else {
+             super.onBackPressed();
+         }
+     }
 
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return true;
-    }
+     @Override
+     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+         return true;
+     }
 
-    public Runnable getUserImageName(){
-        Runnable task = () -> {
+     public Runnable getUserImageName() {
+         Runnable task = () -> {
 
-            RequestQueue MyRequestQueue = Volley.newRequestQueue(this);
-            String URL = "http://10.0.2.2/splitit/comunication.php";
+             RequestQueue MyRequestQueue = Volley.newRequestQueue(this);
+             String URL = "http://10.0.2.2/splitit/comunication.php";
 
-            //Create an error listener to handle errors appropriately.
-            StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, response -> {
-                //This code is executed if the server responds, whether or not the response contains data.
-                //The String 'response' contains the server's response.
+             //Create an error listener to handle errors appropriately.
+             StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, response -> {
+                 //This code is executed if the server responds, whether or not the response contains data.
+                 //The String 'response' contains the server's response.
 
-                if(response.equals("failure")){
-                    Log.e("MAIN Activity","failed");
-                }else{
-                    String[] parts = response.split(":");
-                    String imageName = parts[0];
-                    String userName = parts[1];
-                    getImage(imageName);
-                    headerUserName = navigationView.getHeaderView(0).findViewById(R.id.header_user_name);
-                    headerUserName.setText(userName);
-                    Log.i("MAIN Activity", response);
-                }
-            }, error -> {
-                //This code is executed if there is an error.
-                Log.e("MAIN Activity","error response");
+                 if (response.equals("failure")) {
+                     Log.e("MAIN Activity", "failed");
+                 } else {
+                     String[] parts = response.split(":");
+                     imageName = parts[0];
+                     String userName = parts[1];
+                     headerUserName = navigationView.getHeaderView(0).findViewById(R.id.header_user_name);
+                     headerUserName.setText(userName);
+                 }
+             }, error -> {
+                 //This code is executed if there is an error.
+                 Log.e("MAIN Activity", "error response");
 
-            }) {
-                protected Map<String, String> getParams() {
-                    Map<String, String> MyData = new HashMap<>();
-                    MyData.put("id", String.valueOf(user_id)); //Add the data you'd like to send to the server.
-                    MyData.put("request",String.valueOf(6));
-                    return MyData;
-                }
-            };
+             }) {
+                 protected Map<String, String> getParams() {
+                     Map<String, String> MyData = new HashMap<>();
+                     MyData.put("id", String.valueOf(user_id)); //Add the data you'd like to send to the server.
+                     MyData.put("request", String.valueOf(6));
+                     return MyData;
+                 }
+             };
 
-            MyRequestQueue.add(MyStringRequest);
-        };
-        return task;
+             MyRequestQueue.add(MyStringRequest);
 
-    }
+         };
+         return task;
 
-     public void getImage(String name){
-        //TODO stonda immagine
-        Picasso.get().load("http://10.0.2.2/splitit/images/" + name).into(headerImageView);
+
      }
 
  }

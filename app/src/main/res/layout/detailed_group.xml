@@ -97,5 +97,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recyclerViewUser" />
 
+        <Button
+            android:id="@+id/group_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="147dp"
+            android:layout_marginLeft="147dp"
+            android:layout_marginEnd="147dp"
+            android:layout_marginRight="147dp"
+            android:gravity="center"
+            android:text="@string/conferma"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_add_to_group" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -3,6 +3,7 @@ package com.example.splitit;
 
 
 import android.util.Log;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -12,6 +13,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.splitit.Database.UserGroupCrossRef;
 import com.example.splitit.RecyclerView.GroupItem;
 import com.example.splitit.RecyclerView.User;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -131,6 +134,11 @@ public class Utilities {
         }
         return list;
 
+    }
+
+    static  public void getImage(String name, ImageView iw){
+        //TODO stonda immagine
+        Picasso.get().load("http://10.0.2.2/splitit/images/" + name+ ".png").memoryPolicy(MemoryPolicy.NO_CACHE).into(iw);
     }
 
 

@@ -73,7 +73,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
         holder.user_amount.setText(String.valueOf(ref.getBalance()));
         holder.idUser=currentItem.getId();
         holder.posU=position;
-
+        holder.tv_userId.setText(String.valueOf(currentItem.getId()));
 
 
 

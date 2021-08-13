@@ -17,6 +17,7 @@ import com.example.splitit.ViewModel.AddUserViewModel;
 public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
     ImageView userImage;
     TextView userName;
+    TextView tv_userId;
     TextView user_amount;
     ImageView userRemove;
     long idUser;
@@ -31,6 +32,8 @@ public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         userRemove=itemView.findViewById(R.id.delete_user);
         userName = itemView.findViewById(R.id.user_name);
         user_amount = itemView.findViewById(R.id.somma_utente);
+        tv_userId = itemView.findViewById(R.id.id_user_card);
+
         this.listener=listener;
         itemView.setOnClickListener(this);
         userRemove.setOnClickListener(this);
