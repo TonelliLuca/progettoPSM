@@ -21,10 +21,11 @@
             android:id="@+id/id_user_card"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            android:clickable="false"/>
 
         <ImageView
-            android:id="@+id/user_image"
+            android:id="@+id/card_user_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@color/purple_500"

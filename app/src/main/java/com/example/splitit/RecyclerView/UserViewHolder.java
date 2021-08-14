@@ -2,6 +2,9 @@ package com.example.splitit.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +15,7 @@ import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.splitit.R;
+import com.example.splitit.Utilities;
 import com.example.splitit.ViewModel.AddUserViewModel;
 
 public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -20,19 +24,23 @@ public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     TextView tv_userId;
     TextView user_amount;
     ImageView userRemove;
+    String user_id;
     long idUser;
     int posU;
     int posR;
 
 
     private final OnItemListener listener;
+
     public UserViewHolder(@NonNull View itemView, OnItemListener listener) {
         super(itemView);
-        userImage = itemView.findViewById(R.id.user_image);
+
+        userImage = itemView.findViewById(R.id.card_user_image);
         userRemove=itemView.findViewById(R.id.delete_user);
         userName = itemView.findViewById(R.id.user_name);
         user_amount = itemView.findViewById(R.id.somma_utente);
         tv_userId = itemView.findViewById(R.id.id_user_card);
+
 
         this.listener=listener;
         itemView.setOnClickListener(this);

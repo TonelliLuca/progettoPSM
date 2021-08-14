@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,7 @@ public class DetailsUserFragment extends Fragment {
     private LinearLayout btn_balance;
     private ImageView iw_user_img_layout;
     private ImageView iw_user_img_header;
+    private TextView tv_user_name;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         return inflater.inflate(R.layout.detailed_user, container, false);
@@ -39,9 +41,11 @@ public class DetailsUserFragment extends Fragment {
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
             btn_profile = view.findViewById(R.id.btn_profile);
             btn_balance = view.findViewById(R.id.btn_balance);
+            tv_user_name = view.findViewById(R.id.tv_user_name);
             iw_user_img_header = view.findViewById(R.id.user_img_header);
             iw_user_img_layout = view.findViewById(R.id.user_img_layout);
 
+            tv_user_name.setText(sharedPref.getString(getString(R.string.user_name), "-1"));
             Utilities.getImage( sharedPref.getString(getString(R.string.user_id), "-1"), iw_user_img_header);
             Utilities.getImage( sharedPref.getString(getString(R.string.user_id), "-1"), iw_user_img_layout);
 
