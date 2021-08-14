@@ -2,6 +2,7 @@ package com.example.splitit;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -82,6 +83,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
     private ImageView iv_grouImage;
     private EditText et_balance;
     private ImageButton btn_send_balance;
+    private Button btn_submit;
     private boolean admin=false;
 
     public DetailsFragment(long groupId, String groupName, String groupImage, String userId){
@@ -108,6 +110,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
             tv_groupName.setText(groupName);
             btn_send_balance = activity.findViewById(R.id.btn_send_balance);
             et_balance = activity.findViewById(R.id.et_balance);
+            btn_submit = activity.findViewById(R.id.group_submit);
             Log.e("DetailsFragment","id group: "+groupId);
 
             pieChart = activity.findViewById(R.id.pie_chart);
@@ -141,6 +144,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                                 refUser = refUser1;
                                 adapter.setValues(refUser1);
                                 updateGraph();
+                                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                                 return;
                             }
                         }
@@ -149,6 +153,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                         refUser = refUser1;
                         adapter.setValues(refUser1);
                         updateGraph();
+                        System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
                     }
 
 
@@ -168,6 +173,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                                     printLogList();
                                     adapter.setData(userList);
                                     updateGraph();
+                                    System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
                                     return;
                                 }
                             }
@@ -176,6 +182,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                             userList = userList1;
                             printLogList();
                             adapter.setData(userList);
+                            System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
                             updateGraph();
 
                         }
@@ -199,6 +206,27 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
             btn_send_balance.setOnClickListener(v -> {
                 OnlineDatabase.execute(setNewBalance());
                 Log.e("DetailsFragment","Send Balance");
+            });
+
+            btn_submit.setOnClickListener(v -> {
+                new AlertDialog.Builder(v.getContext())
+                        .setTitle("Conferma pagamento")
+                        .setMessage("Sei sicuro di voler procedere con il pagamento?")
+
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                OnlineDatabase.execute(payGroupOnline());
+                                getActivity().finish();
+                            }
+                        })
+
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(android.R.string.no, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
             });
 
         }
@@ -488,7 +516,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
 
                         } else {
                             Log.e("DetailsFragment", response.toString());
-                            vm.payGroup(String.valueOf(groupId));
+
                         }
                     }
                 }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
@@ -504,6 +532,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                         Map<String, String> MyData = new HashMap<String, String>();
                         MyData.put("id", userId); //Add the data you'd like to send to the server.
                         MyData.put("idGruppo", String.valueOf(groupId));
+                        MyData.put("admin", userId);
                         MyData.put("request", String.valueOf(8));
 
                         return MyData;

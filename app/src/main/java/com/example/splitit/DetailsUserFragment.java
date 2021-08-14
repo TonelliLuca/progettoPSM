@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentTransaction;
 public class DetailsUserFragment extends Fragment {
 
     private LinearLayout btn_profile;
+    private LinearLayout btn_balance;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         return inflater.inflate(R.layout.detailed_user, container, false);
@@ -30,10 +31,20 @@ public class DetailsUserFragment extends Fragment {
         final FragmentActivity activity = getActivity();
         if (activity != null) {
             btn_profile = view.findViewById(R.id.btn_profile);
+            btn_balance = view.findViewById(R.id.btn_balance);
             btn_profile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intentRegistration = new Intent(activity, ProfileActivity.class);
+                    startActivity(intentRegistration);
+                    activity.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                }
+            });
+
+            btn_balance.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intentRegistration = new Intent(activity, BalanceActivity.class);
                     startActivity(intentRegistration);
                     activity.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 }

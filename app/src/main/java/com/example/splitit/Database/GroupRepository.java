@@ -23,6 +23,7 @@ public class GroupRepository {
     }
 
     public LiveData<List<GroupItem>> getGroupItemList(String id){return groupItemDAO.getGroupItems(id);}
+    public LiveData<List<GroupItem>> getGroupItemsNotComplete(String id){return groupItemDAO.getGroupItemsNotComplete(id);}
 
     public void addGroupItem(final GroupItem groupItem){
 

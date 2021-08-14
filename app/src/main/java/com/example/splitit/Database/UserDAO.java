@@ -15,7 +15,7 @@ import java.util.List;
 @Dao
 public interface UserDAO{
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addUser(User u);
     @Transaction
     @Query("SELECT * FROM User ORDER BY user_id DESC ")

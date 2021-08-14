@@ -65,6 +65,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
     private AddViewModel addViewModel;
     private AddUserViewModel addUser;
     private LineChart lineChart;
+    private boolean stop=false;
     String user_code=null;
     String user_id=null;
 
@@ -81,7 +82,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
             intent.putExtra("group_NAME",a.getGroupName());
             intent.putExtra("group_IMAGE",a.getImageResource());
             intent.putExtra("user_ID",user_id);
-
+            stop=true;
             startActivity(intent);
         }
     }
@@ -91,6 +92,11 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
 
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        stop=false;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -191,7 +197,11 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
 
 
 
-            listViewModel.getGroupItems(user_id).observe((LifecycleOwner) activity, groupItems -> adapter.setData(groupItems));
+            listViewModel.getGroupItemsNotComplete(user_id).observe((LifecycleOwner) activity, groupItems -> {
+
+                adapter.setData(groupItems);
+
+            });
 
             addUser.getAllPayments(user_id).observe((LifecycleOwner) activity, doubles -> {
                 setLineChart(doubles);
@@ -345,7 +355,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
                 handler.post(new Runnable() {
                     public void run() {
                         try {
-                            if(getGroupsOnline()==null){
+                            if(getGroupsOnline()==null || stop){
                                 this.wait();
 
                             }else {
@@ -358,7 +368,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
                 });
             }
         };
-        timer.schedule(doAsynchronousTask, 0, 1000); //execute in every 50000 ms
+        timer.schedule(doAsynchronousTask, 0, 5000); //execute in every 50000 ms
     }
 
 
