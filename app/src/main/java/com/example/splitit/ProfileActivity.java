@@ -63,7 +63,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         //initializing views
         userImageView =  findViewById(R.id.user_image);
-
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        Utilities.getImage( sharedPref.getString(getString(R.string.user_id), "-1"), userImageView);
 
         //adding click listener to button
         findViewById(R.id.user_image).setOnClickListener(new View.OnClickListener() {
