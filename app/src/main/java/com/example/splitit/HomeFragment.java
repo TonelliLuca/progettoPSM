@@ -334,8 +334,6 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
         }
     }
 
-
-
     private void callAsynchronousTask() {
         final Handler handler = new Handler();
         Timer timer = new Timer();
