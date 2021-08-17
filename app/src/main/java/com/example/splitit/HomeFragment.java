@@ -370,7 +370,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
                 });
             }
         };
-        timer.schedule(doAsynchronousTask, 0, 5000); //execute in every 50000 ms
+        timer.schedule(doAsynchronousTask, 0, 4000); //execute in every 50000 ms
     }
 
 

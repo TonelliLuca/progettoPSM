@@ -140,7 +140,7 @@ import java.util.Map;
      @Override
      public void onResume() {
          super.onResume();
-
+         Utilities.stop = false;
          Utilities.getImage(user_id, headerImageView);
      }
 
