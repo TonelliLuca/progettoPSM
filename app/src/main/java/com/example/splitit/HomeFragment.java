@@ -1,7 +1,5 @@
 package com.example.splitit;
 
-
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -65,7 +63,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
     private AddViewModel addViewModel;
     private AddUserViewModel addUser;
     private LineChart lineChart;
-    private boolean stop=false;
+
     String user_code=null;
     String user_id=null;
 
@@ -82,7 +80,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
             intent.putExtra("group_NAME",a.getGroupName());
             intent.putExtra("group_IMAGE",a.getImageResource());
             intent.putExtra("user_ID",user_id);
-            stop=true;
+            Utilities.stop=true;
             startActivity(intent);
         }
     }
@@ -95,7 +93,13 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
     @Override
     public void onResume(){
         super.onResume();
-        stop=false;
+
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        Utilities.stop = true;
     }
 
     @Override
@@ -173,7 +177,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
         super.onViewCreated(view, savedInstanceState);
         final Activity activity = getActivity();
         if(activity != null){
-
+            Utilities.stop=false;
             addUser = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddUserViewModel.class);
             addViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddViewModel.class);
             listViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(ListViewModel.class);
@@ -353,7 +357,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
                 handler.post(new Runnable() {
                     public void run() {
                         try {
-                            if(getGroupsOnline()==null || stop){
+                            if(getGroupsOnline()==null || Utilities.stop){
                                 this.wait();
 
                             }else {

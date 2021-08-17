@@ -144,7 +144,6 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                                 refUser = refUser1;
                                 adapter.setValues(refUser1);
                                 updateGraph();
-                                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                                 return;
                             }
                         }
@@ -153,7 +152,6 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                         refUser = refUser1;
                         adapter.setValues(refUser1);
                         updateGraph();
-                        System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
                     }
 
 
@@ -173,7 +171,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                                     printLogList();
                                     adapter.setData(userList);
                                     updateGraph();
-                                    System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
+
                                     return;
                                 }
                             }
@@ -182,7 +180,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                             userList = userList1;
                             printLogList();
                             adapter.setData(userList);
-                            System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+
                             updateGraph();
 
                         }

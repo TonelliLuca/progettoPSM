@@ -3,6 +3,7 @@ package com.example.splitit;
 
 
 import android.util.Log;
+import android.util.Pair;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +25,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class Utilities {
-
+    public static boolean stop=false;
     public static void insertFragment(AppCompatActivity activity, Fragment fragment, String tag) {
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
 
@@ -32,7 +33,7 @@ public class Utilities {
         transaction.replace(R.id.fragment_container_view, fragment, tag);
 
         //add the transaction to the back stack so the user can navigate back
-        if (!(fragment instanceof HomeFragment) && !(fragment instanceof SettingsFragment)) {
+        if (!(fragment instanceof HomeFragment) && !(fragment instanceof SettingsFragment) && !(fragment instanceof StoreFragment)) {
             transaction.addToBackStack(tag);
         }
 
@@ -134,6 +135,33 @@ public class Utilities {
         }
         return list;
 
+    }
+
+    static ArrayList<Float> parseBalance(String s, long id){
+        ArrayList<Float> list = new ArrayList<>();
+        Log.e("UtilityP","parse User String s: "+s);
+        try{
+            JSONArray jArray= new JSONArray(s);
+            Log.e("UtilityP","JSONArray length: "+jArray.length());
+            for (int i=0; i < jArray.length(); i++){
+                try {
+                    JSONObject oneObject = jArray.getJSONObject(i);
+                    // Pulling items from the array
+
+                    float val = (float) oneObject.getDouble("bilancio");
+                    Long admin = oneObject.getLong("id_admin");
+                    Log.e("UtilityP","Row object params: Value:"+val+" admin:"+admin);
+                    list.add((id==admin)?val:val*-1);
+                } catch (JSONException e) {
+                    Log.e("UtilityP",e.getMessage());
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e("UtilityP",e.getMessage());
+
+        }
+        return list;
     }
 
     static  public void getImage(String name, ImageView iw){

@@ -26,6 +26,10 @@ public interface GroupItemDAO{
     LiveData<List<GroupItem>> getGroupItemsNotComplete(String val);
 
     @Transaction
+    @Query("SELECT `group`.group_id,`group`.group_name,`group`.group_img,`group`.group_admin,`group`.group_complete FROM `group` JOIN UserGroupCrossRef ON UserGroupCrossRef.group_id=`group`.group_id WHERE UserGroupCrossRef.user_id=:val AND `group`.group_complete = 1 ORDER BY `group`.group_id DESC ")
+    LiveData<List<GroupItem>> getGroupItemsComplete(String val);
+
+    @Transaction
     @Query("SELECT group_id FROM 'group' ORDER BY group_id DESC LIMIT 1")
     LiveData<Long> getLastId();
 

@@ -140,6 +140,7 @@ import java.util.Map;
      @Override
      public void onResume() {
          super.onResume();
+
          Utilities.getImage(user_id, headerImageView);
      }
 
@@ -153,6 +154,11 @@ import java.util.Map;
          }
      }
 
+    @Override
+     public void onPause(){
+         super.onPause();
+         Utilities.stop = true;
+     }
 
      @Override
      public boolean onNavigationItemSelected(@NonNull MenuItem item) {

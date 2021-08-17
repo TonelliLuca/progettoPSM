@@ -134,6 +134,7 @@
                 android:layout_margin="12dp">
 
                 <LinearLayout
+                    android:id="@+id/btn_store"
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"
                     android:gravity="center"

@@ -22,7 +22,9 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Utilities.stop = true;
         setContentView(R.layout.activity_splash);
+
 
 
         logo = findViewById(R.id.splash_logo);

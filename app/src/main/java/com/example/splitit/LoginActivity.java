@@ -45,7 +45,7 @@ public class LoginActivity  extends AppCompatActivity {
         setContentView(R.layout.login);
         etEmailLogin = findViewById(R.id.etEmailLogin);
         etPasswordLogin = findViewById(R.id.etPasswordLogin);
-
+        Utilities.stop = true;
 
         //init biometric
         Executor executor = ContextCompat.getMainExecutor(this);

@@ -41,7 +41,7 @@ public class BalanceActivity extends AppCompatActivity {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         user_id = sharedPref.getString(getString(R.string.user_id), "-1");
         OnlineDatabase.execute(getUserBalance());
-
+        Utilities.stop=true;
     }
 
 
@@ -86,14 +86,13 @@ public class BalanceActivity extends AppCompatActivity {
 
     private void plotGraph(String val){
         ArrayList<Entry> yVal = new ArrayList<>();
-        String[] parts = val.split(":");
+        ArrayList<Float> resultValues = Utilities.parseBalance(val,Long.parseLong(user_id));
 
 
 
-        for(int i=0;i<parts.length; i++){
-            if(!parts[i].isEmpty()) {
-                yVal.add(new Entry(i, Float.parseFloat(String.valueOf(parts[i]))));
-            }
+        for(int i=0;i<resultValues.size(); i++){
+            yVal.add(new Entry(i, resultValues.get(i)));
+
         }
         LineDataSet set1 = new LineDataSet(yVal, "");
 
