@@ -121,14 +121,14 @@ import java.util.Map;
      @Override
      public boolean onCreateOptionsMenu(Menu menu) {
          getMenuInflater().inflate(R.menu.top_app_bar, menu);
-         Log.e("Menu Creation", "Menu created");
+         //Log.e("Menu Creation", "Menu created");
          return true;
      }
 
      @Override
      public boolean onOptionsItemSelected(@NonNull MenuItem item) {
          super.onOptionsItemSelected(item);
-         Log.e("Intent menu", "Starting menu intent " + item.getItemId());
+         //Log.e("Intent menu", "Starting menu intent " + item.getItemId());
          if (item.getItemId() == R.id.app_bar_option) {
              Intent intent = new Intent(this, SettingsActivity.class);
              this.startActivity(intent);
@@ -152,10 +152,9 @@ import java.util.Map;
          } else {
              super.onBackPressed();
              Intent intent = new Intent(this, LoginActivity.class);
-             this.startActivity(intent);
+             //this.startActivity(intent);
              Utilities.stop = true;
-
-             finish();
+             //finish();
          }
      }
 

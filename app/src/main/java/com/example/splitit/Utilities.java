@@ -52,10 +52,10 @@ public class Utilities {
 
     static ArrayList<GroupItem> parseGroupItems(String s){
         ArrayList<GroupItem> list= new ArrayList<>();
-        Log.e("Utility","parse GroupItems String s: "+s);
+        //Log.e("Utility","parse GroupItems String s: "+s);
         try {
             JSONArray jArray= new JSONArray(s);
-            Log.e("Utility","JSONArray length: "+jArray.length());
+            //Log.e("Utility","JSONArray length: "+jArray.length());
             for (int i=0; i < jArray.length(); i++)
             {
                 try {
@@ -66,7 +66,7 @@ public class Utilities {
                     long id = oneObject.getLong("id");
                     long admin = oneObject.getLong("admin");
                     boolean completo = Integer.parseInt(oneObject.getString("completo")) != 0;
-                    Log.e("Utility","Row object params: nome:"+name+" img:"+img+" id:"+id+" admin:"+admin+" completo:"+ completo);
+                    //Log.e("Utility","Row object params: nome:"+name+" img:"+img+" id:"+id+" admin:"+admin+" completo:"+ completo);
                     list.add(new GroupItem(id,img,name,admin,completo));
                 } catch (JSONException e) {
                     Log.e("Utility",e.getMessage());
@@ -75,16 +75,16 @@ public class Utilities {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.e("Utility","Output list length: "+list.size());
+        //Log.e("Utility","Output list length: "+list.size());
         return list;
     }
 
     static ArrayList<UserGroupCrossRef> parseUserGroupCrossRef(String  s){
         ArrayList<UserGroupCrossRef> list= new ArrayList<>();
-        Log.e("Utility","parse UserGroupCrossRef String s: "+s);
+        //Log.e("Utility","parse UserGroupCrossRef String s: "+s);
         try{
             JSONArray jArray= new JSONArray(s);
-            Log.e("Utility","JSONArray length: "+jArray.length());
+            //Log.e("Utility","JSONArray length: "+jArray.length());
             for (int i=0; i < jArray.length(); i++){
                 try {
                     JSONObject oneObject = jArray.getJSONObject(i);
@@ -93,7 +93,7 @@ public class Utilities {
                     long id_user = oneObject.getLong("idUtente");
                     long id_group = oneObject.getLong("idGruppo");
                     boolean pay = Integer.parseInt(oneObject.getString("pagato")) != 0;
-                    Log.e("Utility","Row object params: user_id:"+id_user+" group_id:"+id_group+" pagato:"+pay+" bilancio:"+balance);
+                    //Log.e("Utility","Row object params: user_id:"+id_user+" group_id:"+id_group+" pagato:"+pay+" bilancio:"+balance);
                     list.add(new UserGroupCrossRef(id_user,id_group,pay,balance));
                 } catch (JSONException e) {
                     Log.e("Utility",e.getMessage());
@@ -108,10 +108,10 @@ public class Utilities {
 
     static ArrayList<User> parseUser(String s){
         ArrayList<User> list = new ArrayList<>();
-        Log.e("UtilityU","parse User String s: "+s);
+        //Log.e("UtilityU","parse User String s: "+s);
         try{
             JSONArray jArray= new JSONArray(s);
-            Log.e("UtilityU","JSONArray length: "+jArray.length());
+            //Log.e("UtilityU","JSONArray length: "+jArray.length());
             for (int i=0; i < jArray.length(); i++){
                 try {
                     JSONObject oneObject = jArray.getJSONObject(i);
@@ -122,7 +122,7 @@ public class Utilities {
                     String email = oneObject.getString("email");
                     String img = oneObject.getString("img");
                     String code = oneObject.getString("code");
-                    Log.e("UtilityU","Row object params: id:"+id+" nome:"+name+" email:"+email+" img:"+img+" code:"+code);
+                   //Log.e("UtilityU","Row object params: id:"+id+" nome:"+name+" email:"+email+" img:"+img+" code:"+code);
                     list.add(new User(id,name,email,code,img));
                 } catch (JSONException e) {
                     Log.e("UtilityU",e.getMessage());
@@ -139,7 +139,7 @@ public class Utilities {
 
     static ArrayList<Float> parseBalance(String s, long id){
         ArrayList<Float> list = new ArrayList<>();
-        Log.e("UtilityP","parse User String s: "+s);
+        //Log.e("UtilityP","parse User String s: "+s);
         try{
             JSONArray jArray= new JSONArray(s);
             Log.e("UtilityP","JSONArray length: "+jArray.length());
@@ -150,7 +150,7 @@ public class Utilities {
 
                     float val = (float) oneObject.getDouble("bilancio");
                     Long admin = oneObject.getLong("id_admin");
-                    Log.e("UtilityP","Row object params: Value:"+val+" admin:"+admin);
+                    //Log.e("UtilityP","Row object params: Value:"+val+" admin:"+admin);
                     list.add((id==admin)?val:val*-1);
                 } catch (JSONException e) {
                     Log.e("UtilityP",e.getMessage());
