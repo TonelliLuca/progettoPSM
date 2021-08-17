@@ -144,6 +144,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                                 refUser = refUser1;
                                 adapter.setValues(refUser1);
                                 updateGraph();
+
                                 return;
                             }
                         }
@@ -255,7 +256,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
         recyclerView = requireView().findViewById(R.id.recyclerViewUser);
         recyclerView.setHasFixedSize(true);
         final OnItemListener listener = this;
-        adapter = new UserAdapter(activity, listener,groupId);
+        adapter = new UserAdapter(activity, listener,groupId, userId);
         recyclerView.setAdapter(adapter);
 
     }

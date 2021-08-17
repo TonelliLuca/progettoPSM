@@ -1,6 +1,8 @@
 package com.example.splitit.RecyclerView;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.splitit.Database.UserGroupCrossRef;
 import com.example.splitit.R;
+import com.example.splitit.Utilities;
 import com.example.splitit.ViewModel.AddUserViewModel;
 
 import java.util.ArrayList;
@@ -29,11 +32,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
     private List<UserGroupCrossRef> balance;
     private final AddUserViewModel vm;
     private final long groupId;
-    public UserAdapter(Activity activity, OnItemListener listener, long groupId){
+    private String user_id;
+
+
+    public UserAdapter(Activity activity, OnItemListener listener, long groupId, String user_id){
         this.listener = listener;
         this.activity = activity;
         this.vm= new ViewModelProvider((ViewModelStoreOwner) activity).get(AddUserViewModel.class);
         this.groupId= groupId;
+        this.user_id = user_id;
+
     }
 
     @NonNull
@@ -74,6 +82,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
         holder.idUser=currentItem.getId();
         holder.posU=position;
         holder.tv_userId.setText(String.valueOf(currentItem.getId()));
+        Utilities.getImage(String.valueOf(currentItem.getId()), holder.userImage);
+
 
 
 
@@ -91,8 +101,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
     }
 
     public void setValues( List<UserGroupCrossRef> ref){
-    this.balance=new ArrayList<>(ref);
-    notifyDataSetChanged();
+        this.balance=new ArrayList<>(ref);
+        notifyDataSetChanged();
     }
 
     public void uploadData(int posu,int posr){

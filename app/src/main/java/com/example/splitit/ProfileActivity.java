@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
@@ -55,6 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
     private Bitmap bitmap;
     private String user_id;
     private String filePath;
+    private TextView tv_user_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +65,10 @@ public class ProfileActivity extends AppCompatActivity {
 
         //initializing views
         userImageView =  findViewById(R.id.user_image);
-
-
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        Utilities.getImage( sharedPref.getString(getString(R.string.user_id), "-1"), userImageView);
+        tv_user_name = findViewById(R.id.tv_user_name);
+        tv_user_name.setText(sharedPref.getString(getString(R.string.user_name), "-1"));
         //adding click listener to button
         findViewById(R.id.user_image).setOnClickListener(new View.OnClickListener() {
             @Override

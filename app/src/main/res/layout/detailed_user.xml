@@ -29,16 +29,17 @@
 
             <TextView
                 android:id="@+id/tv_user_name"
-                android:layout_marginTop="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_details_user"
+                android:layout_marginTop="16dp"
                 android:text="@string/user_name"
                 android:textColor="#97D1F8"
                 android:textSize="18sp" />
 
 
             <ImageView
+                android:id="@+id/user_img_header"
                 android:layout_width="62dp"
                 android:layout_height="62dp"
                 android:layout_alignParentEnd="true"
@@ -74,6 +75,7 @@
                     android:padding="16dp">
 
                     <ImageView
+                        android:id="@+id/user_img_layout"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:contentDescription="@string/profile"
