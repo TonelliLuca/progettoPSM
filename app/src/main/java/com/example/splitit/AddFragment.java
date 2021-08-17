@@ -62,16 +62,13 @@ public class AddFragment extends Fragment {
             AddUserViewModel addUserRef = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddUserViewModel.class);
             Utilities.setUpToolbar((AppCompatActivity) activity, "Make a group");
             nameText = activity.findViewById(R.id.groupNameAdd);
-            addViewModel.getLastId().observe((LifecycleOwner) activity, aLong -> {
-                if(aLong != null)
-                    lastId=aLong;
-            });
+
 
             view.findViewById(R.id.buttonAdd).setOnClickListener(v -> {
                 OnlineDatabase.execute(addGroupOnline(view));
-                addViewModel.addGroupItem(new GroupItem(lastId,"ic_baseline:android_24", nameText.getText().toString(),userId,false));
 
-                addUserRef.addNewRef(new UserGroupCrossRef(userId, lastId,false,0));
+
+
 
                 if (checkAdd()) {
 

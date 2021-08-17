@@ -151,6 +151,11 @@ import java.util.Map;
              drawerLayout.closeDrawer(GravityCompat.START);
          } else {
              super.onBackPressed();
+             Intent intent = new Intent(this, LoginActivity.class);
+             this.startActivity(intent);
+             Utilities.stop = true;
+
+             finish();
          }
      }
 
