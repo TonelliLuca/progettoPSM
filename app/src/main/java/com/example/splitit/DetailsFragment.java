@@ -166,7 +166,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                         List<User> userList1 = list.get(0).users;
                         if(userList != null && userList.size() == userList1.size()){
 
-                            for(int i = 0; i<userList.size(); i++){
+                            for(int i = 0; i<userList1.size(); i++){
                                 if(userList1.get(i).getId() != userList.get(i).getId()){
                                     userList = userList1;
                                     printLogList();
@@ -465,7 +465,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
     }
 
 
-    private void callAsynchronousTask() {
+    /*private void callAsynchronousTask() {
         final Handler handler = new Handler();
         Timer timer = new Timer();
         TimerTask doAsynchronousTask = new TimerTask() {
@@ -487,14 +487,67 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                 });
             }
         };
-        timer.schedule(doAsynchronousTask, 0, 1000); //execute in every 1000 ms
+        timer.schedule(doAsynchronousTask, 0, 5000); //execute in every 1000 ms
+    }*/
+
+    private void callAsynchronousTask(){
+        final Handler handler = new Handler();
+        Timer timer = new Timer();
+        TimerTask doAsynchronousTask = new TimerTask(){
+
+            @Override
+            public void run() {
+                handler.post(new Runnable(){
+                    public void run(){
+                        try{
+                            if(getBalance()==null){
+                                handler.removeCallbacksAndMessages(null);
+                            }
+                            OnlineDatabase.execute(getBalance());
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        };
+        timer.schedule(doAsynchronousTask,0,2000);
     }
+
 
     private void saveBalance(String response){
         ArrayList <UserGroupCrossRef> res = Utilities.parseUserGroupCrossRef(response);
+        ArrayList <User> users = Utilities.parseUser(response);
+        controlUserDelete(res);
+        System.out.println(res.size());
+        System.out.println(users.size());
         for(int i = 0 ; i<res.size(); i++){
+
             vm.addNewRef(res.get(i));
         }
+
+        for(int i = 0 ; i<users.size(); i++){
+            vm.addUser(users.get(i));
+        }
+    }
+
+    private void controlUserDelete(ArrayList <UserGroupCrossRef> res ){
+        List<UserGroupCrossRef> userListTemp=refUser;
+
+        if(userListTemp.size()>res.size()){
+            for(int i=0; i<res.size(); i++){
+                if(userListTemp.contains(res.get(i))){
+
+                    userListTemp.remove(res.get(i));
+                }
+            }
+            if(userListTemp.size()!=0){
+                for(int i=0; i<userListTemp.size(); i++){
+                    vm.removeRef(userListTemp.get(i));
+                }
+            }
+        }
+
     }
 
     public Runnable payGroupOnline() {

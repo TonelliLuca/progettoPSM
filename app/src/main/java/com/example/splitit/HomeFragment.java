@@ -348,7 +348,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
         }
     }
 
-    private void callAsynchronousTask() {
+    /*private void callAsynchronousTask() {
         final Handler handler = new Handler();
         Timer timer = new Timer();
         TimerTask doAsynchronousTask = new TimerTask() {
@@ -371,7 +371,35 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
             }
         };
         timer.schedule(doAsynchronousTask, 0, 4000);
+    }*/
+
+    private void callAsynchronousTask(){
+        final Handler handler = new Handler();
+        Timer timer = new Timer();
+        TimerTask doAsynchronousTask = new TimerTask(){
+
+            @Override
+            public void run() {
+                handler.post(new Runnable(){
+                    public void run(){
+                        try{
+                            if(getGroupsOnline()==null || Utilities.stop){
+
+                            }else{
+                                OnlineDatabase.execute(getGroupsOnline());
+                            }
+
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        };
+        timer.schedule(doAsynchronousTask,0,2000);
     }
 
+
+    // TODO Eliminazione gruppo da secondo telefono con refresh qui
 
 }
