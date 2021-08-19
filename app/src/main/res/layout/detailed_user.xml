@@ -37,15 +37,16 @@
                 android:textColor="#97D1F8"
                 android:textSize="18sp" />
 
-
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/user_img_header"
                 android:layout_width="62dp"
                 android:layout_height="62dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:contentDescription="@string/user_img"
-                android:src="@drawable/avatar" />
+                android:src="@drawable/avatar"
+                app:civ_border_width="1dp"
+                app:civ_border_color="@color/white"/>
 
         </RelativeLayout>
 
@@ -74,12 +75,15 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/user_img_layout"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:contentDescription="@string/profile"
-                        android:src="@drawable/avatar" />
+                        android:src="@drawable/avatar"
+                        app:civ_border_width="2dp"
+                        app:civ_border_color="@color/white"/>
+
 
                     <TextView
                         android:layout_width="wrap_content"

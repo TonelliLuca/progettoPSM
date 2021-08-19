@@ -27,7 +27,6 @@ public class DetailsUserFragment extends Fragment {
 
     private LinearLayout btn_store;
 
-
     private ImageView iw_user_img_layout;
     private ImageView iw_user_img_header;
     private TextView tv_user_name;

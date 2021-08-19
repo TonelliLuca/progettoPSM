@@ -74,7 +74,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
             listViewModel.selected(adapter.getItemFiltered(position));
             GroupItem a = listViewModel.getSelected().getValue();
             assert a != null;
-            Log.e("GroupItem","selected id: "+a.getId());
+            //Log.e("GroupItem","selected id: "+a.getId());
             Intent intent = new Intent(getActivity(), DetailsGroupActivity.class);
             intent.putExtra("group_ID",a.getId());
             intent.putExtra("group_NAME",a.getGroupName());
@@ -192,7 +192,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
             user_code = sharedPref.getString(getString(R.string.user_code),"0")    ;
             user_id = sharedPref.getString(getString(R.string.user_id),"-1");
-            Log.e(LOG, "user code: "+user_code+" User id: "+user_id);
+            //Log.e(LOG, "user code: "+user_code+" User id: "+user_id);
 
             OnlineDatabase.execute(getActualUser());
             Utilities.setUpToolbar((AppCompatActivity) getActivity(), "SplitIt");
@@ -209,7 +209,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
 
             addUser.getAllPayments(user_id).observe((LifecycleOwner) activity, doubles -> {
                 setLineChart(doubles);
-                Log.e("LineChart",String.valueOf(doubles.size()));
+                //Log.e("LineChart",String.valueOf(doubles.size()));
             });
 
             FloatingActionButton floatingActionButton = view.findViewById(R.id.fab_add);
@@ -229,7 +229,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
 
         qrButton.setOnClickListener(v -> {
 
-            Log.e("QRCODE", "created");
+            //Log.e("QRCODE", "created");
             DialogQrcodeFragment dialog = new DialogQrcodeFragment();
             dialog.show(getChildFragmentManager(), "QrCode Dialog");
         });
@@ -257,7 +257,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
                     Log.e(LOG,"failed");
 
                 }else{
-                    Log.e(LOG, response);
+                    //Log.e(LOG, response);
                     saveGroups(response);
                 }
             }, error -> {
@@ -280,7 +280,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
 
     private void saveGroups(String s){
         ArrayList<GroupItem> list = Utilities.parseGroupItems(s);
-        Log.e(LOG,"Groups num:"+list.size());
+        //Log.e(LOG,"Groups num:"+list.size());
         if(list.size()>0){
             for(int i = 0; i<list.size();i++){
                 GroupItem g = list.get(i);
@@ -289,7 +289,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
             }
         }
         ArrayList<UserGroupCrossRef> listRef = Utilities.parseUserGroupCrossRef(s);
-        Log.e(LOG,"Ref num:"+list.size());
+        //Log.e(LOG,"Ref num:"+list.size());
         if(listRef.size()>0){
             for(int i = 0; i<listRef.size();i++){
                 UserGroupCrossRef r = listRef.get(i);
@@ -338,7 +338,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
 
     private void saveUser(String s){
         ArrayList<User> list = Utilities.parseUser(s);
-        Log.e(LOG,"User num:"+list.size());
+        //Log.e(LOG,"User num:"+list.size());
         if(list.size()>0){
             for(int i = 0; i<list.size();i++){
                 User u = list.get(i);
