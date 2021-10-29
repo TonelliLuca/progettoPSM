@@ -383,7 +383,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
                 handler.post(new Runnable(){
                     public void run(){
                         try{
-                            if(getGroupsOnline()==null || Utilities.stop){
+                            if((getGroupsOnline()==null || Utilities.stop)  || !(isVisible() && getActivity()!=null) || !isAdded()){
 
                             }else{
                                 OnlineDatabase.execute(getGroupsOnline());
