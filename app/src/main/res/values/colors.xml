@@ -13,7 +13,7 @@
     <color name="toolbar">#3c2251</color>
     <color name="transparent">#003C2251</color>
     <color name="lineChart">#005357</color>
-
+    <color name="lineChart_background">#373741</color>
     <!-- Lottie colors-->
     <color name="purple">#ba53de</color>
     <color name="pink">#f469a9</color>

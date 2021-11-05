@@ -48,7 +48,6 @@ import java.util.Map;
 
  public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-     //TODO fai logout
      //TODO grafici (usa query desktop)
 
      private static final String FRAGMENT_TAG_HOME = "HomeFragment";
@@ -95,14 +94,22 @@ import java.util.Map;
          navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
              @Override
              public boolean onNavigationItemSelected(MenuItem menuItem) {
-
                  int id = menuItem.getItemId();
                  if (id == R.id.nav_dashboard) {
                      loadMenuFragment(new DetailsUserFragment());
+                 }else if(id == R.id.nav_logout){
+                     Intent intentRegistration = new Intent(MainActivity.this, LoginActivity.class);
+                     SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                     SharedPreferences.Editor editor = sharedPref.edit();
+                     editor.clear();
+                     editor.apply();
+                     finish();  //Kill the activity from which you will go to next activity
+                     startActivity(intentRegistration);
                  }
                  drawerLayout.closeDrawer(GravityCompat.START);
                  return true;
              }
+
          });
 
          if (savedInstanceState == null)
@@ -164,10 +171,6 @@ import java.util.Map;
          Utilities.stop = true;
      }
 
-     @Override
-     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-         return true;
-     }
 
      public Runnable getUserImageName() {
          Runnable task = () -> {
@@ -210,4 +213,8 @@ import java.util.Map;
 
      }
 
+     @Override
+     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+         return false;
+     }
  }

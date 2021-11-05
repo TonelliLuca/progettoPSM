@@ -32,7 +32,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="NOME COGNOME"
+                android:text="@string/nome_cognome"
                 android:textColor="#fff"
                 android:textStyle="bold"
                 android:textSize="21sp"/>
@@ -133,13 +133,14 @@
                 android:layout_height="36dp"
                 app:srcCompat="@drawable/ic_baseline_email_24"/>
             <TextView
+                android:id="@+id/email"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
-                android:text="Wiliam@gmail.com"/>
+                android:text="@string/la_tua_email"/>
         </LinearLayout>
         <LinearLayout
             android:layout_marginTop="25dp"
@@ -152,14 +153,14 @@
                 android:layout_height="36dp"
                 app:srcCompat="@drawable/ic_baseline_person_24"/>
             <TextView
-
+                android:id="@+id/user_name_small"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
-                android:text="Nome Utente"
+                android:text="@string/nome_utente"
                 android:paddingStart="20dp" />
         </LinearLayout>
 
@@ -175,13 +176,14 @@
                 android:layout_height="36dp"
                 app:srcCompat="@drawable/ic_baseline_code_24"/>
             <TextView
+                android:id="@+id/user_code"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
-                android:text="Codice utente: ABCDE12345"
+                android:text="@string/codice_utente"
                 android:paddingStart="20dp" />
         </LinearLayout>
     </LinearLayout>
@@ -193,5 +195,5 @@
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Modifica"/>
+        android:text="@string/modifica"/>
 </LinearLayout>

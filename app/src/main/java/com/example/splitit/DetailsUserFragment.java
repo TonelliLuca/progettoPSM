@@ -24,7 +24,7 @@ public class DetailsUserFragment extends Fragment {
 
     private LinearLayout btn_profile;
     private LinearLayout btn_balance;
-
+    private LinearLayout btn_logout;
     private LinearLayout btn_store;
 
     private ImageView iw_user_img_layout;
@@ -45,7 +45,7 @@ public class DetailsUserFragment extends Fragment {
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
             btn_profile = view.findViewById(R.id.btn_profile);
             btn_balance = view.findViewById(R.id.btn_balance);
-
+            btn_logout = view.findViewById(R.id.btn_logout);
             btn_store = view.findViewById(R.id.btn_store);
 
             tv_user_name = view.findViewById(R.id.tv_user_name);
@@ -74,12 +74,26 @@ public class DetailsUserFragment extends Fragment {
                     activity.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 }
             });
+
             btn_store.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intentRegistration = new Intent(activity, StoreActivity.class);
                     startActivity(intentRegistration);
                     activity.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                }
+            });
+
+            btn_logout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intentRegistration = new Intent(activity, LoginActivity.class);
+                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.clear();
+                    editor.apply();
+                    activity.finish();  //Kill the activity from which you will go to next activity
+                    startActivity(intentRegistration);
                 }
             });
         }

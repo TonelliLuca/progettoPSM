@@ -57,6 +57,10 @@ public class ProfileActivity extends AppCompatActivity {
     private String user_id;
     private String filePath;
     private TextView tv_user_name;
+    private TextView tv_email;
+    private TextView tv_user_name_small;
+    private TextView tv_user_code;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +71,18 @@ public class ProfileActivity extends AppCompatActivity {
         userImageView =  findViewById(R.id.user_image);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Utilities.getImage( sharedPref.getString(getString(R.string.user_id), "-1"), userImageView);
+
         tv_user_name = findViewById(R.id.tv_user_name);
         tv_user_name.setText(sharedPref.getString(getString(R.string.user_name), "-1"));
+
+        tv_user_name_small = findViewById(R.id.user_name_small);
+        tv_user_name_small.setText(sharedPref.getString(getString(R.string.user_name), "-1"));
+
+        tv_email = findViewById(R.id.email);
+        tv_email.setText(sharedPref.getString(getString(R.string.user_email), "-1"));
+
+        tv_user_code = findViewById(R.id.user_code);
+        tv_user_code.setText(sharedPref.getString(getString(R.string.user_code), "-1"));
         //adding click listener to button
         findViewById(R.id.user_image).setOnClickListener(new View.OnClickListener() {
             @Override

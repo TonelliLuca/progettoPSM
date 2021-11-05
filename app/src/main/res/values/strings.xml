@@ -45,6 +45,7 @@
     <string name="clicca_per_l_autenticazione_biometrica">Clicca per l\'autenticazione biometrica</string>
     <string name="user_code">user_code</string>
     <string name="user_id">user_id</string>
+    <string name="user_email">user_email</string>
     <string name="tv_user_code">tv_user_code</string>
     <string name="user_img">user_img</string>
     <string name="scheda_informazioni">Scheda informazioni</string>
@@ -58,12 +59,13 @@
     <string name="digita_il_codice">Digita il codice</string>
     <string name="il_mio_importo">Il mio importo</string>
     <string name="digita_l_importo">Digita l\'importo</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_registrarion2">RegistrarionActivity2</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="returnBack">return</string>
     <string name="conferma">Conferma</string>
+    <string name="nome_cognome">NOME COGNOME</string>
+    <string name="codice_utente">codice utente</string>
+    <string name="modifica">Modifica</string>
 
 </resources>

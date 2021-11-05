@@ -165,7 +165,6 @@ public class Utilities {
     }
 
     static  public void getImage(String name, ImageView iw){
-        //TODO stonda immagine
         Picasso.get().load("http://10.0.2.2/splitit/images/" + name+ ".png").memoryPolicy(MemoryPolicy.NO_CACHE).into(iw);
     }
 

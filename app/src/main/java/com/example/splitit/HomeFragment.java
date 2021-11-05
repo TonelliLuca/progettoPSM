@@ -129,7 +129,8 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
         set1.setLabel("");
         set1.setLineWidth(5f);
         set1.setFillAlpha(500);
-        set1.setColor(Color.rgb(0,83, 87));
+        //set1.setColor(Color.rgb(0,83, 87));
+        set1.setColor(Color.rgb(0,83, 86));
         set1.setDrawFilled(true);
 
         if (Utils.getSDKInt() >= 18) {
@@ -138,7 +139,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
             set1.setFillDrawable(drawable);
         }
         else {
-            set1.setFillColor(Color.BLACK);
+            set1.setFillColor(R.color.lineChart_background);
         }
 
 
@@ -364,7 +365,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
                                 OnlineDatabase.execute(getGroupsOnline());
                             }
                         } catch (Exception e) {
-                            // TODO Auto-generated catch block
+
                         }
                     }
                 });
