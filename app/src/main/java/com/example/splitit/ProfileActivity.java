@@ -49,6 +49,8 @@ import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    //TODO numero gruppi, crediti, debiti
+
     ImageView userImageView;
     private static final String ROOT_URL = "http://10.0.2.2/splitit/uploadImage.php";
     private static final int REQUEST_PERMISSIONS = 100;
