@@ -85,12 +85,14 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
     private ImageButton btn_send_balance;
     private Button btn_submit;
     private boolean admin=false;
+    private long adminId;
 
-    public DetailsFragment(long groupId, String groupName, String groupImage, String userId){
+    public DetailsFragment(long groupId, String groupName, String groupImage, String userId, long adminId){
         this.groupName = groupName;
         this.groupId = groupId;
         this.groupImage = groupImage;
         this.userId = userId;
+        this.adminId = adminId;
     }
 
 
@@ -129,10 +131,44 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
             // if no need to add description
             pieChart.getDescription().setEnabled(false);
 
-            setRecyclerView(activity);
             vmGroup = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddViewModel.class);
             vm=new ViewModelProvider((ViewModelStoreOwner) activity).get(AddUserViewModel.class);
+
+            /*vmGroup.getGroupAdmin(String.valueOf(groupId)).observe((LifecycleOwner) activity, new Observer<Long>(){
+
+                @Override
+                public void onChanged(Long aLong) {
+                    if(aLong.equals(Long.valueOf(userId))){
+                        admin=true;
+                        btn_send_balance.setEnabled(false);
+                        et_balance.setEnabled(false);
+
+
+
+                    }else{
+                        btn_submit.setEnabled(false);
+                    }
+
+
+
+                }
+            });*/
+
+            if(Long.compare(this.adminId,Long.valueOf(userId))==0){
+                this.admin=true;
+                btn_send_balance.setEnabled(false);
+                et_balance.setEnabled(false);
+
+
+
+            }else{
+                btn_submit.setEnabled(false);
+            }
+
+            setRecyclerView(activity);
+
             vm.getAllUsersBalance(groupId).observe((LifecycleOwner) activity, new Observer<List<UserGroupCrossRef>>(){
+
 
                 @Override
                 public void onChanged(List<UserGroupCrossRef> userGroupCrossRefs) {
@@ -190,16 +226,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                 }
             });
 
-            vmGroup.getGroupAdmin(String.valueOf(groupId)).observe((LifecycleOwner) activity, new Observer<Long>(){
 
-                        @Override
-                        public void onChanged(Long aLong) {
-                            if(aLong.equals(Long.valueOf(userId))){
-                                admin=true;
-
-                            }
-                        }
-            });
 
 
             btn_send_balance.setOnClickListener(v -> {
@@ -256,7 +283,9 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
         recyclerView = requireView().findViewById(R.id.recyclerViewUser);
         recyclerView.setHasFixedSize(true);
         final OnItemListener listener = this;
-        adapter = new UserAdapter(activity, listener,groupId, userId);
+        //TODO prova ad importare anche l'id admin gruppo per abilitare leminazione solo a se stesso se non admin o tutti se admin
+        Log.e("aaa",  String.valueOf(admin));
+        adapter = new UserAdapter(activity, listener, this.groupId, this.userId, this.admin);
         recyclerView.setAdapter(adapter);
 
     }

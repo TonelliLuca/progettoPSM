@@ -24,9 +24,10 @@ public class DetailsGroupActivity extends AppCompatActivity {
         String groupImage = myIntent.getStringExtra("group_IMAGE");
         String userId = myIntent.getStringExtra("user_ID");
         long id = myIntent.getLongExtra("group_ID",-1);
+        long adminId = myIntent.getLongExtra( "admin_ID", -1);
 
         if (savedInstanceState == null)
-            Utilities.insertFragment(this, new DetailsFragment(id, groupName, groupImage,userId), DetailsFragment.class.getSimpleName());
+            Utilities.insertFragment(this, new DetailsFragment(id, groupName, groupImage,userId, adminId), DetailsFragment.class.getSimpleName());
 
 
     }

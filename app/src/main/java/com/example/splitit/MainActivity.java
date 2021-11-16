@@ -48,7 +48,7 @@ import java.util.Map;
 
  public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-     //TODO grafici (usa query desktop)
+
 
      private static final String FRAGMENT_TAG_HOME = "HomeFragment";
      Toolbar toolbar;

@@ -33,14 +33,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
     private final AddUserViewModel vm;
     private final long groupId;
     private String user_id;
+    private boolean admin;
 
 
-    public UserAdapter(Activity activity, OnItemListener listener, long groupId, String user_id){
+    public UserAdapter(Activity activity, OnItemListener listener, long groupId, String user_id, boolean admin){
         this.listener = listener;
         this.activity = activity;
         this.vm= new ViewModelProvider((ViewModelStoreOwner) activity).get(AddUserViewModel.class);
         this.groupId= groupId;
         this.user_id = user_id;
+        this.admin=admin;
 
     }
 
@@ -48,7 +50,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View layoutItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_card_layout, parent, false);
-        return new UserViewHolder(layoutItem,listener);
+        return new UserViewHolder(layoutItem,listener, this.admin, this.user_id);
     }
 
     @Override
@@ -56,9 +58,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
         User currentItem = userItemList.get(position);
         UserGroupCrossRef ref=null;
         for(int i =0;i<balance.size();i++){
-            if(balance.get(i).getUser_id()== currentItem.getId()){
+            if(balance.get(i).getUser_id() == currentItem.getId()){
                 ref=balance.get(i);
                 holder.posR=i;
+
             }
         }
 

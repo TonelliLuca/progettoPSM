@@ -80,6 +80,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
             intent.putExtra("group_NAME",a.getGroupName());
             intent.putExtra("group_IMAGE",a.getImageResource());
             intent.putExtra("user_ID",user_id);
+            intent.putExtra("admin_ID",a.getAdmin());
             Utilities.stop=true;
             startActivity(intent);
         }
@@ -401,6 +402,5 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
     }
 
 
-    // TODO Eliminazione gruppo da secondo telefono con refresh qui
 
 }
