@@ -3,6 +3,7 @@ package com.example.splitit.RecyclerView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +30,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     int posU;
     int posR;
     boolean admin;
+    boolean adminFlag;
 
 
     private final OnItemListener listener;
@@ -43,10 +45,11 @@ public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         tv_userId = itemView.findViewById(R.id.id_user_card);
         this.admin = admin;
         this.user_id = user_id;
-
         this.listener=listener;
         itemView.setOnClickListener(this);
         userRemove.setOnClickListener(this);
+
+
 
 
     }
@@ -55,7 +58,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     public void onClick(View v) {
         Log.e("aaa","user_id "+this.user_id+" idUser "+this.idUser+" admin "+this.admin);
         if(v.getId()==R.id.delete_user){
-            if(!this.admin ){
+            if((!this.admin) && Long.valueOf(this.user_id)!=this.idUser){
                 new AlertDialog.Builder(v.getContext())
                         .setTitle("Errore!!")
                         .setMessage("Solo l'amministratore del wallet può rimuovere gli utenti")
@@ -84,6 +87,14 @@ public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnCl
                         .show();
             }
         }
+
+
+    }
+
+    //This method is used to set the admin specs in a card
+    public void refresh(){
+        //TODO personalizzare la card dell'admin
+        itemView.setBackgroundColor(Color.RED);
 
 
     }

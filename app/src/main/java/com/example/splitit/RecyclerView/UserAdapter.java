@@ -34,15 +34,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
     private final long groupId;
     private String user_id;
     private boolean admin;
+    private long admin_id;
 
-
-    public UserAdapter(Activity activity, OnItemListener listener, long groupId, String user_id, boolean admin){
+    public UserAdapter(Activity activity, OnItemListener listener, long groupId, String user_id, boolean admin, long admin_id){
         this.listener = listener;
         this.activity = activity;
         this.vm= new ViewModelProvider((ViewModelStoreOwner) activity).get(AddUserViewModel.class);
         this.groupId= groupId;
         this.user_id = user_id;
         this.admin=admin;
+        this.admin_id = admin_id;
 
     }
 
@@ -61,7 +62,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
             if(balance.get(i).getUser_id() == currentItem.getId()){
                 ref=balance.get(i);
                 holder.posR=i;
+                holder.tv_userId.setText(String.valueOf(currentItem.getId()));
+                //call the refresh method to update the graphic for admin user
+                if(currentItem.getId() == this.admin_id){
 
+                    holder.refresh();
+
+                }
             }
         }
 
@@ -84,7 +91,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
         holder.user_amount.setText(String.valueOf(ref.getBalance()));
         holder.idUser=currentItem.getId();
         holder.posU=position;
-        holder.tv_userId.setText(String.valueOf(currentItem.getId()));
+
         Utilities.getImage(String.valueOf(currentItem.getId()), holder.userImage);
 
 

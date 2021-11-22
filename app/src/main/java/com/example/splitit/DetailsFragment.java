@@ -283,9 +283,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
         recyclerView = requireView().findViewById(R.id.recyclerViewUser);
         recyclerView.setHasFixedSize(true);
         final OnItemListener listener = this;
-        //TODO prova ad importare anche l'id admin gruppo per abilitare leminazione solo a se stesso se non admin o tutti se admin
-        Log.e("aaa",  String.valueOf(admin));
-        adapter = new UserAdapter(activity, listener, this.groupId, this.userId, this.admin);
+        adapter = new UserAdapter(activity, listener, this.groupId, this.userId, this.admin, this.adminId);
         recyclerView.setAdapter(adapter);
 
     }
