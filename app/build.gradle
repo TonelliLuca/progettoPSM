@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.splitit"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -71,6 +71,7 @@ dependencies {
     //noinspection GradleDependency
     implementation 'com.airbnb.android:lottie:3.4.1'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
 
 
 

@@ -14,6 +14,9 @@ import android.widget.ImageView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieDrawable;
 
+import java.io.IOException;
+
+
 public class SplashActivity extends AppCompatActivity {
 
     ImageView logo, appName, splashImg;
@@ -23,9 +26,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Utilities.stop = true;
-        setContentView(R.layout.activity_splash);
-
-
+        setContentView(R.layout.activity_splash2);
 
         logo = findViewById(R.id.splash_logo);
         appName = findViewById(R.id.splash_app_name);

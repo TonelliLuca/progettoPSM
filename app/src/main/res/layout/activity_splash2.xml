@@ -22,16 +22,15 @@
 
     <ImageView
         android:id="@+id/splash_logo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="212dp"
+        android:layout_height="207dp"
         android:contentDescription="@string/logo"
-        android:src="@drawable/logo"
+        android:src="@drawable/splitit_logo_circle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.114" />
+        app:layout_constraintVertical_bias="0.057" />
 
     <ImageView
         android:id="@+id/splash_app_name"
@@ -44,7 +43,7 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/splash_logo"
-        app:layout_constraintVertical_bias="0.141" />
+        app:layout_constraintVertical_bias="0.133" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/raw_splash"

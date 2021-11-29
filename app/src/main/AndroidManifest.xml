@@ -43,6 +43,7 @@
         <activity android:name=".DetailsGroupActivity" />
         <activity android:name=".BalanceActivity" />
         <activity android:name=".StoreActivity" />
+        <activity android:name=".DetailedGroupStore" />
     </application>
 
 </manifest>

@@ -79,7 +79,7 @@ public class StoreFragment extends Fragment implements OnItemListener{
             GroupItem a = listViewModel.getSelected().getValue();
             assert a != null;
             Log.e("GroupItem","selected id: "+a.getId());
-            Intent intent = new Intent(getActivity(), DetailsGroupActivity.class);
+            Intent intent = new Intent(getActivity(), DetailedGroupStore.class);
             intent.putExtra("group_ID",a.getId());
             intent.putExtra("group_NAME",a.getGroupName());
             intent.putExtra("group_IMAGE",a.getImageResource());
