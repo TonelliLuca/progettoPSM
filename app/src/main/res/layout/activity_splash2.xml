@@ -34,10 +34,10 @@
 
     <ImageView
         android:id="@+id/splash_app_name"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_width="257dp"
+        android:layout_height="72dp"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/splash_name_logo"
+        android:src="@drawable/logo_scritta"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
