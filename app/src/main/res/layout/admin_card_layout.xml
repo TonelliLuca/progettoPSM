@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/single_card"
     android:layout_margin="16dp"
-    app:cardBackgroundColor="@color/purple"
+    app:cardBackgroundColor="@color/admin_card"
     app:cardCornerRadius="10dp"
     app:strokeWidth="1dp"
     app:strokeColor="@color/material_on_surface_stroke">
@@ -32,7 +32,7 @@
             android:contentDescription="@string/group_image"
             android:scaleType="centerCrop"
             android:visibility="visible"
-            app:srcCompat="@drawable/ic_launcher_foreground" />
+            app:srcCompat="@drawable/splitit_logo_circle" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="200dp"
@@ -59,7 +59,7 @@
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:textColor="@color/white"
                 android:visibility="visible"
-                tools:text="Admin" />
+                tools:text="Administrator" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <ImageView

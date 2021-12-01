@@ -154,7 +154,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                 }
             });*/
 
-            if(Long.compare(this.adminId,Long.valueOf(userId))==0){
+            if(Long.compare(this.adminId,Long.parseLong(userId))==0){
                 this.admin=true;
                 btn_send_balance.setEnabled(false);
                 et_balance.setEnabled(false);
