@@ -204,7 +204,8 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
 
                             for(int i = 0; i<userList1.size(); i++){
                                 if(userList1.get(i).getId() != userList.get(i).getId()){
-                                    userList = userList1;
+                                    userList = Utilities.remapUserList(userList1, adminId);
+
                                     printLogList();
                                     adapter.setData(userList);
                                     updateGraph();
@@ -214,7 +215,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                             }
 
                         }else{
-                            userList = userList1;
+                            userList = Utilities.remapUserList(userList1, adminId);
                             printLogList();
                             adapter.setData(userList);
 

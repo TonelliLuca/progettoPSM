@@ -23,6 +23,9 @@ import org.json.JSONObject;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Stream;
 
 public class Utilities {
     public static boolean stop=false;
@@ -166,6 +169,24 @@ public class Utilities {
 
     static  public void getImage(String name, ImageView iw){
         Picasso.get().load("http://10.0.2.2/splitit/images/" + name+ ".png").memoryPolicy(MemoryPolicy.NO_CACHE).into(iw);
+    }
+
+    public static List<User> remapUserList(List<User> l, long adminId){
+
+        User admin = null;
+        for (int i = 0; i < l.size(); i++) {
+            if(Long.compare(l.get(i).getId(), adminId)==0){
+                admin = l.get(i);
+                l.remove(i);
+            }
+        }
+        List<User> u = new ArrayList<>();
+        u.add(admin);
+        u.addAll(l);
+        return u;
+
+
+
     }
 
 
