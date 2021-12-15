@@ -199,7 +199,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                 @Override
                 public void onChanged(List<GroupWithUsers> list) {
                     if(list.size()>0) {
-                        List<User> userList1 = list.get(0).users;
+                        List<User> userList1 = Utilities.remapUserList(list.get(0).users, adminId);
                         if(userList != null && userList.size() == userList1.size()){
 
                             for(int i = 0; i<userList1.size(); i++){
@@ -215,8 +215,11 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                             }
 
                         }else{
+
                             userList = Utilities.remapUserList(userList1, adminId);
+
                             printLogList();
+
                             adapter.setData(userList);
 
                             updateGraph();

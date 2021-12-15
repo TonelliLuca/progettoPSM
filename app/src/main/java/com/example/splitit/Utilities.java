@@ -178,11 +178,13 @@ public class Utilities {
             if(Long.compare(l.get(i).getId(), adminId)==0){
                 admin = l.get(i);
                 l.remove(i);
+
             }
         }
         List<User> u = new ArrayList<>();
         u.add(admin);
         u.addAll(l);
+
         return u;
 
 
