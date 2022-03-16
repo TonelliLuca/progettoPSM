@@ -132,6 +132,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
         set1.setFillAlpha(500);
         //set1.setColor(Color.rgb(0,83, 87));
         set1.setColor(Color.rgb(0,83, 86));
+        set1.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
         set1.setDrawFilled(true);
 
         if (Utils.getSDKInt() >= 18) {

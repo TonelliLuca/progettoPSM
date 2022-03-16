@@ -47,8 +47,22 @@ public class GeneralViewHolder extends RecyclerView.ViewHolder implements View.O
         this.listener=listener;
         itemView.setOnClickListener(this);
         userRemove.setOnClickListener(this);
-
     }
+
+    public GeneralViewHolder(@NonNull View itemViewAdmin, OnItemListener listener, boolean admin, String user_id) {
+        super(itemViewAdmin);
+        userImage = itemView.findViewById(R.id.card_user_image);
+        userRemove = itemView.findViewById(R.id.delete_user);
+        userName = itemView.findViewById(R.id.user_name);
+        tv_userId = itemView.findViewById(R.id.id_user_card);
+
+        this.admin = admin;
+        this.user_id = user_id;
+        this.listener = listener;
+        itemView.setOnClickListener(this);
+        userRemove.setOnClickListener(this);
+    }
+
 
     public GeneralViewHolder(GeneralViewHolder holder) {
         super(holder.itemView);
@@ -72,7 +86,7 @@ public class GeneralViewHolder extends RecyclerView.ViewHolder implements View.O
     public void onClick(View v) {
         Log.e("aaa","user_id "+this.user_id+" idUser "+this.idUser+" admin "+this.admin);
         if(v.getId()==R.id.delete_user){
-            if((!this.admin) && Long.valueOf(this.user_id)!=this.idUser){
+            if((!this.admin) && Long.parseLong(this.user_id)!=this.idUser){
                 new AlertDialog.Builder(v.getContext())
                         .setTitle("Errore!!")
                         .setMessage("Solo l'amministratore del wallet può rimuovere gli utenti")

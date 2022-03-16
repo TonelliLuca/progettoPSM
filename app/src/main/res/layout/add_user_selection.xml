@@ -13,7 +13,7 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/metodo_di_aggiunta"
+        android:text="@string/digita_codice_utente"
         android:layout_gravity="center"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -27,24 +27,12 @@
         android:layout_height="40dp"
         android:layout_margin="8dp"
         android:layout_gravity="center"
-        android:hint="@string/digita_il_codice"
+        android:hint="Es: ABCD12345"
         android:textColorHint="#555555"
         android:maxLength="10"
         android:background="@drawable/edit_text_bg"
         android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="20sp" />
-
-    <Button
-        android:id="@+id/btn_qr_reader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_gravity="center"
-        android:background="@drawable/element_shape"
-        android:gravity="center"
-        android:text="@string/scannerizza_qrCode"
-        android:textColor="@color/white"
         android:textSize="20sp" />
 
     <Button
@@ -59,6 +47,29 @@
         android:textColor="@color/white"
         android:textSize="20sp" />
 
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/oppure"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_qr_reader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="8dp"
+        android:background="@drawable/element_shape"
+        android:gravity="center"
+        android:text="@string/scannerizza_qrCode"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 
 
 </LinearLayout>

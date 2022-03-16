@@ -67,5 +67,7 @@
     <string name="nome_cognome">NOME COGNOME</string>
     <string name="codice_utente">codice utente</string>
     <string name="modifica">Modifica</string>
+    <string name="digita_codice_utente">Digita codice utente</string>
+    <string name="oppure">oppure</string>
 
 </resources>

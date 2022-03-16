@@ -21,6 +21,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
@@ -87,6 +88,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
     private boolean admin=false;
     private long adminId;
 
+
     public DetailsFragment(long groupId, String groupName, String groupImage, String userId, long adminId){
         this.groupName = groupName;
         this.groupId = groupId;
@@ -106,6 +108,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
         super.onViewCreated(view,savedInstanceState);
         final Activity activity=getActivity();
         if(activity!=null){
+
             iv_grouImage = activity.findViewById(R.id.iv_group_image);
             iv_grouImage.setImageResource(R.drawable.avatar);
             tv_groupName = activity.findViewById(R.id.tv_group_name);
@@ -278,7 +281,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
         for(int i=0;i<userList.size();i++){
 
 
-            Log.e("UserList ", userList.get(i).getId() +" "+userList.get(i).getName());
+            //Log.e("UserList ", userList.get(i).getId() +" "+userList.get(i).getName());
 
         }
     }

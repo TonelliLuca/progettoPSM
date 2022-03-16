@@ -21,7 +21,7 @@ import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<GeneralViewHolder> {
     private static final int SIZE = 100;
-    private List<User> userItemList=new ArrayList<>();
+    private List<User> userItemList = new ArrayList<>();
     private List<User> userItemFiltered = new ArrayList<>();
     private final Activity activity;
     private final OnItemListener listener;
@@ -31,31 +31,35 @@ public class UserAdapter extends RecyclerView.Adapter<GeneralViewHolder> {
     private String user_id;
     private boolean admin;
     private long admin_id;
+    private View layoutItem;
+    private View layoutItemAdmin;
 
 
-    public UserAdapter(Activity activity, OnItemListener listener, long groupId, String user_id, boolean admin, long admin_id){
+    public UserAdapter(Activity activity, OnItemListener listener, long groupId, String user_id, boolean admin, long admin_id) {
         this.listener = listener;
         this.activity = activity;
         this.vm = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddUserViewModel.class);
-        this.groupId= groupId;
+        this.groupId = groupId;
         this.user_id = user_id;
-        this.admin=admin;
+        this.admin = admin;
         this.admin_id = admin_id;
 
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        // Just as an example, return 0 or 2 depending on position
-        // Note that unlike in ListView adapters, types don't have to be contiguous
-        return position % 2 * 2;
+
+    public int getItemViewType(int position, long admin_id) {
+        if (Long.parseLong(this.user_id) == admin_id) {
+            return position;
+        }
+        return -1;
+        //return position % 2 * 2;
     }
 
     @NonNull
     @Override
     public GeneralViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View layoutItem;
-        View layoutItemAdmin;
+        /*View layoutItem;
+        View layoutItemAdmin;*/
         GeneralViewHolder holder;
 
         /*if (viewType == 0) {
@@ -75,32 +79,36 @@ public class UserAdapter extends RecyclerView.Adapter<GeneralViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull GeneralViewHolder holder, int position) {
         User currentItem = userItemList.get(position);
-        UserGroupCrossRef ref=null;
+        UserGroupCrossRef ref = null;
 
-        for(int i = 0;i<balance.size();i++){
-            if(balance.get(i).getUser_id() == currentItem.getId()){
-                ref=balance.get(i);
-                holder.posR=i;
+        for (int i = 0; i < balance.size(); i++) {
+            if (balance.get(i).getUser_id() == currentItem.getId()) {
+                ref = balance.get(i);
+                holder.posR = i;
                 holder.tv_userId.setText(String.valueOf(currentItem.getId()));
                 //call the refresh method to update the graphic for admin user
-                if(currentItem.getId() == admin_id){
+                if (currentItem.getId() == admin_id) {
                     AdminViewHolder adminHolder = holder.getAdminHolder();
                     adminHolder.userName.setText(currentItem.getName());
-                    adminHolder.idUser=currentItem.getId();
-                    adminHolder.posU=position;
+                    adminHolder.idUser = currentItem.getId();
+                    adminHolder.posU = position;
 
                     Utilities.getImage(String.valueOf(currentItem.getId()), adminHolder.userImage);
-                }else{
+                } else {
                     UserViewHolder userHolder = new UserViewHolder(holder);
                     userHolder.userName.setText(currentItem.getName());
                     userHolder.user_amount.setText(String.valueOf(ref.getBalance()));
-                    userHolder.idUser=currentItem.getId();
-                    userHolder.posU=position;
+                    userHolder.idUser = currentItem.getId();
+                    userHolder.posU = position;
 
                     Utilities.getImage(String.valueOf(currentItem.getId()), userHolder.userImage);
                 }
+
+
             }
+            /**/
         }
+
 
         /*if(tmp!=-1){
             UserViewHolder userHolder = new UserViewHolder(holder);
@@ -121,8 +129,7 @@ public class UserAdapter extends RecyclerView.Adapter<GeneralViewHolder> {
         }*/
 
 
-
-        String image_path = currentItem.getImg();
+    String image_path = currentItem.getImg();
 
         /*if (image_path.contains("ic_")) {
             Drawable drawable = ContextCompat.getDrawable(activity, activity.getResources()
@@ -142,9 +149,6 @@ public class UserAdapter extends RecyclerView.Adapter<GeneralViewHolder> {
         holder.posU=position;
 
         Utilities.getImage(String.valueOf(currentItem.getId()), holder.userImage);*/
-
-
-
 
     }
 
