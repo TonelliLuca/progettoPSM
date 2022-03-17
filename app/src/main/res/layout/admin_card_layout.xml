@@ -35,7 +35,7 @@
             app:srcCompat="@drawable/splitit_logo_circle" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
@@ -61,14 +61,14 @@
                 android:visibility="visible"
                 tools:text="Administrator" />
         </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <ImageView
+        <!--<ImageView
             android:id="@+id/delete_user"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:contentDescription="@string/deleteuser"
-            app:srcCompat="@android:drawable/ic_delete" />
+            app:srcCompat="@android:drawable/ic_delete" />-->
+
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>

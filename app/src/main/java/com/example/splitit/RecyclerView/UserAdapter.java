@@ -19,7 +19,7 @@ import com.example.splitit.ViewModel.AddUserViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserAdapter extends RecyclerView.Adapter<GeneralViewHolder> {
+public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int SIZE = 100;
     private List<User> userItemList = new ArrayList<>();
     private List<User> userItemFiltered = new ArrayList<>();
@@ -47,66 +47,77 @@ public class UserAdapter extends RecyclerView.Adapter<GeneralViewHolder> {
     }
 
 
-    public int getItemViewType(int position, long admin_id) {
-        if (Long.parseLong(this.user_id) == admin_id) {
-            return position;
+    @Override
+    public int getItemViewType(int position) {
+        // based on you list you will return the ViewType
+        if (position == 0) {
+            return 0;
+        } else {
+            return 1;
         }
-        return -1;
-        //return position % 2 * 2;
     }
 
     @NonNull
     @Override
-    public GeneralViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        /*View layoutItem;
-        View layoutItemAdmin;*/
-        GeneralViewHolder holder;
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.e("BIND", " viewType : "+ viewType);
 
-        /*if (viewType == 0) {
-            layoutItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_card_layout, parent, false);
-            holder = new UserViewHolder(layoutItem,listener, this.admin, this.user_id); //Of type GeneralViewHolder
-        } else {
+        View layoutItem = null;
+        if (viewType == 0) {
             layoutItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_card_layout, parent, false);
-            holder = new AdminViewHolder(layoutItem,listener, this.admin, this.user_id); //Of type GeneralViewHolder
-        }*/
-        layoutItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_card_layout, parent, false);
+            return new AdminViewHolder(layoutItem, admin, this.user_id);
+        } else {
+            layoutItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_card_layout, parent, false);
+            return new UserViewHolder(layoutItem, listener, admin, this.user_id);
+        }
+        /*layoutItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_card_layout, parent, false);
         layoutItemAdmin = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_card_layout, parent, false);
         Log.e("HOLDER", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        return new GeneralViewHolder(layoutItem, layoutItemAdmin, listener, this.admin, this.user_id);
+        return new GeneralViewHolder(layoutItem, layoutItemAdmin, listener, this.admin, this.user_id);*/
     }
 
 
     @Override
-    public void onBindViewHolder(@NonNull GeneralViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        Log.e("BIND", " position: "+ position);
+
         User currentItem = userItemList.get(position);
         UserGroupCrossRef ref = null;
 
         for (int i = 0; i < balance.size(); i++) {
+
             if (balance.get(i).getUser_id() == currentItem.getId()) {
+
+                //int itemType = getMyItemViewType( holder.getAdapterPosition());
+                Log.e("BIND", "balance : " + balance.size());
                 ref = balance.get(i);
-                holder.posR = i;
-                holder.tv_userId.setText(String.valueOf(currentItem.getId()));
                 //call the refresh method to update the graphic for admin user
+                //if (currentItem.getId() == admin_id) {
                 if (currentItem.getId() == admin_id) {
-                    AdminViewHolder adminHolder = holder.getAdminHolder();
-                    adminHolder.userName.setText(currentItem.getName());
-                    adminHolder.idUser = currentItem.getId();
-                    adminHolder.posU = position;
-
-                    Utilities.getImage(String.valueOf(currentItem.getId()), adminHolder.userImage);
+                    AdminViewHolder adminViewHolder = (AdminViewHolder) holder;
+                    adminViewHolder.userName.setText(currentItem.getName());
+                    adminViewHolder.idUser = currentItem.getId();
+                    adminViewHolder.posU =  holder.getAdapterPosition();
+                    adminViewHolder.posR = i;
+                    adminViewHolder.tv_userId.setText(String.valueOf(currentItem.getId()));
+                    Utilities.getImage(String.valueOf(currentItem.getId()), adminViewHolder.userImage);
+                    Log.e("BIND", "admin " + String.valueOf(adminViewHolder.idUser) + " position: "+ position);
                 } else {
-                    UserViewHolder userHolder = new UserViewHolder(holder);
-                    userHolder.userName.setText(currentItem.getName());
-                    userHolder.user_amount.setText(String.valueOf(ref.getBalance()));
-                    userHolder.idUser = currentItem.getId();
-                    userHolder.posU = position;
+                    UserViewHolder userViewHolder = (UserViewHolder) holder;
+                    userViewHolder.userName.setText(currentItem.getName());
+                    userViewHolder.user_amount.setText(String.valueOf(ref.getBalance()));
+                    userViewHolder.idUser = currentItem.getId();
+                    userViewHolder.posU =  holder.getAdapterPosition();
+                    userViewHolder.posR = i;
+                    userViewHolder.tv_userId.setText(String.valueOf(currentItem.getId()));
+                    Utilities.getImage(String.valueOf(currentItem.getId()), userViewHolder.userImage);
+                    Log.e("BIND", "user " + String.valueOf(userViewHolder.idUser) + " position: "+ position);
 
-                    Utilities.getImage(String.valueOf(currentItem.getId()), userHolder.userImage);
                 }
 
 
             }
-            /**/
+
         }
 
 

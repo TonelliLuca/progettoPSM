@@ -35,7 +35,7 @@ public class GeneralViewHolder extends RecyclerView.ViewHolder implements View.O
 
     private final OnItemListener listener;
 
-    public GeneralViewHolder(@NonNull View itemView, View itemViewAdmin, OnItemListener listener, boolean admin, String user_id) {
+    public GeneralViewHolder(View itemView, View itemViewAdmin, OnItemListener listener, boolean admin, String user_id) {
         super(itemView);
         this.itemViewAdmin = itemViewAdmin;
         userImage = itemView.findViewById(R.id.card_user_image);
@@ -49,7 +49,7 @@ public class GeneralViewHolder extends RecyclerView.ViewHolder implements View.O
         userRemove.setOnClickListener(this);
     }
 
-    public GeneralViewHolder(@NonNull View itemViewAdmin, OnItemListener listener, boolean admin, String user_id) {
+    /*public GeneralViewHolder(@NonNull View itemViewAdmin, OnItemListener listener, boolean admin, String user_id) {
         super(itemViewAdmin);
         userImage = itemView.findViewById(R.id.card_user_image);
         userRemove = itemView.findViewById(R.id.delete_user);
@@ -61,10 +61,10 @@ public class GeneralViewHolder extends RecyclerView.ViewHolder implements View.O
         this.listener = listener;
         itemView.setOnClickListener(this);
         userRemove.setOnClickListener(this);
-    }
+    }*/
 
 
-    public GeneralViewHolder(GeneralViewHolder holder) {
+    /*public GeneralViewHolder(GeneralViewHolder holder) {
         super(holder.itemView);
         userImage = itemView.findViewById(R.id.card_user_image);
         userRemove=itemView.findViewById(R.id.delete_user);
@@ -75,16 +75,16 @@ public class GeneralViewHolder extends RecyclerView.ViewHolder implements View.O
         this.listener= holder.listener;
         itemView.setOnClickListener(this);
         userRemove.setOnClickListener(this);
-    }
+    }*/
 
-    public AdminViewHolder getAdminHolder(){
+    /*public AdminViewHolder getAdminHolder(){
         return new AdminViewHolder(new GeneralViewHolder(itemViewAdmin,null, listener, admin,user_id));
-    }
+    }*/
 
 
     @Override
     public void onClick(View v) {
-        Log.e("aaa","user_id "+this.user_id+" idUser "+this.idUser+" admin "+this.admin);
+        Log.e("aaa","user_id: "+this.user_id+" idUser: "+this.idUser+" admin: "+this.admin);
         if(v.getId()==R.id.delete_user){
             if((!this.admin) && Long.parseLong(this.user_id)!=this.idUser){
                 new AlertDialog.Builder(v.getContext())

@@ -12,12 +12,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.splitit.R;
 
-public class AdminViewHolder extends GeneralViewHolder{
+public class AdminViewHolder extends RecyclerView.ViewHolder{
+    ImageView userImage;
+    TextView userName;
+    TextView tv_userId;
+    String user_id;
+    long idUser;
+    int posU;
+    int posR;
+    boolean admin;
 
-    public AdminViewHolder(@NonNull View itemView, View itemViewAdmin, OnItemListener listener, boolean admin, String user_id) {
-        super(itemView,itemViewAdmin, listener, admin, user_id);
+    public AdminViewHolder(@NonNull View itemView, boolean admin, String user_id) {
+        super(itemView);
+        this.admin = admin;
+        userImage = itemView.findViewById(R.id.card_user_image);
+        userName = itemView.findViewById(R.id.user_name);
+        tv_userId = itemView.findViewById(R.id.id_user_card);
+        this.user_id = user_id;
     }
-    public AdminViewHolder(GeneralViewHolder holder) {
-        super(holder);
-    }
+
 }
