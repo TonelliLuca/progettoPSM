@@ -31,8 +31,6 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private String user_id;
     private boolean admin;
     private long admin_id;
-    private View layoutItem;
-    private View layoutItemAdmin;
 
 
     public UserAdapter(Activity activity, OnItemListener listener, long groupId, String user_id, boolean admin, long admin_id) {
@@ -62,7 +60,7 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.e("BIND", " viewType : "+ viewType);
 
-        View layoutItem = null;
+        View layoutItem;
         if (viewType == 0) {
             layoutItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_card_layout, parent, false);
             return new AdminViewHolder(layoutItem, admin, this.user_id);
@@ -70,10 +68,6 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             layoutItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_card_layout, parent, false);
             return new UserViewHolder(layoutItem, listener, admin, this.user_id);
         }
-        /*layoutItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_card_layout, parent, false);
-        layoutItemAdmin = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_card_layout, parent, false);
-        Log.e("HOLDER", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        return new GeneralViewHolder(layoutItem, layoutItemAdmin, listener, this.admin, this.user_id);*/
     }
 
 
@@ -82,17 +76,13 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         Log.e("BIND", " position: "+ position);
 
         User currentItem = userItemList.get(position);
-        UserGroupCrossRef ref = null;
+        UserGroupCrossRef ref;
 
         for (int i = 0; i < balance.size(); i++) {
 
             if (balance.get(i).getUser_id() == currentItem.getId()) {
-
-                //int itemType = getMyItemViewType( holder.getAdapterPosition());
                 Log.e("BIND", "balance : " + balance.size());
                 ref = balance.get(i);
-                //call the refresh method to update the graphic for admin user
-                //if (currentItem.getId() == admin_id) {
                 if (currentItem.getId() == admin_id) {
                     AdminViewHolder adminViewHolder = (AdminViewHolder) holder;
                     adminViewHolder.userName.setText(currentItem.getName());

@@ -16,6 +16,7 @@ public class AdminViewHolder extends RecyclerView.ViewHolder{
     ImageView userImage;
     TextView userName;
     TextView tv_userId;
+    TextView tv_admin;
     String user_id;
     long idUser;
     int posU;
@@ -28,6 +29,8 @@ public class AdminViewHolder extends RecyclerView.ViewHolder{
         userImage = itemView.findViewById(R.id.card_user_image);
         userName = itemView.findViewById(R.id.user_name);
         tv_userId = itemView.findViewById(R.id.id_user_card);
+        tv_admin = itemView.findViewById(R.id.tv_admin);
+        tv_admin.setText("Amministratore");
         this.user_id = user_id;
     }
 

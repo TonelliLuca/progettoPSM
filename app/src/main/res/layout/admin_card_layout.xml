@@ -51,7 +51,7 @@
                 tools:text="@string/nome_utente" />
 
             <TextView
-                android:id="@+id/tw_admin"
+                android:id="@+id/tv_admin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -59,7 +59,7 @@
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:textColor="@color/white"
                 android:visibility="visible"
-                tools:text="Administrator" />
+                android:text="Amministratore"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
         <!--<ImageView
             android:id="@+id/delete_user"
