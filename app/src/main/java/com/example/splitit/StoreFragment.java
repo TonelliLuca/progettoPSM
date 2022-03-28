@@ -84,6 +84,7 @@ public class StoreFragment extends Fragment implements OnItemListener{
             intent.putExtra("group_NAME",a.getGroupName());
             intent.putExtra("group_IMAGE",a.getImageResource());
             intent.putExtra("user_ID",user_id);
+            intent.putExtra("admin_ID",a.getAdmin());
 
             startActivity(intent);
         }

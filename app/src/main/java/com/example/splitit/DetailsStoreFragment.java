@@ -39,6 +39,7 @@ import com.example.splitit.Database.GroupWithUsers;
 import com.example.splitit.Database.UserGroupCrossRef;
 import com.example.splitit.OnlineDatabase.OnlineDatabase;
 import com.example.splitit.RecyclerView.OnItemListener;
+import com.example.splitit.RecyclerView.StoreAdapter;
 import com.example.splitit.RecyclerView.User;
 import com.example.splitit.RecyclerView.UserAdapter;
 import com.example.splitit.ViewModel.AddUserViewModel;
@@ -73,7 +74,7 @@ public class DetailsStoreFragment extends Fragment implements OnItemListener, Na
     private AddViewModel vmGroup;
     private AddUserViewModel vm;
     private List<User> userList;
-    private UserAdapter adapter;
+    private StoreAdapter adapter;
     private RecyclerView recyclerView;
     private List<UserGroupCrossRef> refUser;
     private UserGroupCrossRef userToDelete;
@@ -222,7 +223,7 @@ public class DetailsStoreFragment extends Fragment implements OnItemListener, Na
         recyclerView = requireView().findViewById(R.id.recyclerViewUser);
         recyclerView.setHasFixedSize(true);
         final OnItemListener listener = this;
-        adapter = new UserAdapter(activity, listener, this.groupId, this.userId, this.admin, this.adminId);
+        adapter = new StoreAdapter(activity, listener, this.groupId, this.userId, this.admin, this.adminId);
         recyclerView.setAdapter(adapter);
 
     }

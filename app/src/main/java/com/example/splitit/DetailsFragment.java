@@ -307,7 +307,9 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
         OnlineDatabase.execute(deleteRef(getView(),String.valueOf(id),String.valueOf(groupId)));
         if(appCompatActivity!=null) {
             Runnable task = () -> {
+
                 userToDelete=vm.searchSpecRef(groupId, id);
+
                 vm.removeRef(userToDelete);
             };
 
