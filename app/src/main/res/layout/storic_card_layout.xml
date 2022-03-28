@@ -51,7 +51,7 @@
                 tools:text="@string/nome_utente" />
 
             <TextView
-                android:id="@+id/somma_utente"
+                android:id="@+id/user_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

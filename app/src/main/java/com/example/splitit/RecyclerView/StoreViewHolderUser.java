@@ -26,6 +26,7 @@ public class StoreViewHolderUser extends RecyclerView.ViewHolder{
         userImage = itemView.findViewById(R.id.card_user_image);
         userName = itemView.findViewById(R.id.user_name);
         tv_userId = itemView.findViewById(R.id.id_user_card);
+        user_amount = itemView.findViewById(R.id.user_amount);
         this.user_id = user_id;
     }
 }

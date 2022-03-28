@@ -94,7 +94,7 @@ public class StoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     Utilities.getImage(String.valueOf(currentItem.getId()), storeViewHolderAdmin.userImage);
 
                 } else {
-                    Log.e("BIND", "USER: "+currentItem.getId()+"/"+admin_id);
+                    Log.e("BIND", "USER: "+currentItem.getId()+"/"+admin_id+" Balance: "+ ref.getBalance());
                     StoreViewHolderUser storeViewHolderUser = (StoreViewHolderUser) holder;
                     storeViewHolderUser.userName.setText(currentItem.getName());
                     storeViewHolderUser.user_amount.setText(String.valueOf(ref.getBalance()));
