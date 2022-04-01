@@ -28,20 +28,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BalanceActivity extends AppCompatActivity {
-    private LineChart balance;
+    //private LineChart balance;
     private String user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_balance);
+        setContentView(R.layout.activity_balance_layout);
+        /*
         balance = findViewById(R.id.balanceChart);
         balance.setDragEnabled(true);
         balance.setTouchEnabled(true);
+
+         */
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         user_id = sharedPref.getString(getString(R.string.user_id), "-1");
-        OnlineDatabase.execute(getUserBalance());
+        //OnlineDatabase.execute(getUserBalance());
         Utilities.stop=true;
+        if (savedInstanceState == null)
+            Utilities.insertFragment(this, new BalanceFragment(), "BalanceFragment");
     }
 
 
@@ -62,7 +67,7 @@ public class BalanceActivity extends AppCompatActivity {
 
                 }else{
                     Log.e("BalanceActivity", response);
-                    plotGraph(response);
+                    //plotGraph(response);
 
 
                 }
@@ -84,7 +89,7 @@ public class BalanceActivity extends AppCompatActivity {
 
     }
 
-    private void plotGraph(String val){
+    /*private void plotGraph(String val){
         ArrayList<Entry> yVal = new ArrayList<>();
         ArrayList<Float> resultValues = Utilities.parseBalance(val,Long.parseLong(user_id));
 
@@ -132,4 +137,6 @@ public class BalanceActivity extends AppCompatActivity {
         balance.setData(data);
         balance.invalidate();
     }
+
+     */
 }
