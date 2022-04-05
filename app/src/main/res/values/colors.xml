@@ -19,5 +19,7 @@
     <color name="pink">#f469a9</color>
     <color name="blue">#88bef5</color>
     <color name="admin_card">#5D1049</color>
+    <color name="balance_pos">#11aa15</color>
+    <color name="balance_neg">#aa1115</color>
 
 </resources>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +17,21 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.splitit.OnlineDatabase.OnlineDatabase;
 import com.example.splitit.RecyclerView.GroupAdapter;
 import com.example.splitit.RecyclerView.OnItemListener;
 import com.example.splitit.ViewModel.ListViewModel;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class BalanceFragment extends Fragment {
+
+    private String user_id= null;
 
     @Nullable
     @Override
@@ -34,7 +45,9 @@ public class BalanceFragment extends Fragment {
         Activity activity = getActivity();
         if(activity != null){
             Utilities.stop=true;
-
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+            user_id = sharedPref.getString(getString(R.string.user_id),"-1");
+            OnlineDatabase.execute(getUserBalance());
 
         }
 
@@ -43,5 +56,43 @@ public class BalanceFragment extends Fragment {
     private void setRecyclerView(final Activity activity){
         RecyclerView recyclerView = requireView().findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
+    }
+
+    public Runnable getUserBalance() {
+        return () -> {
+
+            RequestQueue MyRequestQueue = Volley.newRequestQueue(this.requireContext());
+            String URL = "http://10.0.2.2/splitit/comunication.php";
+
+            //Create an error listener to handle errors appropriately.
+            StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, response -> {
+                //This code is executed if the server responds, whether or not the response contains data.
+                //The String 'response' contains the server's response.
+
+                if(response.equals("failure")){
+                    Log.e("BalanceActivity","failed");
+
+                }else{
+                    Log.e("BalanceActivity", response);
+                    //plotGraph(response);
+
+
+                }
+            }, error -> {
+                //This code is executed if there is an error.
+                Log.e("BalanceActivity","error response");
+
+            }) {
+                protected Map<String, String> getParams() {
+                    Map<String, String> MyData = new HashMap<>();
+                    MyData.put("id", String.valueOf(user_id)); //Add the data you'd like to send to the server.
+                    MyData.put("request",String.valueOf(10));
+                    return MyData;
+                }
+            };
+
+            MyRequestQueue.add(MyStringRequest);
+        };
+
     }
 }
