@@ -22,16 +22,22 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.splitit.OnlineDatabase.OnlineDatabase;
+import com.example.splitit.RecyclerView.BalanceAdapter;
 import com.example.splitit.RecyclerView.GroupAdapter;
 import com.example.splitit.RecyclerView.OnItemListener;
+import com.example.splitit.RecyclerView.UserAdapter;
 import com.example.splitit.ViewModel.ListViewModel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class BalanceFragment extends Fragment {
 
     private String user_id= null;
+    private ArrayList<Float> balance=new ArrayList<>();
+    private BalanceAdapter adapter;
+    private RecyclerView recyclerView;
 
     @Nullable
     @Override
@@ -48,6 +54,7 @@ public class BalanceFragment extends Fragment {
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
             user_id = sharedPref.getString(getString(R.string.user_id),"-1");
             OnlineDatabase.execute(getUserBalance());
+            setRecyclerView(activity);
 
         }
 
@@ -56,6 +63,10 @@ public class BalanceFragment extends Fragment {
     private void setRecyclerView(final Activity activity){
         RecyclerView recyclerView = requireView().findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
+
+        this.adapter = new BalanceAdapter(activity, null, balance);
+        recyclerView.setAdapter(this.adapter);
+
     }
 
     public Runnable getUserBalance() {
@@ -74,7 +85,7 @@ public class BalanceFragment extends Fragment {
 
                 }else{
                     Log.e("BalanceActivity", response);
-                    //plotGraph(response);
+                    saveBalance(response);
 
 
                 }
@@ -94,5 +105,13 @@ public class BalanceFragment extends Fragment {
             MyRequestQueue.add(MyStringRequest);
         };
 
+    }
+
+    public void saveBalance(String response){
+        this.balance = Utilities.parseBalance(response, Long.valueOf(user_id));
+        if(this.balance.size()>0){
+            adapter.setData(balance);
+
+        }
     }
 }
