@@ -53,15 +53,17 @@ public class BalanceFragment extends Fragment {
             Utilities.stop=true;
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
             user_id = sharedPref.getString(getString(R.string.user_id),"-1");
-            OnlineDatabase.execute(getUserBalance());
             setRecyclerView(activity);
+            OnlineDatabase.execute(getUserBalance());
+
+
 
         }
 
     }
 
     private void setRecyclerView(final Activity activity){
-        RecyclerView recyclerView = requireView().findViewById(R.id.recyclerView);
+        recyclerView = requireView().findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
 
         this.adapter = new BalanceAdapter(activity, null, balance);
@@ -111,6 +113,8 @@ public class BalanceFragment extends Fragment {
         this.balance = Utilities.parseBalance(response, Long.valueOf(user_id));
         if(this.balance.size()>0){
             adapter.setData(balance);
+            Log.e("balance", "balance size>0");
+            adapter.notifyDataSetChanged();
 
         }
     }
