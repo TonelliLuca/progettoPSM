@@ -1,6 +1,8 @@
 package com.example.splitit;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -26,6 +28,7 @@ public class DialogQrcodeFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState){
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.MyDialog);
+        Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         View view = inflater.inflate(R.layout.qr_code, container, false);
         close_view = view.findViewById(R.id.close_dialog);
         user_code_view = view.findViewById(R.id.tv_user_code);

@@ -218,3 +218,17 @@ import java.util.Map;
          return false;
      }
  }
+
+ /*TODO password e username in capslock login
+        immagine gruppo
+        immagine profilo default
+        attaccare menu ai fragment (bilancio etc)
+        query per profilo utente dettagli
+        inserire una scroll view in profilo utente (?)
+        guardare grafica creazione gruppo per alternative
+        testare alternative card bilancio
+        verificare funzionamento controllo password
+        controllare grafico home
+        angolini qrcode
+
+  */
