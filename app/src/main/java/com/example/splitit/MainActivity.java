@@ -229,6 +229,6 @@ import java.util.Map;
         testare alternative card bilancio
         verificare funzionamento controllo password
         controllare grafico home
-        angolini qrcode
+
 
   */
