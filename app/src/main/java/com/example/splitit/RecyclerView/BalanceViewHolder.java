@@ -14,12 +14,13 @@ public class BalanceViewHolder extends RecyclerView.ViewHolder{
 
 
     TextView balanceVal;
-
+    TextView balanceName;
 
 
     public BalanceViewHolder(@NonNull View itemView) {
         super(itemView);
         this.balanceVal = itemView.findViewById(R.id.balance_val);
+        this.balanceName = itemView.findViewById(R.id.group_name);
 
     }
 }

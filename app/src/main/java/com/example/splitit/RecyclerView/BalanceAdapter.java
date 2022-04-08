@@ -17,6 +17,7 @@ public class BalanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private final Activity activity;
     private ArrayList<Float> balance;
+    private ArrayList<String> balanceName;
 
     public BalanceAdapter(Activity activity, OnItemListener listener, ArrayList<Float> balance){
         this.activity = activity;
@@ -45,6 +46,7 @@ public class BalanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         Log.e("balance","binding");
         BalanceViewHolder balanceViewHolder = (BalanceViewHolder) holder;
         balanceViewHolder.balanceVal.setText(this.balance.get(position).toString());
+        balanceViewHolder.balanceName.setText(this.balanceName.get(position));
 
     }
 
@@ -63,8 +65,9 @@ public class BalanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    public void setData(ArrayList<Float> bal){
+    public void setData(ArrayList<Float> bal, ArrayList<String> names){
         this.balance = bal;
+        this.balanceName = names;
 
     }
 }
