@@ -38,6 +38,7 @@ public class BalanceFragment extends Fragment {
     private ArrayList<Float> balance=new ArrayList<>();
     private BalanceAdapter adapter;
     private RecyclerView recyclerView;
+    private ArrayList<String> balanceName= new ArrayList<>();
 
     @Nullable
     @Override
@@ -110,9 +111,15 @@ public class BalanceFragment extends Fragment {
     }
 
     public void saveBalance(String response){
-        this.balance = Utilities.parseBalance(response, Long.valueOf(user_id));
+        ArrayList<String> balanceInfo = Utilities.parseBalance(response, Long.valueOf(user_id));
+        for (int i = 0; i<balanceInfo.size(); i++){
+            String[] info = balanceInfo.get(i).split("/");
+            this.balance.add(Float.valueOf(info[0]));
+            this.balanceName.add(info[1]);
+
+        }
         if(this.balance.size()>0){
-            adapter.setData(balance);
+            adapter.setData(balance,balanceName);
             Log.e("balance", "balance size>0");
             adapter.notifyDataSetChanged();
 

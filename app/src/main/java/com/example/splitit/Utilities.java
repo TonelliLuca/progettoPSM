@@ -140,8 +140,8 @@ public class Utilities {
 
     }
 
-    static ArrayList<Float> parseBalance(String s, long id){
-        ArrayList<Float> list = new ArrayList<>();
+    static ArrayList<String> parseBalance(String s, long id){
+        ArrayList<String> list = new ArrayList<>();
         //Log.e("UtilityP","parse User String s: "+s);
         try{
             JSONArray jArray= new JSONArray(s);
@@ -153,8 +153,9 @@ public class Utilities {
 
                     float val = (float) oneObject.getDouble("bilancio");
                     Long admin = oneObject.getLong("id_admin");
+                    String name = oneObject.getString("nome");
                     //Log.e("UtilityP","Row object params: Value:"+val+" admin:"+admin);
-                    list.add((id==admin)?val:val*-1);
+                    list.add((id==admin)?val+"/"+name:val*-1+"/"+name);
                 } catch (JSONException e) {
                     Log.e("UtilityP",e.getMessage());
                 }
