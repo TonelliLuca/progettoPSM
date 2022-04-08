@@ -29,7 +29,6 @@ public class DetailsGroupActivity extends AppCompatActivity {
         if (savedInstanceState == null)
             Utilities.insertFragment(this, new DetailsFragment(id, groupName, groupImage,userId, adminId), DetailsFragment.class.getSimpleName());
 
-
     }
 
     @Override
