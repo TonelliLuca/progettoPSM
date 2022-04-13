@@ -36,7 +36,7 @@ public class DetailsGroupActivity extends AppCompatActivity {
         super.onBackPressed();
         finish();
     }
-
+/*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -51,8 +51,9 @@ public class DetailsGroupActivity extends AppCompatActivity {
             } else {
                 // if the intentResult is not null we'll set
                 // the content and format of scan message
-                EditText userCode = findViewById(R.id.et_add_code);
-                userCode.setText(intentResult.getContents());
+                //EditText userCode = findViewById(R.id.et_add_code);
+                //userCode.setText(intentResult.getContents());
+
                 Log.e("ActivityDetails",intentResult.getContents());
                 Log.e("ActivityDetails",intentResult.getFormatName());
             }
@@ -60,4 +61,6 @@ public class DetailsGroupActivity extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
+ */
 }

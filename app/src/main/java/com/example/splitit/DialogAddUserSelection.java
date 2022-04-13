@@ -16,6 +16,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -34,6 +38,7 @@ import com.example.splitit.OnlineDatabase.OnlineDatabase;
 import com.example.splitit.RecyclerView.User;
 import com.example.splitit.ViewModel.AddUserViewModel;
 import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,12 +51,45 @@ public class DialogAddUserSelection extends DialogFragment{
     private Button submit;
     private final long groupId;
     private AddUserViewModel addUser;
+    private ActivityResultLauncher<Intent> resultLauncher;
+
 
     public DialogAddUserSelection(long groupId){
         super();
         this.groupId=groupId;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.resultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        IntentResult intentResult = IntentIntegrator.parseActivityResult( result.getResultCode(), result.getData());
+                        // if the intentResult is null then
+                        // toast a message as "cancelled"
+                        if (intentResult != null) {
+                            if (intentResult.getContents() == null) {
+                                Toast toast = Toast.makeText(getActivity().getBaseContext(), "Cancelled", Toast.LENGTH_SHORT);
+
+                                toast.show();
+                            } else {
+                                // if the intentResult is not null we'll set
+                                // the content and format of scan message
+                                //EditText userCode = findViewById(R.id.et_add_code);
+                                addCode.setText(intentResult.getContents());
+
+                                Log.e("ActivityDetails",intentResult.getContents());
+                                Log.e("ActivityDetails",intentResult.getFormatName());
+                            }
+                        }
+                    }
+                }
+        );
+        
+    }
 
     @NonNull
     @Override
@@ -60,6 +98,8 @@ public class DialogAddUserSelection extends DialogFragment{
         View view = inflater.inflate(R.layout.add_user_selection, container, false);
         return view;
     }
+
+
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -74,6 +114,7 @@ public class DialogAddUserSelection extends DialogFragment{
             submit.setOnClickListener(v ->{
                 if(! addCode.getText().toString().matches("")) {
                     OnlineDatabase.execute(addNewUser(view));
+                    Objects.requireNonNull(getDialog()).dismiss();
                 }else {
                     Toast toast = Toast.makeText(getContext(), "Please insert a Code or scan a QR code", Toast.LENGTH_LONG);
                     toast.show();
@@ -85,7 +126,10 @@ public class DialogAddUserSelection extends DialogFragment{
                 IntentIntegrator intentIntegrator = new IntentIntegrator(getActivity());
                 intentIntegrator.setPrompt("Scan a QR Code");
                 intentIntegrator.setOrientationLocked(false);
-                intentIntegrator.initiateScan();
+
+                resultLauncher.launch(intentIntegrator.createScanIntent());
+
+
 
             });
 
