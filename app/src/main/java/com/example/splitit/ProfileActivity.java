@@ -3,6 +3,9 @@ package com.example.splitit;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 
 import android.Manifest;
 import android.content.Intent;
@@ -32,6 +35,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.splitit.OnlineDatabase.OnlineDatabase;
+import com.example.splitit.ViewModel.AddUserViewModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
     //TODO numero gruppi, crediti, debiti
 
     ImageView userImageView;
-    private static final String ROOT_URL = "http://10.0.2.2/splitit/uploadImage.php";
+    private static final String ROOT_URL = "http://"+Utilities.IP+"/splitit/uploadImage.php";
     private static final int REQUEST_PERMISSIONS = 100;
     private static final int PICK_IMAGE_REQUEST =1 ;
     private Bitmap bitmap;
@@ -62,16 +66,42 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView tv_email;
     private TextView tv_user_name_small;
     private TextView tv_user_code;
+    private TextView groupCount;
+    private TextView totPay;
+    private TextView totRec;
+    private AddUserViewModel userInfo;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        user_id = sharedPref.getString(getString(R.string.user_id), "-1");
         setContentView(R.layout.activity_profile);
+        groupCount = findViewById(R.id.group_count);
+        totRec = findViewById(R.id.tot_rec);
+        totPay = findViewById(R.id.tot_pay);
+        userInfo = new ViewModelProvider((ViewModelStoreOwner) this).get(AddUserViewModel.class);
+        userInfo.countGroupToComplete(user_id).observe((LifecycleOwner) this, value -> {
+
+            groupCount.setText(value==null?"0":value);
+
+        });
+        userInfo.totalCountPayments(user_id).observe((LifecycleOwner) this, value -> {
+
+            totPay.setText(value==null?"0€":value+"€");
+
+        });
+        userInfo.totalCountReceived(user_id).observe((LifecycleOwner) this, value -> {
+
+            totRec.setText(value==null?"0€":value+"€");
+
+        });
+
 
         //initializing views
         userImageView =  findViewById(R.id.user_image);
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
         Utilities.getImage( sharedPref.getString(getString(R.string.user_id), "-1"), userImageView);
 
         tv_user_name = findViewById(R.id.tv_user_name);
@@ -223,7 +253,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             RequestQueue MyRequestQueue = Volley.newRequestQueue(this);
 
-            String URL = "http://10.0.2.2/splitit/comunication.php";
+            String URL = "http://"+Utilities.IP+"/splitit/comunication.php";
 
             //Create an error listener to handle errors appropriately.
             StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, response -> {

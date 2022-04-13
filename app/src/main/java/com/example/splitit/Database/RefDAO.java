@@ -49,6 +49,17 @@ public interface RefDAO {
     @Query(value = "UPDATE UserGroupCrossRef SET ref_pay = 1 WHERE group_id=:id")
     void payGroup(String id);
 
+    @Transaction
+    @Query(value = "SELECT COUNT(group_id) FROM UserGroupCrossRef WHERE user_id =:val AND ref_pay==0 ")
+    LiveData<String> countGroupToComplete(String val);
+
+    @Transaction
+    @Query(value = "SELECT SUM(ref_balance) from UserGroupCrossRef JOIN `group` ON `group`.group_id = UserGroupCrossRef.group_id WHERE  user_id=:val AND ref_pay==1")
+    LiveData<String> totalCountPayments(String val);
+
+    @Transaction
+    @Query(value = "SELECT SUM(ref_balance) from UserGroupCrossRef JOIN `group` ON `group`.group_id = UserGroupCrossRef.group_id WHERE   group_admin=:val AND group_complete==1")
+    LiveData<String> totalCountReceived(String val);
 
 
 }

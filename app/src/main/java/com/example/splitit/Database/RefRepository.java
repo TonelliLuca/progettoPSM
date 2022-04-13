@@ -55,8 +55,14 @@ public class RefRepository {
 
     }
 
+    public LiveData<String> countGroupToComplete( String id){return refDAO.countGroupToComplete(id);}
+
     public LiveData<List<Double>> getAllPayments(String userId){return refDAO.getAllPayments(userId);}
 
     public void payGroup(String id){refDAO.payGroup(id);}
+
+    public LiveData<String> totalCountReceived(String id){return refDAO.totalCountReceived(id);}
+
+    public LiveData<String> totalCountPayments(String id){return refDAO.totalCountPayments(id);}
 
 }

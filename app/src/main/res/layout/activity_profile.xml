@@ -59,17 +59,18 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Gruppi"
+                        android:text="Gruppi attivi"
                         android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="10dp"
-                        android:text="3"
+                        android:text="0"
                         android:textColor="#3F5AF3"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:id="@+id/group_count"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -81,17 +82,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Crediti"
-                        android:textSize="20sp"
-                        />
+                        android:text="Saldo Speso"
+                        android:textSize="20sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="50"
+                        android:text="0 €"
                         android:textStyle="bold"
                         android:textSize="20sp"
                         android:paddingTop="10dp"
-                        android:textColor="#3F5AF3"/>
+                        android:textColor="#3F5AF3"
+                        android:id="@+id/tot_pay"/>
                 </LinearLayout>
                 <LinearLayout
                     android:gravity="center"
@@ -102,17 +103,18 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Debiti"
+                        android:text="Saldo ricevuto"
                         android:textSize="20sp"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="12"
+                        android:text="0 €"
                         android:textStyle="bold"
                         android:textSize="20sp"
                         android:paddingTop="10dp"
-                        android:textColor="#3F5AF3"/>
+                        android:textColor="#3F5AF3"
+                        android:id="@+id/tot_rec"/>/>
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

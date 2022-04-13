@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class Utilities {
+    public static String IP="192.168.1.10";
     public static boolean stop=false;
     public static void insertFragment(AppCompatActivity activity, Fragment fragment, String tag) {
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
@@ -169,7 +170,7 @@ public class Utilities {
     }
 
     static  public void getImage(String name, ImageView iw){
-        Picasso.get().load("http://10.0.2.2/splitit/images/" + name+ ".png").memoryPolicy(MemoryPolicy.NO_CACHE).into(iw);
+        Picasso.get().load("http://"+IP+"/splitit/images/" + name+ ".png").memoryPolicy(MemoryPolicy.NO_CACHE).into(iw);
     }
 
     public static List<User> remapUserList(List<User> l, long adminId){

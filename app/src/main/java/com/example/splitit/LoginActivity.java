@@ -101,7 +101,7 @@ public class LoginActivity  extends AppCompatActivity {
         Runnable task = () -> {
 
             RequestQueue MyRequestQueue = Volley.newRequestQueue(this);
-            String URL = "http://10.0.2.2/splitit/login.php";
+            String URL = "http://"+Utilities.IP+"/splitit/login.php";
 
             StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override

@@ -294,7 +294,7 @@ public class DetailsStoreFragment extends Fragment implements OnItemListener, Na
         Runnable task = () -> {
 
             RequestQueue MyRequestQueue = Volley.newRequestQueue(this.getContext());
-            String URL = "http://10.0.2.2/splitit/comunication.php";
+            String URL = "http://"+Utilities.IP+"/splitit/comunication.php";
 
             StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
@@ -337,7 +337,7 @@ public class DetailsStoreFragment extends Fragment implements OnItemListener, Na
         Runnable task = () -> {
 
             RequestQueue MyRequestQueue = Volley.newRequestQueue(this.getContext());
-            String URL = "http://10.0.2.2/splitit/comunication.php";
+            String URL = "http://"+Utilities.IP+"/splitit/comunication.php";
 
             StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
@@ -387,7 +387,7 @@ public class DetailsStoreFragment extends Fragment implements OnItemListener, Na
         if(this.getContext() != null) {
             Runnable task = () -> {
                 RequestQueue MyRequestQueue = Volley.newRequestQueue(this.getContext());
-                String URL = "http://10.0.2.2/splitit/comunication.php";
+                String URL = "http://"+Utilities.IP+"/splitit/comunication.php";
 
                 StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                     @Override
@@ -521,7 +521,7 @@ public class DetailsStoreFragment extends Fragment implements OnItemListener, Na
         if(this.getContext() != null) {
             Runnable task = () -> {
                 RequestQueue MyRequestQueue = Volley.newRequestQueue(this.getContext());
-                String URL = "http://10.0.2.2/splitit/comunication.php";
+                String URL = "http://"+Utilities.IP+"/splitit/comunication.php";
 
                 StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                     @Override

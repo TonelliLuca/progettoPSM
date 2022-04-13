@@ -71,7 +71,7 @@ public class RegistrationActivity extends AppCompatActivity {
         public Runnable addUser(View view){
             Runnable task = () -> {
                 RequestQueue MyRequestQueue = Volley.newRequestQueue(this);
-                String url = "http://10.0.2.2/splitit/registration.php";
+                String url = "http://"+Utilities.IP+"/splitit/registration.php";
 
                 StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, response -> {
                     //This code is executed if the server responds, whether or not the response contains data.

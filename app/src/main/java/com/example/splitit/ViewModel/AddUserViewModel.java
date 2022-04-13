@@ -37,4 +37,7 @@ public class AddUserViewModel extends AndroidViewModel {
     public void addUser(User u){userRep.addUser(u);}
     public LiveData<List<Double>> getAllPayments(String userId){return refRep.getAllPayments(userId);}
     public void payGroup(String id ){refRep.payGroup(id);}
+    public LiveData<String> countGroupToComplete(String id){return refRep.countGroupToComplete(id);}
+    public LiveData<String> totalCountPayments(String id){return refRep.totalCountPayments(id);}
+    public LiveData<String> totalCountReceived(String id){return refRep.totalCountReceived(id);}
 }

@@ -176,7 +176,7 @@ import java.util.Map;
          Runnable task = () -> {
 
              RequestQueue MyRequestQueue = Volley.newRequestQueue(this);
-             String URL = "http://10.0.2.2/splitit/comunication.php";
+             String URL = "http://"+Utilities.IP+"/splitit/comunication.php";
 
              //Create an error listener to handle errors appropriately.
              StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, response -> {
