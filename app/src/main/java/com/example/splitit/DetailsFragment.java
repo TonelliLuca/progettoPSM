@@ -89,6 +89,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
     private Button btn_submit;
     private boolean admin=false;
     private long adminId;
+    private boolean closeFlag=false;
 
 
     public DetailsFragment(long groupId, String groupName, String groupImage, String userId, long adminId){
@@ -522,10 +523,12 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                         } else {
                             Log.e("DetailsFragment", response);
                             if(Utilities.parseClosing(response)){
+
                                 btn_send_balance.setEnabled(false);
                                 et_balance.setEnabled(false);
-                                Toast toast = Toast.makeText(getContext(), "L'admin ha confermato il gruppo, verrà spostato nello storico", Toast.LENGTH_LONG);
+                                Toast toast = Toast.makeText(getContext(), "L'admin ha confermato il gruppo, potrai visualizzarlo nello storico", Toast.LENGTH_LONG);
                                 toast.show();
+                                closeFlag = true;
                             }
 
                         }
@@ -597,7 +600,9 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                             if(getBalance()==null){
                                 handler.removeCallbacksAndMessages(null);
                             }
-                            OnlineDatabase.execute(verifyGroupClosing());
+                            if(!closeFlag) {
+                                OnlineDatabase.execute(verifyGroupClosing());
+                            }
                             OnlineDatabase.execute(getBalance());
                         } catch (Exception e){
                             e.printStackTrace();
