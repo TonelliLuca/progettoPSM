@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class Utilities {
-    public static String IP="10.0.2.2";
+    public static String IP="192.168.1.10";
     public static boolean stop=false;
     public static void insertFragment(AppCompatActivity activity, Fragment fragment, String tag) {
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
@@ -139,6 +139,30 @@ public class Utilities {
         }
         return list;
 
+    }
+
+    static boolean parseClosing(String s){
+        int val = -1;
+        try{
+            JSONArray jArray= new JSONArray(s);
+            Log.e("UtilityP","JSONArray length: "+jArray.length());
+
+            try {
+                JSONObject oneObject = jArray.getJSONObject(0);
+                // Pulling items from the array
+
+                val = oneObject.getInt("completo");
+
+            } catch (JSONException e) {
+                Log.e("UtilityP",e.getMessage());
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e("UtilityP",e.getMessage());
+
+        }
+        return val==1;
     }
 
     static ArrayList<String> parseBalance(String s, long id){

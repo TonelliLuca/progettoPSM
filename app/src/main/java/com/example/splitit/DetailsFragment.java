@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -520,8 +521,13 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
 
                         } else {
                             Log.e("DetailsFragment", response);
-                            if(response.equals("1"))
-                                requireActivity().getSupportFragmentManager().popBackStack();
+                            if(Utilities.parseClosing(response)){
+                                btn_send_balance.setEnabled(false);
+                                et_balance.setEnabled(false);
+                                Toast toast = Toast.makeText(getContext(), "L'admin ha confermato il gruppo, verrà spostato nello storico", Toast.LENGTH_LONG);
+                                toast.show();
+                            }
+
                         }
                     }
                 }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
