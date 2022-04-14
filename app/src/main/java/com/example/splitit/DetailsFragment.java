@@ -57,6 +57,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
@@ -322,6 +323,8 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
 
     }
 
+
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;
@@ -500,6 +503,55 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
 
     }
 
+    public Runnable verifyGroupClosing() {
+        if(this.getContext() != null) {
+            Runnable task = () -> {
+                RequestQueue MyRequestQueue = Volley.newRequestQueue(this.getContext());
+                String URL = "http://"+Utilities.IP+"/splitit/comunication.php";
+
+                StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //This code is executed if the server responds, whether or not the response contains data.
+                        //The String 'response' contains the server's response.
+
+                        if (response.equals("failure")) {
+                            Log.e("DetailsFragment", "failed");
+
+                        } else {
+                            Log.e("DetailsFragment", response);
+                            if(response.equals("1"))
+                                requireActivity().getSupportFragmentManager().popBackStack();
+                        }
+                    }
+                }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //This code is executed if there is an error.
+                        Log.e("DetailsFragment", "error response");
+
+                    }
+                }) {
+                    protected Map<String, String> getParams() {
+
+                        Map<String, String> MyData = new HashMap<String, String>();
+                        MyData.put("id", userId); //Add the data you'd like to send to the server.
+                        MyData.put("idGruppo", String.valueOf(groupId));
+                        MyData.put("request", String.valueOf(11));
+
+                        return MyData;
+                    }
+                };
+
+                MyRequestQueue.add(MyStringRequest);
+            };
+            return task;
+        }else{
+            return null;
+        }
+
+    }
+
 
     /*private void callAsynchronousTask() {
         final Handler handler = new Handler();
@@ -539,6 +591,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                             if(getBalance()==null){
                                 handler.removeCallbacksAndMessages(null);
                             }
+                            OnlineDatabase.execute(verifyGroupClosing());
                             OnlineDatabase.execute(getBalance());
                         } catch (Exception e){
                             e.printStackTrace();
@@ -585,6 +638,8 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
         }
 
     }
+
+
 
     public Runnable payGroupOnline() {
         if(this.getContext() != null) {

@@ -223,7 +223,6 @@ import java.util.Map;
         immagine gruppo
         immagine profilo default
         attaccare menu ai fragment (bilancio etc)
-        query per profilo utente dettagli
         inserire una scroll view in profilo utente (?)
         guardare grafica creazione gruppo per alternative
         testare alternative card bilancio

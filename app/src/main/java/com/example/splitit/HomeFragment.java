@@ -292,14 +292,17 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
             }
         }
         ArrayList<UserGroupCrossRef> listRef = Utilities.parseUserGroupCrossRef(s);
-        //Log.e(LOG,"Ref num:"+list.size());
+
         if(listRef.size()>0){
             for(int i = 0; i<listRef.size();i++){
                 UserGroupCrossRef r = listRef.get(i);
+
+
                 addUser.addNewRef(r);
 
             }
         }
+
     }
 
     public Runnable getActualUser() {

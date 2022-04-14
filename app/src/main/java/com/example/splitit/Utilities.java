@@ -174,20 +174,23 @@ public class Utilities {
     }
 
     public static List<User> remapUserList(List<User> l, long adminId){
+        Log.e("Ut",l.size()+"");
+        if(l.size()>1) {
+            User admin = null;
+            for (int i = 0; i < l.size(); i++) {
+                if (Long.compare(l.get(i).getId(), adminId) == 0) {
+                    admin = l.get(i);
+                    l.remove(i);
 
-        User admin = null;
-        for (int i = 0; i < l.size(); i++) {
-            if(Long.compare(l.get(i).getId(), adminId)==0){
-                admin = l.get(i);
-                l.remove(i);
-
+                }
             }
-        }
-        List<User> u = new ArrayList<>();
-        u.add(admin);
-        u.addAll(l);
+            List<User> u = new ArrayList<>();
+            u.add(admin);
+            u.addAll(l);
 
-        return u;
+            return u;
+        }
+        return l;
 
 
 

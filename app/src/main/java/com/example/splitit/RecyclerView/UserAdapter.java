@@ -48,6 +48,9 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public int getItemViewType(int position) {
         // based on you list you will return the ViewType
+        if(userItemList.size()==1 && userItemList.get(0).getId()!=admin_id){
+            return 1;
+        }
         if (position == 0) {
             return 0;
         } else {
