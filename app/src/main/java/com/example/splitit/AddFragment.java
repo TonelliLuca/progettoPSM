@@ -3,10 +3,13 @@ package com.example.splitit;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -24,6 +27,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
@@ -49,8 +53,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
-public class AddFragment extends Fragment {
+public class AddFragment extends DialogFragment {
 
     private static final int REQUEST_PERMISSIONS = 100;
     private static final int PICK_IMAGE_REQUEST =1 ;
@@ -63,6 +68,8 @@ public class AddFragment extends Fragment {
 
 
     public View onCreateView(@NonNull  LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle sevedInstanceState){
+        setStyle(DialogFragment.STYLE_NO_TITLE, R.style.MyDialog);
+        Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         return inflater.inflate(R.layout.add_group, container, false);
     }
 
@@ -71,20 +78,22 @@ public class AddFragment extends Fragment {
         final Activity activity=getActivity();
 
         if(activity!=null){
+
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
             userId = Long.valueOf(sharedPref.getString(getString(R.string.user_id),"-1"));
             AddViewModel addViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddViewModel.class);
             AddUserViewModel addUserRef = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddUserViewModel.class);
             Utilities.setUpToolbar((AppCompatActivity) activity, "Make a group");
-            nameText = activity.findViewById(R.id.groupNameAdd);
-            groupImage = activity.findViewById(R.id.image_group_add);
+            nameText = view.findViewById(R.id.groupNameAdd);
+            groupImage = view.findViewById(R.id.image_group_add);
 
             view.findViewById(R.id.buttonAdd).setOnClickListener(v -> {
                 OnlineDatabase.execute(addGroupOnline(view));
 
                 if (checkAdd()) {
-
-                    ((AppCompatActivity) activity).getSupportFragmentManager().popBackStack();
+                    Utilities.setUpToolbar((AppCompatActivity) activity, "SplitIt");
+                    Objects.requireNonNull(this.getDialog()).dismiss();
+                    //((AppCompatActivity) activity).getSupportFragmentManager().popBackStack();
 
                 } else {
                     Snackbar snackbar_error = Snackbar.make(view, R.string.error_login, Snackbar.LENGTH_SHORT);
@@ -135,7 +144,7 @@ public class AddFragment extends Fragment {
     public Runnable addGroupOnline(View view) {
         Runnable task = () -> {
 
-            RequestQueue MyRequestQueue = Volley.newRequestQueue(this.getContext());
+            RequestQueue MyRequestQueue = Volley.newRequestQueue(this.requireContext());
             String URL = "http://"+Utilities.IP+"/splitit/comunication.php";
 
             StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
@@ -182,6 +191,12 @@ public class AddFragment extends Fragment {
         };
         return task;
 
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        Utilities.setUpToolbar((AppCompatActivity) getActivity(),"SplitIt");
     }
 
     private void setLastId(String s){

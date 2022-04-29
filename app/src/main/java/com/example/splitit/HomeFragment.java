@@ -215,10 +215,13 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
                 //Log.e("LineChart",String.valueOf(doubles.size()));
             });
 
+
+
             FloatingActionButton floatingActionButton = view.findViewById(R.id.fab_add);
             floatingActionButton.setOnClickListener(v -> 
-                    Utilities.insertFragment((AppCompatActivity) activity, new AddFragment(), "AddFragment"));
+                    //Utilities.insertFragment((AppCompatActivity) activity, new AddFragment(), "AddFragment"));
 
+                    new AddFragment().show(getChildFragmentManager(), "add_group"));
             this.callAsynchronousTask();
 
         }else{
