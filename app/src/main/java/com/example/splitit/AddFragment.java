@@ -66,7 +66,7 @@ import java.util.Objects;
 
 public class AddFragment extends DialogFragment {
 
-    private static final String ROOT_URL = "http://10.0.2.2/splitit/uploadGroupImage.php";
+    private static final String ROOT_URL = "http://"+Utilities.IP+"/splitit/uploadGroupImage.php";
     private static final int REQUEST_PERMISSIONS = 100;
     private static final int PICK_IMAGE_REQUEST =1 ;
     ImageView groupImage;
