@@ -59,6 +59,7 @@ import com.google.android.material.snackbar.Snackbar;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -100,7 +101,7 @@ public class AddFragment extends DialogFragment {
             requestQueue.start();
 
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
-            userId = Long.valueOf(sharedPref.getString(getString(R.string.user_id),"-1"));
+            userId = Long.parseLong(sharedPref.getString(getString(R.string.user_id),"-1"));
             AddViewModel addViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddViewModel.class);
             AddUserViewModel addUserRef = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddUserViewModel.class);
             Utilities.setUpToolbar((AppCompatActivity) activity, "Make a group");
@@ -226,13 +227,18 @@ public class AddFragment extends DialogFragment {
         return path;
     }
 
+    public byte[] getFileDataFromDrawable(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
+    }
+
     private void uploadGroupBitmap(final Bitmap bitmap) {
 
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, ROOT_URL,
                 new Response.Listener<NetworkResponse>() {
                     @Override
                     public void onResponse(NetworkResponse response) {
-                        System.out.println("YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEESSSSSSSSSSSSSSSS");
                         //JSONArray obj = new JSONArray(new String(response.data));
                         String string = new String(response.data);
                         //makeText(requireContext().getApplicationContext(),"Caricamento completato", Toast.LENGTH_SHORT).show();
@@ -264,7 +270,7 @@ public class AddFragment extends DialogFragment {
             protected Map<String, DataPart> getByteData() {
                 Map<String, DataPart> params = new HashMap<>();
                 //System.currentTimeMillis()
-                //params.put("image", new DataPart(group + ".png", getFileDataFromDrawable(bitmap)));
+                params.put("image", new DataPart(nameText.getText() + ".png", getFileDataFromDrawable(bitmap)));
                 return params;
             }
         };

@@ -14,6 +14,7 @@
     <color name="transparent">#003C2251</color>
     <color name="lineChart">#005357</color>
     <color name="lineChart_background">#373741</color>
+    <drawable name="radius_gradient"></drawable>
     <!-- Lottie colors-->
     <color name="purple">#ba53de</color>
     <color name="pink">#f469a9</color>

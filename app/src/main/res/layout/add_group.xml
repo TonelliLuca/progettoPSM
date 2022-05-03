@@ -1,55 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/background">
+    android:background="@color/transparent">
 
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:background="@drawable/dialog_background"
+    android:layout_margin="10dp">
 
-    <EditText
-        android:id="@+id/groupNameAdd"
-        android:layout_width="238dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="86dp"
-        android:layout_marginLeft="86dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="87dp"
-        android:layout_marginRight="87dp"
-        android:background="@drawable/text_view_shape"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="@string/enter_group_name"
-        android:inputType="textPersonName"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_group_add" />
-
-    <ImageView
-        android:id="@+id/image_group_add"
-        android:layout_width="120dp"
-        android:layout_height="112dp"
-        android:layout_marginStart="145dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="146dp"
-        android:contentDescription="@string/group_image"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_group_24"
-        tools:srcCompat="@drawable/ic_baseline_group_24" />
-
-    <Button
-        android:id="@+id/buttonAdd"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/groupNameAdd"
-        android:text="@string/add_group" />
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/image_group_add"
+            android:layout_margin="25dp"
+            android:layout_width="120dp"
+            android:layout_height="112dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/group_image"
+            app:srcCompat="@drawable/ic_baseline_group_24"
+            tools:srcCompat="@drawable/ic_baseline_group_24" />
+
+
+        <EditText
+            android:id="@+id/groupNameAdd"
+            android:layout_width="272dp"
+            android:layout_height="52dp"
+            android:background="@drawable/text_view_shape"
+            android:ems="10"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:hint="@string/enter_group_name"
+            android:inputType="textPersonName"
+            android:textColor="@color/white" />
+
+        <Button
+            android:layout_width="190dp"
+            android:layout_height="50dp"
+            android:id="@+id/buttonAdd"
+            android:background="@drawable/button_style"
+            android:text="Aggiungi"
+            android:layout_gravity="center"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:layout_margin="25dp"/>
+    </LinearLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
