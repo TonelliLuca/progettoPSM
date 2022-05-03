@@ -10,12 +10,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-<<<<<<< Updated upstream
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-=======
 import android.graphics.Bitmap;
->>>>>>> Stashed changes
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -93,20 +90,15 @@ public class AddFragment extends DialogFragment {
         final Activity activity=getActivity();
 
         if(activity!=null){
-<<<<<<< Updated upstream
 
-=======
             // Instantiate the cache
             Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 10240 * 10240); // 10MB cap
-
             // Set up the network to use HttpURLConnection as the HTTP client.
             Network network = new BasicNetwork(new HurlStack());
-
             // Instantiate the RequestQueue with the cache and network.
             requestQueue = new RequestQueue(cache, network);
-
             requestQueue.start();
->>>>>>> Stashed changes
+
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
             userId = Long.valueOf(sharedPref.getString(getString(R.string.user_id),"-1"));
             AddViewModel addViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddViewModel.class);
@@ -126,7 +118,7 @@ public class AddFragment extends DialogFragment {
                 } else {
                     Snackbar snackbar_error = Snackbar.make(view, R.string.error_login, Snackbar.LENGTH_SHORT);
                     View snackbar_error_view = snackbar_error.getView();
-                    snackbar_error_view.setBackgroundColor(ContextCompat.getColor(activity, R.color.design_default_color_error));
+                    snackbar_error_view.setBackgroundColor(ContextCompat.getColor(activity, R.color.balance_neg));
                     snackbar_error.show();
                 }
             });
