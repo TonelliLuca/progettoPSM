@@ -1,5 +1,7 @@
 package com.example.splitit;
 
+import static android.widget.Toast.makeText;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -8,8 +10,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+<<<<<<< Updated upstream
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+=======
+import android.graphics.Bitmap;
+>>>>>>> Stashed changes
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -34,10 +40,16 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
+import com.android.volley.Cache;
+import com.android.volley.Network;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.splitit.Database.UserGroupCrossRef;
@@ -57,13 +69,16 @@ import java.util.Objects;
 
 public class AddFragment extends DialogFragment {
 
+    private static final String ROOT_URL = "http://10.0.2.2/splitit/uploadGroupImage.php";
     private static final int REQUEST_PERMISSIONS = 100;
     private static final int PICK_IMAGE_REQUEST =1 ;
     ImageView groupImage;
+    private Bitmap groupBitmap;
     private EditText nameText;
     private long lastId=0;
     private long userId;
     private String filePath;
+    RequestQueue requestQueue;
 
 
 
@@ -78,7 +93,20 @@ public class AddFragment extends DialogFragment {
         final Activity activity=getActivity();
 
         if(activity!=null){
+<<<<<<< Updated upstream
 
+=======
+            // Instantiate the cache
+            Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 10240 * 10240); // 10MB cap
+
+            // Set up the network to use HttpURLConnection as the HTTP client.
+            Network network = new BasicNetwork(new HurlStack());
+
+            // Instantiate the RequestQueue with the cache and network.
+            requestQueue = new RequestQueue(cache, network);
+
+            requestQueue.start();
+>>>>>>> Stashed changes
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
             userId = Long.valueOf(sharedPref.getString(getString(R.string.user_id),"-1"));
             AddViewModel addViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddViewModel.class);
@@ -109,10 +137,10 @@ public class AddFragment extends DialogFragment {
 
             @Override
             public void onClick(View view) {
-                if ((ContextCompat.checkSelfPermission(getContext(),
+                if ((ContextCompat.checkSelfPermission(requireContext(),
                         Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) && (ContextCompat.checkSelfPermission(getContext(),
                         Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
-                    if ((ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    if ((ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
                             Manifest.permission.WRITE_EXTERNAL_STORAGE)) && (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
                             Manifest.permission.READ_EXTERNAL_STORAGE))) {
 
@@ -135,6 +163,123 @@ public class AddFragment extends DialogFragment {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+    /*
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST
+                && resultCode == Activity.RESULT_OK) {
+            String path = getPathFromCameraData(data, this.getActivity());
+            Log.i("PICTURE", "Path: " + path);
+            if (path != null) {
+                //setFullImageFromFilePath(mImgProfile, path);
+            }
+        }
+    }
+
+    public static String getPathFromCameraData(Intent data, Context context) {
+        Uri selectedImage = data.getData();
+        String[] filePathColumn = { MediaStore.Images.Media.DATA };
+        Cursor cursor = context.getContentResolver().query(selectedImage,
+                filePathColumn, null, null, null);
+        cursor.moveToFirst();
+        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+        String picturePath = cursor.getString(columnIndex);
+        cursor.close();
+        return picturePath;
+    }*/
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST
+                && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
+            Uri picUri = data.getData();
+            filePath = getPath(picUri);
+            if (filePath != null) {
+                try {
+                    Log.d("filePath", filePath);
+                    groupBitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(), picUri);
+
+                    //OnlineDatabase.execute(setUserImageName());
+                    groupImage.setImageBitmap(groupBitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            else
+            {
+                makeText(
+                        getContext(),"no image selected",
+                        Toast.LENGTH_LONG).show();
+            }
+        }
+
+    }
+    public String getPath(Uri uri) {
+        Cursor cursor = requireContext().getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        String document_id = cursor.getString(0);
+        document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
+        cursor.close();
+
+        cursor = requireContext().getContentResolver().query(
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
+        cursor.moveToFirst();
+        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+        cursor.close();
+        Log.e("ADD", path);
+        return path;
+    }
+
+    private void uploadGroupBitmap(final Bitmap bitmap) {
+
+        VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, ROOT_URL,
+                new Response.Listener<NetworkResponse>() {
+                    @Override
+                    public void onResponse(NetworkResponse response) {
+                        System.out.println("YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEESSSSSSSSSSSSSSSS");
+                        //JSONArray obj = new JSONArray(new String(response.data));
+                        String string = new String(response.data);
+                        //makeText(requireContext().getApplicationContext(),"Caricamento completato", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println( error.getMessage());
+                        //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                        Log.e("GotError",""+error.getMessage());
+                        Log.d("GotError", "Failed with error msg:\t" + error.getMessage());
+                        Log.d("GotError", "Error StackTrace: \t" + error.getStackTrace());
+                        // edited here
+                        try {
+                            byte[] htmlBodyBytes = error.networkResponse.data;
+                            Log.e("GotError", new String(htmlBodyBytes), error);
+                        } catch (NullPointerException e) {
+                            e.printStackTrace();
+                        }
+                        if (error.getMessage() == null){
+
+                        }
+                    }
+                }) {
+
+
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> params = new HashMap<>();
+                //System.currentTimeMillis()
+                //params.put("image", new DataPart(group + ".png", getFileDataFromDrawable(bitmap)));
+                return params;
+            }
+        };
+
+        //adding the request to volley
+        requestQueue.add(volleyMultipartRequest);
+
     }
 
     public boolean checkAdd(){
@@ -159,6 +304,7 @@ public class AddFragment extends DialogFragment {
                     }else{
                         Log.e("AddFragment", response);
                         setLastId(response);
+                        uploadGroupBitmap(groupBitmap);
                     }
                 }
             }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
@@ -187,7 +333,7 @@ public class AddFragment extends DialogFragment {
                 }
             };
 
-            MyRequestQueue.add(MyStringRequest);
+            requestQueue.add(MyStringRequest);
         };
         return task;
 
