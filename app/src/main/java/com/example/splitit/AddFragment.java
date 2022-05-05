@@ -10,7 +10,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -76,7 +78,9 @@ public class AddFragment extends DialogFragment {
     private long lastId=0;
     private long userId;
     private String filePath;
+
     RequestQueue requestQueue;
+
 
 
 
@@ -185,9 +189,8 @@ public class AddFragment extends DialogFragment {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_IMAGE_REQUEST
-                && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
+        Log.e("filePath","enter");
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
             Uri picUri = data.getData();
             filePath = getPath(picUri);
             if (filePath != null) {
@@ -199,14 +202,17 @@ public class AddFragment extends DialogFragment {
                     groupImage.setImageBitmap(groupBitmap);
                 } catch (IOException e) {
                     e.printStackTrace();
+                    Log.e("filePath","aaaaaa");
                 }
-            }
-            else
+            }else
             {
+                Log.e("filePath","bbbbbbbb");
                 makeText(
                         getContext(),"no image selected",
                         Toast.LENGTH_LONG).show();
             }
+        }else{
+            Log.e("filePath","out");
         }
 
     }
@@ -223,12 +229,17 @@ public class AddFragment extends DialogFragment {
         cursor.moveToFirst();
         String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
         cursor.close();
-        Log.e("ADD", path);
+        Log.e("ADDpath", path);
         return path;
     }
 
     public byte[] getFileDataFromDrawable(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        if(bitmap == null){
+            //bitmap = Bitmap.createBitmap(groupImage.getDrawable().getIntrinsicWidth(), groupImage.getDrawable().getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            BitmapDrawable drawable = (BitmapDrawable) groupImage.getDrawable();
+            bitmap = drawable.getBitmap();
+        }
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, byteArrayOutputStream);
         return byteArrayOutputStream.toByteArray();
     }
