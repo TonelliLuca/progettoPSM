@@ -138,7 +138,7 @@ public class AddFragment extends DialogFragment {
                             Manifest.permission.READ_EXTERNAL_STORAGE))) {
 
                     } else {
-                        ActivityCompat.requestPermissions(getActivity(),
+                        ActivityCompat.requestPermissions(requireActivity(),
                                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
                                 REQUEST_PERMISSIONS);
                     }

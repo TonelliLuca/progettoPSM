@@ -4,27 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background_login"
+    >
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/layoutRegistration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_login">
+            android:gravity="center"
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="387dp"
+                android:layout_height="73dp"
+                android:layout_marginTop="45dp"
+                android:layout_marginBottom="48dp"
+                android:gravity="center"
+                android:text="@string/registration_tv"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
 
             <EditText
                 android:id="@+id/editTextTextEmailAddress"
                 android:layout_width="252dp"
                 android:layout_height="48dp"
-                android:layout_marginTop="48dp"
                 android:drawableStart="@android:drawable/ic_dialog_email"
-                android:drawableLeft="@android:drawable/ic_dialog_email"
                 android:ems="10"
                 android:gravity="center"
                 android:hint="@string/la_tua_email"
@@ -41,7 +53,6 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="48dp"
                 android:drawableStart="@drawable/ic_baseline_person_24"
-                android:drawableLeft="@drawable/ic_baseline_person_24"
                 android:ems="10"
                 android:gravity="center"
                 android:hint="@string/nome_utente"
@@ -51,21 +62,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="387dp"
-                android:layout_height="73dp"
-                android:layout_marginTop="45dp"
-                android:layout_marginBottom="48dp"
-                android:gravity="center"
-                android:text="@string/registration_tv"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="30sp"
-                app:layout_constraintBottom_toTopOf="@+id/editTextNomeUtente"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/editTextTextPassword"
@@ -114,7 +110,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/etPasswordRegistrationCheck"
                 app:layout_constraintVertical_bias="1.0" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </ScrollView>
 
