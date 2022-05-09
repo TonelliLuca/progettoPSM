@@ -3,20 +3,26 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/drawable/ic_baseline_group_24.xml" value="0.1055" />
         <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/layout/activity_balance.xml" value="0.20572916666666666" />
         <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/layout/activity_balance_layout.xml" value="0.23020833333333332" />
         <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/layout/activity_camera.xml" value="0.29375" />
         <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/layout/activity_details.xml" value="0.286231884057971" />
         <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/layout/activity_main.xml" value="0.23020833333333332" />
         <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/layout/activity_profile.xml" value="0.17814726840855108" />
+        <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/layout/activity_registrarion2.xml" value="0.1" />
         <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/layout/activity_settings.xml" value="0.286231884057971" />
         <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/layout/activity_splash.xml" value="0.25677083333333334" />
+        <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/layout/activity_splash2.xml" value="0.1" />
+        <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/layout/activity_store.xml" value="0.24427083333333333" />
         <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/layout/add_group.xml" value="0.28125" />
         <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/layout/add_user_selection.xml" value="0.286231884057971" />
+        <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/layout/admin_card_layout.xml" value="0.24427083333333333" />
         <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/layout/balance_card_negative.xml" value="0.17831813576494426" />
         <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/layout/balance_card_positive.xml" value="0.33" />
         <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/layout/balance_view.xml" value="0.1" />
         <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/layout/detailed_group.xml" value="0.25677083333333334" />
+        <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/layout/detailed_storic.xml" value="0.24427083333333333" />
         <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/layout/detailed_user.xml" value="0.29375" />
         <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/layout/fab_add.xml" value="0.286231884057971" />
         <entry key="..\:/Users/erag0/Desktop/University/psm/progettoPSM/app/src/main/res/layout/group_layout.xml" value="0.29375" />

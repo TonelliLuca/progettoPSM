@@ -224,7 +224,6 @@ import java.util.Map;
         immagine profilo default
         attaccare menu ai fragment (bilancio etc)
         inserire una scroll view in profilo utente (?)
-        guardare grafica creazione gruppo per alternative
         testare alternative card bilancio
         verificare funzionamento controllo password
         controllare grafico home
