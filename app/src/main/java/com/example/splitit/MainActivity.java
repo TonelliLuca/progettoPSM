@@ -105,6 +105,12 @@ import java.util.Map;
                      editor.apply();
                      finish();  //Kill the activity from which you will go to next activity
                      startActivity(intentRegistration);
+                 }else if(id == R.id.nav_bilancio){
+                     Intent intentRegistration = new Intent(MainActivity.this, BalanceActivity.class);
+                     startActivity(intentRegistration);
+                 }else if(id == R.id.nav_storico){
+                     Intent intentRegistration = new Intent(MainActivity.this, StoreActivity.class);
+                     startActivity(intentRegistration);
                  }
                  drawerLayout.closeDrawer(GravityCompat.START);
                  return true;

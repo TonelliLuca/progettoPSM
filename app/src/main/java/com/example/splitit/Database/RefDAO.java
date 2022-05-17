@@ -7,22 +7,11 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
-import androidx.room.Update;
 
 import java.util.List;
 
 @Dao
 public interface RefDAO {
-    /*
-    @Transaction
-    @Query("SELECT * FROM user")
-    public LiveData<List<GroupWithUsers>> getUsersWithGroup();
-
-    @Transaction
-    @Query("SELECT * FROM `group`")
-    public LiveData<List<UsersWithGroup>> getGroupWithUsers();
-
-*/
     @Transaction
     @Query(value = "SELECT * FROM 'group' WHERE group_id=:val ")
     LiveData<List<GroupWithUsers>> getUserFromGroup(String val);

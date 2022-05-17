@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class Utilities {
-    public static String IP="192.168.1.157";
+    public static String IP="10.0.2.2";
     public static boolean stop=false;
     public static void insertFragment(AppCompatActivity activity, Fragment fragment, String tag) {
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();

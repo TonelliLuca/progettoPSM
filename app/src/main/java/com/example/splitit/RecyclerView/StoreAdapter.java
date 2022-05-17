@@ -48,7 +48,10 @@ public class StoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public int getItemViewType(int position) {
         // based on you list you will return the ViewType
-        if (position == 0) {
+        if(userItemList.size()==1 && userItemList.get(position).getId()!=admin_id){
+            return 1;
+        }
+        if (userItemList.get(position).getId()==admin_id) {
             return 0;
         } else {
             return 1;

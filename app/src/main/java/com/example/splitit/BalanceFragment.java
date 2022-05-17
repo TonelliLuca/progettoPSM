@@ -40,6 +40,7 @@ public class BalanceFragment extends Fragment {
     private RecyclerView recyclerView;
     private ArrayList<String> balanceName= new ArrayList<>();
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflate, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){

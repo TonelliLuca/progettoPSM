@@ -29,25 +29,13 @@ public class GroupRepository {
 
     public void addGroupItem(final GroupItem groupItem){
 
-        SplititDatabase.databaseWriterExecutor.execute(new Runnable(){
-            @Override
-            public void run() {
-                groupItemDAO.addGroupItem(groupItem);
-
-            }
-        });
+        SplititDatabase.databaseWriterExecutor.execute(() -> groupItemDAO.addGroupItem(groupItem));
     }
 
     public LiveData<Long> getLastId(){return lastId; }
 
     public void removeGroup(GroupItem g){
-        SplititDatabase.databaseWriterExecutor.execute(new Runnable(){
-            @Override
-            public void run() {
-                groupItemDAO.removeGroup(g);
-
-            }
-        });
+        SplititDatabase.databaseWriterExecutor.execute(() -> groupItemDAO.removeGroup(g));
     }
 
     public LiveData<Long> getGroupAdmin(String id){return groupItemDAO.getGroupAdmin(id);}
