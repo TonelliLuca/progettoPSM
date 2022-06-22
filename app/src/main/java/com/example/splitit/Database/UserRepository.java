@@ -21,21 +21,11 @@ public class UserRepository {
     public LiveData<List<User>> getUserList(){return userList;}
 
     public void addUser(final User user){
-        SplititDatabase.databaseWriterExecutor.execute(new Runnable(){
-            @Override
-            public void run() {
-                userDAO.addUser(user);
-            }
-        });
+        SplititDatabase.databaseWriterExecutor.execute(() -> userDAO.addUser(user));
     }
 
     public void deleteUser(final User user){
-        SplititDatabase.databaseWriterExecutor.execute(new Runnable(){
-            @Override
-            public void run() {
-                userDAO.removeUser(user);
-            }
-        });
+        SplititDatabase.databaseWriterExecutor.execute(() -> userDAO.removeUser(user));
     }
 
 

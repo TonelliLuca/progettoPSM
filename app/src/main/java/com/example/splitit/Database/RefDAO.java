@@ -31,7 +31,7 @@ public interface RefDAO {
     UserGroupCrossRef searchSpecRef(String groupId,String userId);
 
     @Transaction
-    @Query(value = "SELECT ref_balance FROM UserGroupCrossRef WHERE  user_id=:val AND ref_pay==1")
+    @Query(value = "SELECT SUM(ref_balance) from UserGroupCrossRef JOIN `group` ON `group`.group_id = UserGroupCrossRef.group_id WHERE   group_admin=:val AND group_complete==1 GROUP BY UserGroupCrossRef.group_id")
     LiveData<List<Double>> getAllPayments(String val);
 
     @Transaction

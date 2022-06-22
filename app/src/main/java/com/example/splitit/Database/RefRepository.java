@@ -16,19 +16,13 @@ public class RefRepository {
     public RefRepository(Application application){
         SplititDatabase db = SplititDatabase.getDatabase(application);
         refDAO = db.refDAO();
-        //userList = refDAO.getUsersWithGroup();
-        //groupList= refDAO.getGroupWithUsers();
+
     }
 
     public LiveData<List<UsersWithGroup>> getUsersGroupList(){return userList;}
 
     public void addRef(final UserGroupCrossRef ref){
-        SplititDatabase.databaseWriterExecutor.execute(new Runnable(){
-            @Override
-            public void run() {
-                refDAO.addRef(ref);
-            }
-        });
+        SplititDatabase.databaseWriterExecutor.execute(() -> refDAO.addRef(ref));
     }
 
     public LiveData<List<GroupWithUsers>> searchUsers(long val){
@@ -40,12 +34,7 @@ public class RefRepository {
     }
 
     public void removeRef(UserGroupCrossRef ref){
-        SplititDatabase.databaseWriterExecutor.execute(new Runnable(){
-            @Override
-            public void run() {
-                refDAO.removeRef(ref);
-            }
-        });
+        SplititDatabase.databaseWriterExecutor.execute(() -> refDAO.removeRef(ref));
     }
     
     public UserGroupCrossRef searchSpecRef(long groupId,long userId){

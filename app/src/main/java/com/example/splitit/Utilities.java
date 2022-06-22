@@ -3,7 +3,6 @@ package com.example.splitit;
 
 
 import android.util.Log;
-import android.util.Pair;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,9 +22,8 @@ import org.json.JSONObject;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Stream;
+
 
 public class Utilities {
     public static String IP="10.0.2.2";
@@ -177,7 +175,7 @@ public class Utilities {
                     // Pulling items from the array
 
                     float val = (float) oneObject.getDouble("bilancio");
-                    Long admin = oneObject.getLong("id_admin");
+                    long admin = oneObject.getLong("id_admin");
                     String name = oneObject.getString("nome");
                     //Log.e("UtilityP","Row object params: Value:"+val+" admin:"+admin);
                     list.add((id==admin)?val+"/"+name:val*-1+"/"+name);
@@ -202,7 +200,7 @@ public class Utilities {
         if(l.size()>1) {
             User admin = null;
             for (int i = 0; i < l.size(); i++) {
-                if (Long.compare(l.get(i).getId(), adminId) == 0) {
+                if (l.get(i).getId() == adminId) {
                     admin = l.get(i);
                     l.remove(i);
 

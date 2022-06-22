@@ -2,22 +2,14 @@ package com.example.splitit.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.preference.PreferenceManager;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.splitit.R;
-import com.example.splitit.Utilities;
-import com.example.splitit.ViewModel.AddUserViewModel;
+
 
 public class GeneralViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
     ImageView userImage;

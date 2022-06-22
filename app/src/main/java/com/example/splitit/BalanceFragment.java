@@ -12,9 +12,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
@@ -23,10 +20,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.splitit.OnlineDatabase.OnlineDatabase;
 import com.example.splitit.RecyclerView.BalanceAdapter;
-import com.example.splitit.RecyclerView.GroupAdapter;
-import com.example.splitit.RecyclerView.OnItemListener;
-import com.example.splitit.RecyclerView.UserAdapter;
-import com.example.splitit.ViewModel.ListViewModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;

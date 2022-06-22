@@ -1,20 +1,15 @@
 package com.example.splitit;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.animation.Animator;
-import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Build;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
-
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieDrawable;
 
-import java.io.IOException;
+
 
 
 public class SplashActivity extends AppCompatActivity {

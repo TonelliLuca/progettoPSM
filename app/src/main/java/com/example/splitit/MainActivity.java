@@ -5,44 +5,25 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.splitit.OnlineDatabase.OnlineDatabase;
 import com.google.android.material.navigation.NavigationView;
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.Picasso;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,31 +72,27 @@ import java.util.Map;
 
          navigationView.setCheckedItem(R.id.nav_home);
 
-         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-             @Override
-             public boolean onNavigationItemSelected(MenuItem menuItem) {
-                 int id = menuItem.getItemId();
-                 if (id == R.id.nav_dashboard) {
-                     loadMenuFragment(new DetailsUserFragment());
-                 }else if(id == R.id.nav_logout){
-                     Intent intentRegistration = new Intent(MainActivity.this, LoginActivity.class);
-                     SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-                     SharedPreferences.Editor editor = sharedPref.edit();
-                     editor.clear();
-                     editor.apply();
-                     finish();  //Kill the activity from which you will go to next activity
-                     startActivity(intentRegistration);
-                 }else if(id == R.id.nav_bilancio){
-                     Intent intentRegistration = new Intent(MainActivity.this, BalanceActivity.class);
-                     startActivity(intentRegistration);
-                 }else if(id == R.id.nav_storico){
-                     Intent intentRegistration = new Intent(MainActivity.this, StoreActivity.class);
-                     startActivity(intentRegistration);
-                 }
-                 drawerLayout.closeDrawer(GravityCompat.START);
-                 return true;
+         navigationView.setNavigationItemSelectedListener(menuItem -> {
+             int id = menuItem.getItemId();
+             if (id == R.id.nav_dashboard) {
+                 loadMenuFragment(new DetailsUserFragment());
+             }else if(id == R.id.nav_logout){
+                 Intent intentRegistration = new Intent(MainActivity.this, LoginActivity.class);
+                 SharedPreferences sharedPref1 = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                 SharedPreferences.Editor editor = sharedPref1.edit();
+                 editor.clear();
+                 editor.apply();
+                 finish();  //Kill the activity from which you will go to next activity
+                 startActivity(intentRegistration);
+             }else if(id == R.id.nav_bilancio){
+                 Intent intentRegistration = new Intent(MainActivity.this, BalanceActivity.class);
+                 startActivity(intentRegistration);
+             }else if(id == R.id.nav_storico){
+                 Intent intentRegistration = new Intent(MainActivity.this, StoreActivity.class);
+                 startActivity(intentRegistration);
              }
-
+             drawerLayout.closeDrawer(GravityCompat.START);
+             return true;
          });
 
          if (savedInstanceState == null)

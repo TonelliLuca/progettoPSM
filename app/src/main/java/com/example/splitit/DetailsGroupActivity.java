@@ -2,16 +2,8 @@ package com.example.splitit;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
 
 public class DetailsGroupActivity extends AppCompatActivity {
@@ -36,31 +28,4 @@ public class DetailsGroupActivity extends AppCompatActivity {
         super.onBackPressed();
         finish();
     }
-/*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        // if the intentResult is null then
-        // toast a message as "cancelled"
-        if (intentResult != null) {
-            if (intentResult.getContents() == null) {
-                Toast toast = Toast.makeText(getBaseContext(), "Cancelled", Toast.LENGTH_SHORT);
-
-                toast.show();
-            } else {
-                // if the intentResult is not null we'll set
-                // the content and format of scan message
-                //EditText userCode = findViewById(R.id.et_add_code);
-                //userCode.setText(intentResult.getContents());
-
-                Log.e("ActivityDetails",intentResult.getContents());
-                Log.e("ActivityDetails",intentResult.getFormatName());
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-
- */
 }

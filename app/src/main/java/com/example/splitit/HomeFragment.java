@@ -26,12 +26,9 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -43,14 +40,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -212,10 +207,8 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
 
             });
 
-            addUser.getAllPayments(user_id).observe((LifecycleOwner) activity, doubles -> {
-                setLineChart(doubles);
-                //Log.e("LineChart",String.valueOf(doubles.size()));
-            });
+            //Log.e("LineChart",String.valueOf(doubles.size()));
+            addUser.getAllPayments(user_id).observe((LifecycleOwner) activity, this::setLineChart);
 
 
 
@@ -391,18 +384,14 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
 
             @Override
             public void run() {
-                handler.post(new Runnable(){
-                    public void run(){
-                        try{
-                            if((getGroupsOnline()==null || Utilities.stop)  || !(isVisible() && getActivity()!=null) || !isAdded()){
-
-                            }else{
-                                OnlineDatabase.execute(getGroupsOnline());
-                            }
-
-                        } catch (Exception e){
-                            e.printStackTrace();
+                handler.post(() -> {
+                    try{
+                        if(!((getGroupsOnline()==null || Utilities.stop)  || !(isVisible() && getActivity()!=null) || !isAdded())){
+                            OnlineDatabase.execute(getGroupsOnline());
                         }
+
+                    } catch (Exception e){
+                        e.printStackTrace();
                     }
                 });
             }

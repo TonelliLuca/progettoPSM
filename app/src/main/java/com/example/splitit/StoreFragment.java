@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -50,11 +48,7 @@ public class StoreFragment extends Fragment implements OnItemListener{
             user_id = sharedPref.getString(getString(R.string.user_id),"-1");
             setRecyclerView(activity);
 
-            listViewModel.getGroupItemsComplete(user_id).observe((LifecycleOwner) activity, groupItems -> {
-
-                adapter.setData(groupItems);
-
-            });
+            listViewModel.getGroupItemsComplete(user_id).observe((LifecycleOwner) activity, groupItems -> adapter.setData(groupItems));
 
         }
 

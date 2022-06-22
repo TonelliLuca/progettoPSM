@@ -1,6 +1,5 @@
 package com.example.splitit;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,25 +10,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 public class DetailsUserFragment extends Fragment {
 
-    private LinearLayout btn_profile;
-    private LinearLayout btn_balance;
-    private LinearLayout btn_logout;
-    private LinearLayout btn_store;
-
     private ImageView iw_user_img_layout;
     private ImageView iw_user_img_header;
-    private TextView tv_user_name;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -43,12 +32,12 @@ public class DetailsUserFragment extends Fragment {
         if (activity != null) {
 
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
-            btn_profile = view.findViewById(R.id.btn_profile);
-            btn_balance = view.findViewById(R.id.btn_balance);
-            btn_logout = view.findViewById(R.id.btn_logout);
-            btn_store = view.findViewById(R.id.btn_store);
+            LinearLayout btn_profile = view.findViewById(R.id.btn_profile);
+            LinearLayout btn_balance = view.findViewById(R.id.btn_balance);
+            LinearLayout btn_logout = view.findViewById(R.id.btn_logout);
+            LinearLayout btn_store = view.findViewById(R.id.btn_store);
 
-            tv_user_name = view.findViewById(R.id.tv_user_name);
+            TextView tv_user_name = view.findViewById(R.id.tv_user_name);
             iw_user_img_header = view.findViewById(R.id.user_img_header);
             iw_user_img_layout = view.findViewById(R.id.user_img_layout);
 
@@ -57,44 +46,32 @@ public class DetailsUserFragment extends Fragment {
             Utilities.getImage( sharedPref.getString(getString(R.string.user_id), "-1"), iw_user_img_layout);
 
 
-            btn_profile.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intentRegistration = new Intent(activity, ProfileActivity.class);
-                    startActivity(intentRegistration);
-                    activity.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                }
+            btn_profile.setOnClickListener(v -> {
+                Intent intentRegistration = new Intent(activity, ProfileActivity.class);
+                startActivity(intentRegistration);
+                activity.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             });
 
-            btn_balance.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intentRegistration = new Intent(activity, BalanceActivity.class);
-                    startActivity(intentRegistration);
-                    activity.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                }
+            btn_balance.setOnClickListener(v -> {
+                Intent intentRegistration = new Intent(activity, BalanceActivity.class);
+                startActivity(intentRegistration);
+                activity.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             });
 
-            btn_store.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intentRegistration = new Intent(activity, StoreActivity.class);
-                    startActivity(intentRegistration);
-                    activity.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                }
+            btn_store.setOnClickListener(v -> {
+                Intent intentRegistration = new Intent(activity, StoreActivity.class);
+                startActivity(intentRegistration);
+                activity.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             });
 
-            btn_logout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intentRegistration = new Intent(activity, LoginActivity.class);
-                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.clear();
-                    editor.apply();
-                    activity.finish();  //Kill the activity from which you will go to next activity
-                    startActivity(intentRegistration);
-                }
+            btn_logout.setOnClickListener(v -> {
+                Intent intentRegistration = new Intent(activity, LoginActivity.class);
+                SharedPreferences sharedPref1 = PreferenceManager.getDefaultSharedPreferences(getContext());
+                SharedPreferences.Editor editor = sharedPref1.edit();
+                editor.clear();
+                editor.apply();
+                activity.finish();  //Kill the activity from which you will go to next activity
+                startActivity(intentRegistration);
             });
         }
     }

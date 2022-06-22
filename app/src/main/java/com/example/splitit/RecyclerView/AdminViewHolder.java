@@ -1,8 +1,6 @@
 package com.example.splitit.RecyclerView;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;

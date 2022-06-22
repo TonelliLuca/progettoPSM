@@ -1,10 +1,7 @@
 package com.example.splitit;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -17,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,9 +22,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -41,9 +35,7 @@ import com.example.splitit.OnlineDatabase.OnlineDatabase;
 import com.example.splitit.RecyclerView.OnItemListener;
 import com.example.splitit.RecyclerView.StoreAdapter;
 import com.example.splitit.RecyclerView.User;
-import com.example.splitit.RecyclerView.UserAdapter;
 import com.example.splitit.ViewModel.AddUserViewModel;
-
 import com.example.splitit.ViewModel.AddViewModel;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -52,7 +44,6 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.navigation.NavigationView;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
