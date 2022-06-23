@@ -195,6 +195,11 @@ public class Utilities {
         Picasso.get().load("http://"+IP+"/splitit/images/" + name+ ".png").memoryPolicy(MemoryPolicy.NO_CACHE).into(iw);
     }
 
+    static  public void getGroupImage(String name, ImageView iw){
+        Log.e("IMAGE GROUP NAME", name);
+        Picasso.get().load("http://"+IP+"/splitit/images/" + "groups" + name+ ".png").memoryPolicy(MemoryPolicy.NO_CACHE).into(iw);
+    }
+
     public static List<User> remapUserList(List<User> l, long adminId){
         Log.e("Ut",l.size()+"");
         if(l.size()>1) {
