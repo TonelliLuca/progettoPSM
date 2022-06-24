@@ -223,5 +223,43 @@ public class Utilities {
 
     }
 
+    public static boolean compareArrayList(ArrayList<?> l1,ArrayList<?> l2){
+        if(l1.size()==l2.size()){
+            for(int i=0;i<l1.size();i++){
+                if(!l1.get(i).equals(l2.get(i))){
+                    return true;
+                }
+            }
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean compareArrayListGroup(ArrayList<GroupItem> l1,ArrayList<GroupItem> l2){
+        if(l1.size()==l2.size()){
+            for(int i=0;i<l1.size();i++){
+
+                if(l1.get(i).getId()!=l2.get(i).getId()){
+                    return true;
+                }
+            }
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean compareArrayListRefGroup(ArrayList<UserGroupCrossRef> l1,ArrayList<UserGroupCrossRef> l2){
+        if(l1.size()==l2.size()){
+            for(int i=0;i<l1.size();i++){
+
+                if(l1.get(i).equals(l2.get(i))){
+                    return true;
+                }
+            }
+            return false;
+        }
+        return true;
+    }
+
 
 }

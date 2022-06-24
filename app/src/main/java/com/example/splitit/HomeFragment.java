@@ -60,6 +60,8 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
     private AddViewModel addViewModel;
     private AddUserViewModel addUser;
     private LineChart lineChart;
+    private ArrayList<GroupItem> listOld = new ArrayList<GroupItem> ();
+    private ArrayList<UserGroupCrossRef> listRefOld = new ArrayList<UserGroupCrossRef> ();
 
     String user_code=null;
     String user_id=null;
@@ -282,23 +284,33 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
     private void saveGroups(String s){
         ArrayList<GroupItem> list = Utilities.parseGroupItems(s);
         //Log.e(LOG,"Groups num:"+list.size());
-        if(list.size()>0){
-            for(int i = 0; i<list.size();i++){
-                GroupItem g = list.get(i);
-                addViewModel.addGroupItem(g);
+        Log.e("asas",String.valueOf(Utilities.compareArrayListGroup(listOld,list)));
+        Log.e("asas",String.valueOf(listOld.isEmpty()));
+        Log.e("asas","-----------------------------------------------");
+        if(listOld.isEmpty() || Utilities.compareArrayListGroup(listOld,list)) {
+            if (list.size() > 0) {
+                Log.e("asas1","dentro secondo if 1 *****************************************************************************");
+                for (int i = 0; i < list.size(); i++) {
+                    GroupItem g = list.get(i);
+                    addViewModel.addGroupItem(g);
 
+                }
             }
+            listOld=new ArrayList(list);
         }
         ArrayList<UserGroupCrossRef> listRef = Utilities.parseUserGroupCrossRef(s);
+        if(listRefOld.isEmpty() || Utilities.compareArrayListRefGroup(listRefOld,listRef)) {
+            if (listRef.size() > 0) {
+                Log.e("asas1","dentro secondo if 2 *****************************************************************************");
+                for (int i = 0; i < listRef.size(); i++) {
+                    UserGroupCrossRef r = listRef.get(i);
 
-        if(listRef.size()>0){
-            for(int i = 0; i<listRef.size();i++){
-                UserGroupCrossRef r = listRef.get(i);
 
+                    addUser.addNewRef(r);
 
-                addUser.addNewRef(r);
-
+                }
             }
+            listRefOld=listRef;
         }
 
     }
