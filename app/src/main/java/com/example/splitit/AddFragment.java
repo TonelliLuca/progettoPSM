@@ -17,7 +17,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,11 +36,8 @@ import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.android.volley.Cache;
 import com.android.volley.Network;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
@@ -123,26 +120,21 @@ public class AddFragment extends DialogFragment {
 
         }
 
-        groupImage.setOnClickListener(new View.OnClickListener() {
+        groupImage.setOnClickListener(view1 -> {
+            if ((ContextCompat.checkSelfPermission(requireContext(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) && (ContextCompat.checkSelfPermission(requireContext(),
+                    Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
+                if ((ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) && (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                        Manifest.permission.READ_EXTERNAL_STORAGE))) {
 
-            @Override
-            public void onClick(View view) {
-                if ((ContextCompat.checkSelfPermission(requireContext(),
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) && (ContextCompat.checkSelfPermission(getContext(),
-                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
-                    if ((ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE)) && (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                            Manifest.permission.READ_EXTERNAL_STORAGE))) {
-
-                    } else {
-                        ActivityCompat.requestPermissions(requireActivity(),
-                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
-                                REQUEST_PERMISSIONS);
-                    }
                 } else {
-                    Log.e("Else", "Else");
-                    showFileChooser();
+                    ActivityCompat.requestPermissions(requireActivity(),
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
+                            REQUEST_PERMISSIONS);
                 }
+            } else {
+                showFileChooser();
             }
         });
 
@@ -154,58 +146,28 @@ public class AddFragment extends DialogFragment {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
-    /*
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST
-                && resultCode == Activity.RESULT_OK) {
-            String path = getPathFromCameraData(data, this.getActivity());
-            Log.i("PICTURE", "Path: " + path);
-            if (path != null) {
-                //setFullImageFromFilePath(mImgProfile, path);
-            }
-        }
-    }
-
-    public static String getPathFromCameraData(Intent data, Context context) {
-        Uri selectedImage = data.getData();
-        String[] filePathColumn = { MediaStore.Images.Media.DATA };
-        Cursor cursor = context.getContentResolver().query(selectedImage,
-                filePathColumn, null, null, null);
-        cursor.moveToFirst();
-        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-        String picturePath = cursor.getString(columnIndex);
-        cursor.close();
-        return picturePath;
-    }*/
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e("filePath","enter");
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
             Uri picUri = data.getData();
             filePath = getPath(picUri);
             if (filePath != null) {
                 try {
-                    Log.d("filePath", filePath);
                     groupBitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(), picUri);
 
                     //OnlineDatabase.execute(setUserImageName());
                     groupImage.setImageBitmap(groupBitmap);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.e("filePath","aaaaaa");
                 }
             }else
             {
-                Log.e("filePath","bbbbbbbb");
                 makeText(
                         getContext(),"no image selected",
                         Toast.LENGTH_LONG).show();
             }
         }else{
-            Log.e("filePath","out");
         }
 
     }
@@ -220,9 +182,10 @@ public class AddFragment extends DialogFragment {
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
         cursor.moveToFirst();
-        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+        int index=cursor.getColumnIndex(MediaStore.Images.Media.DATA);
+        String path = cursor.getString(index);
+
         cursor.close();
-        Log.e("ADDpath", path);
         return path;
     }
 
@@ -240,33 +203,22 @@ public class AddFragment extends DialogFragment {
     private void uploadGroupBitmap(final Bitmap bitmap) {
 
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, ROOT_URL,
-                new Response.Listener<NetworkResponse>() {
-                    @Override
-                    public void onResponse(NetworkResponse response) {
-                        //JSONArray obj = new JSONArray(new String(response.data));
-                        String string = new String(response.data);
-                        //makeText(requireContext().getApplicationContext(),"Caricamento completato", Toast.LENGTH_SHORT).show();
-                    }
+                response -> {
+                    //JSONArray obj = new JSONArray(new String(response.data));
+                    String string = new String(response.data);
+                    //makeText(requireContext().getApplicationContext(),"Caricamento completato", Toast.LENGTH_SHORT).show();
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        System.out.println( error.getMessage());
-                        //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-                        Log.e("GotError",""+error.getMessage());
-                        Log.d("GotError", "Failed with error msg:\t" + error.getMessage());
-                        Log.d("GotError", "Error StackTrace: \t" + error.getStackTrace());
-                        // edited here
-                        try {
-                            byte[] htmlBodyBytes = error.networkResponse.data;
-                            Log.e("GotError", new String(htmlBodyBytes), error);
-                        } catch (NullPointerException e) {
-                            e.printStackTrace();
-                        }
-                        if (error.getMessage() == null){
+                error -> {
+                    System.out.println( error.getMessage());
+                    //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
 
-                        }
+                    // edited here
+                    try {
+                        byte[] htmlBodyBytes = error.networkResponse.data;
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
                     }
+
                 }) {
 
 
@@ -294,31 +246,23 @@ public class AddFragment extends DialogFragment {
             RequestQueue MyRequestQueue = Volley.newRequestQueue(this.requireContext());
             String URL = "http://"+Utilities.IP+"/splitit/comunication.php";
 
-            StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    //This code is executed if the server responds, whether or not the response contains data.
-                    //The String 'response' contains the server's response.
+            //Create an error listener to handle errors appropriately.
+            StringRequest MyStringRequest = new StringRequest(Request.Method.POST, URL, response -> {
+                //This code is executed if the server responds, whether or not the response contains data.
+                //The String 'response' contains the server's response.
 
-                    if(response.equals("failure")){
-                        Log.e("AddFragment","failed");
+                if(response.equals("failure")){
 
-                    }else{
-                        Log.e("AddFragment", response);
-                        setLastId(response);
-                        uploadGroupBitmap(groupBitmap);
-                    }
+                }else{
+                    setLastId(response);
+                    uploadGroupBitmap(groupBitmap);
                 }
-            }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    //This code is executed if there is an error.
-                    Log.e("AddFragment","error response");
+            }, error -> {
+                //This code is executed if there is an error.
 
-                }
             }) {
                 protected Map<String, String> getParams() {
-                    Map<String, String> MyData = new HashMap<String, String>();
+                    Map<String, String> MyData = new HashMap<>();
                     MyData.put("id", String.valueOf(userId)); //Add the data you'd like to send to the server.
                     MyData.put("request",String.valueOf(2));
                     JSONObject jObjectData = new JSONObject();
@@ -344,10 +288,10 @@ public class AddFragment extends DialogFragment {
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
-        Utilities.setUpToolbar((AppCompatActivity) getActivity(),"SplitIt");
+        Utilities.setUpToolbar((AppCompatActivity) requireActivity(),"SplitIt");
     }
 
     private void setLastId(String s){
-        this.lastId=Long.valueOf(s);
+        this.lastId=Long.parseLong(s);
     }
 }

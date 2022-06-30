@@ -1,7 +1,7 @@
 package com.example.splitit.RecyclerView;
 
 import android.app.Activity;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +61,7 @@ public class StoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.e("BIND", " viewType : "+ viewType);
+
 
         View layoutItem;
         if (viewType == 0) {
@@ -76,7 +76,7 @@ public class StoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Log.e("BIND", " position: "+ position);
+
 
         User currentItem = userItemList.get(position);
         UserGroupCrossRef ref;
@@ -84,10 +84,10 @@ public class StoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         for (int i = 0; i < balance.size(); i++) {
 
             if (balance.get(i).getUser_id() == currentItem.getId()) {
-                Log.e("BIND", "balance : " + balance.size());
+
                 ref = balance.get(i);
                 if (currentItem.getId() == admin_id) {
-                    Log.e("BIND", "ADMIN: "+currentItem.getId()+"/"+admin_id);
+
                     StoreViewHolderAdmin storeViewHolderAdmin = (StoreViewHolderAdmin) holder;
                     storeViewHolderAdmin.userName.setText(currentItem.getName());
                     storeViewHolderAdmin.idUser = currentItem.getId();
@@ -97,7 +97,7 @@ public class StoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     Utilities.getImage(String.valueOf(currentItem.getId()), storeViewHolderAdmin.userImage);
 
                 } else {
-                    Log.e("BIND", "USER: "+currentItem.getId()+"/"+admin_id+" Balance: "+ ref.getBalance());
+
                     StoreViewHolderUser storeViewHolderUser = (StoreViewHolderUser) holder;
                     storeViewHolderUser.userName.setText(currentItem.getName());
                     storeViewHolderUser.user_amount.setText(String.valueOf(ref.getBalance()));

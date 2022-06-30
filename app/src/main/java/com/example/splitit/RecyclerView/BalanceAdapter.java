@@ -1,7 +1,7 @@
 package com.example.splitit.RecyclerView;
 
 import android.app.Activity;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +43,7 @@ public class BalanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Log.e("balance","binding");
+
         BalanceViewHolder balanceViewHolder = (BalanceViewHolder) holder;
         balanceViewHolder.balanceVal.setText(this.balance.get(position).toString());
         balanceViewHolder.balanceName.setText(this.balanceName.get(position));

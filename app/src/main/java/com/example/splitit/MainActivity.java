@@ -111,14 +111,12 @@ import java.util.Map;
      @Override
      public boolean onCreateOptionsMenu(Menu menu) {
          getMenuInflater().inflate(R.menu.top_app_bar, menu);
-         //Log.e("Menu Creation", "Menu created");
          return true;
      }
 
      @Override
      public boolean onOptionsItemSelected(@NonNull MenuItem item) {
          super.onOptionsItemSelected(item);
-         //Log.e("Intent menu", "Starting menu intent " + item.getItemId());
          if (item.getItemId() == R.id.app_bar_option) {
              Intent intent = new Intent(this, SettingsActivity.class);
              this.startActivity(intent);
@@ -203,14 +201,7 @@ import java.util.Map;
  }
 
  /*TODO password e username in capslock login
-        immagine gruppo
         immagine profilo default
-        attaccare menu ai fragment (bilancio etc)
-        inserire una scroll view in profilo utente (?)
-        testare alternative card bilancio
+       inserire una scroll view in profilo utente (?)
         verificare funzionamento controllo password
-        controllare grafico home
-        ooooooooooooooooooooooooooooooooooooooooooooooo
-
-
   */

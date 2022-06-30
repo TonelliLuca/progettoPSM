@@ -2,7 +2,6 @@ package com.example.splitit.ViewModel;
 
 import android.app.Application;
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -10,7 +9,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.splitit.Database.GroupRepository;
-import com.example.splitit.RecyclerView.User;
 import com.example.splitit.RecyclerView.GroupItem;
 
 

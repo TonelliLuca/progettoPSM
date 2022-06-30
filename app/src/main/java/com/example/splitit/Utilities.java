@@ -54,10 +54,8 @@ public class Utilities {
 
     static ArrayList<GroupItem> parseGroupItems(String s){
         ArrayList<GroupItem> list= new ArrayList<>();
-        //Log.e("Utility","parse GroupItems String s: "+s);
         try {
             JSONArray jArray= new JSONArray(s);
-            //Log.e("Utility","JSONArray length: "+jArray.length());
             for (int i=0; i < jArray.length(); i++)
             {
                 try {
@@ -68,7 +66,6 @@ public class Utilities {
                     long id = oneObject.getLong("id");
                     long admin = oneObject.getLong("admin");
                     boolean completo = Integer.parseInt(oneObject.getString("completo")) != 0;
-                    //Log.e("Utility","Row object params: nome:"+name+" img:"+img+" id:"+id+" admin:"+admin+" completo:"+ completo);
                     list.add(new GroupItem(id,img,name,admin,completo));
                 } catch (JSONException e) {
                     Log.e("Utility",e.getMessage());
@@ -77,16 +74,13 @@ public class Utilities {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        //Log.e("Utility","Output list length: "+list.size());
         return list;
     }
 
     static ArrayList<UserGroupCrossRef> parseUserGroupCrossRef(String  s){
         ArrayList<UserGroupCrossRef> list= new ArrayList<>();
-        //Log.e("Utility","parse UserGroupCrossRef String s: "+s);
         try{
             JSONArray jArray= new JSONArray(s);
-            //Log.e("Utility","JSONArray length: "+jArray.length());
             for (int i=0; i < jArray.length(); i++){
                 try {
                     JSONObject oneObject = jArray.getJSONObject(i);
@@ -95,7 +89,6 @@ public class Utilities {
                     long id_user = oneObject.getLong("idUtente");
                     long id_group = oneObject.getLong("idGruppo");
                     boolean pay = Integer.parseInt(oneObject.getString("pagato")) != 0;
-                    //Log.e("Utility","Row object params: user_id:"+id_user+" group_id:"+id_group+" pagato:"+pay+" bilancio:"+balance);
                     list.add(new UserGroupCrossRef(id_user,id_group,pay,balance));
                 } catch (JSONException e) {
                     Log.e("Utility",e.getMessage());
@@ -110,10 +103,8 @@ public class Utilities {
 
     static ArrayList<User> parseUser(String s){
         ArrayList<User> list = new ArrayList<>();
-        //Log.e("UtilityU","parse User String s: "+s);
         try{
             JSONArray jArray= new JSONArray(s);
-            //Log.e("UtilityU","JSONArray length: "+jArray.length());
             for (int i=0; i < jArray.length(); i++){
                 try {
                     JSONObject oneObject = jArray.getJSONObject(i);
@@ -124,15 +115,14 @@ public class Utilities {
                     String email = oneObject.getString("email");
                     String img = oneObject.getString("img");
                     String code = oneObject.getString("code");
-                   //Log.e("UtilityU","Row object params: id:"+id+" nome:"+name+" email:"+email+" img:"+img+" code:"+code);
                     list.add(new User(id,name,email,code,img));
                 } catch (JSONException e) {
-                    Log.e("UtilityU",e.getMessage());
+                    Log.e("Utility",e.getMessage());
                 }
             }
         } catch (JSONException e) {
             e.printStackTrace();
-            Log.e("UtilityU",e.getMessage());
+            Log.e("Utility",e.getMessage());
 
         }
         return list;
@@ -143,7 +133,6 @@ public class Utilities {
         int val = -1;
         try{
             JSONArray jArray= new JSONArray(s);
-            Log.e("UtilityP","JSONArray length: "+jArray.length());
 
             try {
                 JSONObject oneObject = jArray.getJSONObject(0);
@@ -152,12 +141,12 @@ public class Utilities {
                 val = oneObject.getInt("completo");
 
             } catch (JSONException e) {
-                Log.e("UtilityP",e.getMessage());
+                Log.e("Utility",e.getMessage());
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
-            Log.e("UtilityP",e.getMessage());
+            Log.e("Utility",e.getMessage());
 
         }
         return val==1;
@@ -165,10 +154,8 @@ public class Utilities {
 
     static ArrayList<String> parseBalance(String s, long id){
         ArrayList<String> list = new ArrayList<>();
-        //Log.e("UtilityP","parse User String s: "+s);
         try{
             JSONArray jArray= new JSONArray(s);
-            Log.e("UtilityP","JSONArray length: "+jArray.length());
             for (int i=0; i < jArray.length(); i++){
                 try {
                     JSONObject oneObject = jArray.getJSONObject(i);
@@ -177,15 +164,14 @@ public class Utilities {
                     float val = (float) oneObject.getDouble("bilancio");
                     long admin = oneObject.getLong("id_admin");
                     String name = oneObject.getString("nome");
-                    //Log.e("UtilityP","Row object params: Value:"+val+" admin:"+admin);
                     list.add((id==admin)?val+"/"+name:val*-1+"/"+name);
                 } catch (JSONException e) {
-                    Log.e("UtilityP",e.getMessage());
+                    Log.e("Utility",e.getMessage());
                 }
             }
         } catch (JSONException e) {
             e.printStackTrace();
-            Log.e("UtilityP",e.getMessage());
+            Log.e("Utility",e.getMessage());
 
         }
         return list;
@@ -196,12 +182,10 @@ public class Utilities {
     }
 
     static  public void getGroupImage(String name, ImageView iw){
-        Log.e("IMAGE GROUP NAME", name);
         Picasso.get().load("http://"+IP+"/splitit/images/" + "groups" + name+ ".png").memoryPolicy(MemoryPolicy.NO_CACHE).into(iw);
     }
 
     public static List<User> remapUserList(List<User> l, long adminId){
-        Log.e("Ut",l.size()+"");
         if(l.size()>1) {
             User admin = null;
             for (int i = 0; i < l.size(); i++) {
@@ -223,17 +207,7 @@ public class Utilities {
 
     }
 
-    public static boolean compareArrayList(ArrayList<?> l1,ArrayList<?> l2){
-        if(l1.size()==l2.size()){
-            for(int i=0;i<l1.size();i++){
-                if(!l1.get(i).equals(l2.get(i))){
-                    return true;
-                }
-            }
-            return false;
-        }
-        return true;
-    }
+
 
     public static boolean compareArrayListGroup(ArrayList<GroupItem> l1,ArrayList<GroupItem> l2){
         if(l1.size()==l2.size()){

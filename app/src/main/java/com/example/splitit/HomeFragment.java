@@ -60,8 +60,8 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
     private AddViewModel addViewModel;
     private AddUserViewModel addUser;
     private LineChart lineChart;
-    private ArrayList<GroupItem> listOld = new ArrayList<GroupItem> ();
-    private ArrayList<UserGroupCrossRef> listRefOld = new ArrayList<UserGroupCrossRef> ();
+    private ArrayList<GroupItem> listOld = new ArrayList<> ();
+    private ArrayList<UserGroupCrossRef> listRefOld = new ArrayList<> ();
 
     String user_code=null;
     String user_id=null;
@@ -73,7 +73,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
             listViewModel.selected(adapter.getItemFiltered(position));
             GroupItem a = listViewModel.getSelected().getValue();
             assert a != null;
-            //Log.e("GroupItem","selected id: "+a.getId());
+
             Intent intent = new Intent(getActivity(), DetailsGroupActivity.class);
             intent.putExtra("group_ID",a.getId());
             intent.putExtra("group_NAME",a.getGroupName());
@@ -194,7 +194,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
             user_code = sharedPref.getString(getString(R.string.user_code),"0")    ;
             user_id = sharedPref.getString(getString(R.string.user_id),"-1");
-            //Log.e(LOG, "user code: "+user_code+" User id: "+user_id);
+
 
             OnlineDatabase.execute(getActualUser());
             Utilities.setUpToolbar((AppCompatActivity) getActivity(), "SplitIt");
@@ -203,13 +203,9 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
 
 
 
-            listViewModel.getGroupItemsNotComplete(user_id).observe((LifecycleOwner) activity, groupItems -> {
+            listViewModel.getGroupItemsNotComplete(user_id).observe((LifecycleOwner) activity, groupItems -> adapter.setData(groupItems));
 
-                adapter.setData(groupItems);
 
-            });
-
-            //Log.e("LineChart",String.valueOf(doubles.size()));
             addUser.getAllPayments(user_id).observe((LifecycleOwner) activity, this::setLineChart);
 
 
@@ -232,7 +228,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
 
         qrButton.setOnClickListener(v -> {
 
-            //Log.e("QRCODE", "created");
+
             DialogQrcodeFragment dialog = new DialogQrcodeFragment();
             dialog.show(getChildFragmentManager(), "QrCode Dialog");
         });
@@ -260,7 +256,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
                     Log.e(LOG,"failed");
 
                 }else{
-                    //Log.e(LOG, response);
+
                     saveGroups(response);
                 }
             }, error -> {
@@ -283,25 +279,21 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
 
     private void saveGroups(String s){
         ArrayList<GroupItem> list = Utilities.parseGroupItems(s);
-        //Log.e(LOG,"Groups num:"+list.size());
-        Log.e("asas",String.valueOf(Utilities.compareArrayListGroup(listOld,list)));
-        Log.e("asas",String.valueOf(listOld.isEmpty()));
-        Log.e("asas","-----------------------------------------------");
         if(listOld.isEmpty() || Utilities.compareArrayListGroup(listOld,list)) {
             if (list.size() > 0) {
-                Log.e("asas1","dentro secondo if 1 *****************************************************************************");
+
                 for (int i = 0; i < list.size(); i++) {
                     GroupItem g = list.get(i);
                     addViewModel.addGroupItem(g);
 
                 }
             }
-            listOld=new ArrayList(list);
+            listOld=list;
         }
         ArrayList<UserGroupCrossRef> listRef = Utilities.parseUserGroupCrossRef(s);
         if(listRefOld.isEmpty() || Utilities.compareArrayListRefGroup(listRefOld,listRef)) {
             if (listRef.size() > 0) {
-                Log.e("asas1","dentro secondo if 2 *****************************************************************************");
+
                 for (int i = 0; i < listRef.size(); i++) {
                     UserGroupCrossRef r = listRef.get(i);
 
@@ -330,7 +322,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
                     Log.e(LOG,"failed");
 
                 }else{
-                    Log.e(LOG, response);
+
                     saveUser(response);
                 }
             }, error -> {
@@ -354,7 +346,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
 
     private void saveUser(String s){
         ArrayList<User> list = Utilities.parseUser(s);
-        //Log.e(LOG,"User num:"+list.size());
+
         if(list.size()>0){
             for(int i = 0; i<list.size();i++){
                 User u = list.get(i);
@@ -364,30 +356,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
         }
     }
 
-    /*private void callAsynchronousTask() {
-        final Handler handler = new Handler();
-        Timer timer = new Timer();
-        TimerTask doAsynchronousTask = new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(new Runnable() {
-                    public void run() {
-                        try {
-                            if(getGroupsOnline()==null || Utilities.stop){
-                                this.wait();
 
-                            }else {
-                                OnlineDatabase.execute(getGroupsOnline());
-                            }
-                        } catch (Exception e) {
-
-                        }
-                    }
-                });
-            }
-        };
-        timer.schedule(doAsynchronousTask, 0, 4000);
-    }*/
 
     private void callAsynchronousTask(){
         final Handler handler = new Handler();

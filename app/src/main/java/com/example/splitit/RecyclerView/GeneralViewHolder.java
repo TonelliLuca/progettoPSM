@@ -3,7 +3,7 @@ package com.example.splitit.RecyclerView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
-import android.util.Log;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -76,7 +76,7 @@ public class GeneralViewHolder extends RecyclerView.ViewHolder implements View.O
 
     @Override
     public void onClick(View v) {
-        Log.e("aaa","user_id: "+this.user_id+" idUser: "+this.idUser+" admin: "+this.admin);
+
         if(v.getId()==R.id.delete_user){
             if((!this.admin) && Long.parseLong(this.user_id)!=this.idUser){
                 new AlertDialog.Builder(v.getContext())
@@ -111,7 +111,7 @@ public class GeneralViewHolder extends RecyclerView.ViewHolder implements View.O
     /*
     //This method is used to set the admin specs in a card
     public void refresh(){
-        //TODO personalizzare la card dell'admin
+
         itemView.setBackgroundColor( Color.parseColor("#5D1049")); //without theme
 
     }*/

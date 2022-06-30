@@ -10,7 +10,6 @@ import com.example.splitit.Database.GroupWithUsers;
 import com.example.splitit.Database.RefRepository;
 import com.example.splitit.Database.UserGroupCrossRef;
 import com.example.splitit.Database.UserRepository;
-import com.example.splitit.Database.UsersWithGroup;
 import com.example.splitit.RecyclerView.User;
 
 import java.util.List;
@@ -33,7 +32,7 @@ public class AddUserViewModel extends AndroidViewModel {
     public LiveData<List<UserGroupCrossRef>> getAllUsersBalance(long val){return refRep.getAllUsersBalance(val);}
     public void removeRef(UserGroupCrossRef ref){refRep.removeRef(ref);}
     public UserGroupCrossRef searchSpecRef(long groupId,long userId){return refRep.searchSpecRef(groupId,userId);}
-    public UserGroupCrossRef resetAllRef(long userId){return resetAllRef(userId);}
+
     public void addUser(User u){userRep.addUser(u);}
     public LiveData<List<Double>> getAllPayments(String userId){return refRep.getAllPayments(userId);}
     public void payGroup(String id ){refRep.payGroup(id);}

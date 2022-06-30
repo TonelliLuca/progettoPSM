@@ -2,7 +2,6 @@ package com.example.splitit;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -52,8 +51,7 @@ public class DetailedGroupStore extends AppCompatActivity {
                 // the content and format of scan message
                 EditText userCode = findViewById(R.id.et_add_code);
                 userCode.setText(intentResult.getContents());
-                Log.e("ActivityDetails",intentResult.getContents());
-                Log.e("ActivityDetails",intentResult.getFormatName());
+
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

@@ -60,9 +60,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class DetailsFragment extends Fragment implements OnItemListener, NavigationView.OnNavigationItemSelectedListener{
-    //TODO filtri utente admin
 
-    //TODO submit avvenuto pagamento gruppo
 
     private final long groupId;
     private final String userId;
@@ -114,7 +112,6 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
             btn_send_balance = activity.findViewById(R.id.btn_send_balance);
             et_balance = activity.findViewById(R.id.et_balance);
             btn_submit = activity.findViewById(R.id.group_submit);
-            Log.e("DetailsFragment","id group: "+groupId);
 
             pieChart = activity.findViewById(R.id.pie_chart);
             pieChart.getLegend().setEnabled(true);
@@ -236,7 +233,6 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
 
             btn_send_balance.setOnClickListener(v -> {
                 OnlineDatabase.execute(setNewBalance());
-                Log.e("DetailsFragment","Send Balance");
             });
 
             btn_submit.setOnClickListener(v -> {
@@ -275,7 +271,6 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
     }
 
     private void printLogList(){
-        Log.e("UserList ", "Users size:"+userList.size());
         for(int i=0;i<userList.size();i++){
 
 
@@ -375,7 +370,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                         Log.e("DetailsFragment","failed");
 
                     }else{
-                        Log.e("DetailsFragment", response);
+
 
                     }
                 }
@@ -418,7 +413,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                         Log.e("DetailsFragment","failed");
 
                     }else{
-                        Log.e("DetailsFragment", response);
+
 
                     }
                 }
@@ -468,7 +463,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                             Log.e("DetailsFragment", "failed");
                             System.out.println(userId + "," + groupId);
                         } else {
-                            Log.e("DetailsFragment", response);
+
                             saveBalance(response);
                         }
                     }
@@ -516,7 +511,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                             Log.e("DetailsFragment", "failed");
 
                         } else {
-                            Log.e("DetailsFragment", response);
+
                             if(Utilities.parseClosing(response)){
 
                                 btn_send_balance.setEnabled(false);
@@ -664,7 +659,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
 
 
                         } else {
-                            Log.e("DetailsFragment", response.toString());
+
 
                         }
                     }

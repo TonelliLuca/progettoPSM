@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,17 +77,14 @@ public class BalanceFragment extends Fragment {
                 //The String 'response' contains the server's response.
 
                 if(response.equals("failure")){
-                    Log.e("BalanceActivity","failed");
 
                 }else{
-                    Log.e("BalanceActivity", response);
                     saveBalance(response);
 
 
                 }
             }, error -> {
                 //This code is executed if there is an error.
-                Log.e("BalanceActivity","error response");
 
             }) {
                 protected Map<String, String> getParams() {
@@ -114,7 +110,6 @@ public class BalanceFragment extends Fragment {
         }
         if(this.balance.size()>0){
             adapter.setData(balance,balanceName);
-            Log.e("balance", "balance size>0");
             adapter.notifyDataSetChanged();
 
         }

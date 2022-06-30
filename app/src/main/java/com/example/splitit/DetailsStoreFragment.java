@@ -54,9 +54,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class DetailsStoreFragment extends Fragment implements OnItemListener, NavigationView.OnNavigationItemSelectedListener{
-    //TODO filtri utente admin
 
-    //TODO submit avvenuto pagamento gruppo
 
     private final long groupId;
     private final String userId;
@@ -105,7 +103,6 @@ public class DetailsStoreFragment extends Fragment implements OnItemListener, Na
             btn_send_balance = activity.findViewById(R.id.btn_send_balance);
             et_balance = activity.findViewById(R.id.et_balance);
             btn_submit = activity.findViewById(R.id.group_submit);
-            Log.e("DetailsFragment","id group: "+groupId);
 
             pieChart = activity.findViewById(R.id.pie_chart);
             pieChart.getLegend().setEnabled(true);
@@ -167,7 +164,7 @@ public class DetailsStoreFragment extends Fragment implements OnItemListener, Na
                             for(int i = 0; i<userList1.size(); i++){
                                 if(userList1.get(i).getId() != userList.get(i).getId()){
                                     userList = userList1;
-                                    printLogList();
+
                                     adapter.setData(userList);
                                     updateGraph();
 
@@ -177,7 +174,7 @@ public class DetailsStoreFragment extends Fragment implements OnItemListener, Na
 
                         }else{
                             userList = userList1;
-                            printLogList();
+
                             adapter.setData(userList);
 
                             updateGraph();
@@ -200,15 +197,7 @@ public class DetailsStoreFragment extends Fragment implements OnItemListener, Na
         });
     }
 
-    private void printLogList(){
-        Log.e("UserList ", "Users size:"+userList.size());
-        for(int i=0;i<userList.size();i++){
 
-
-            Log.e("UserList ", userList.get(i).getId() +" "+userList.get(i).getName());
-
-        }
-    }
 
     private void setRecyclerView(final Activity activity){
         recyclerView = requireView().findViewById(R.id.recyclerViewUser);
@@ -262,7 +251,6 @@ public class DetailsStoreFragment extends Fragment implements OnItemListener, Na
         for(int i=0;i<userList.size();i++){
             for(int j=0;j<refUser.size();j++){
                 if(userList.get(i).getId() == refUser.get(j).getUserId()){
-                    //Log.e("Graph",(float)refUser.get(j).getBalance()+" "+userList.get(i).getName()+" "+userList.get(i).getId()+" = "+refUser.get(j).getUser_id());
                     NoOfEmp.add(new PieEntry((float)refUser.get(j).getBalance(), userList.get(i).getName()));
                     total+=(float)refUser.get(j).getBalance();
                 }
@@ -294,10 +282,10 @@ public class DetailsStoreFragment extends Fragment implements OnItemListener, Na
                     //The String 'response' contains the server's response.
 
                     if(response.equals("failure")){
-                        Log.e("DetailsFragment","failed");
+                        Log.e("DetailsStoreFragment","failed");
 
                     }else{
-                        Log.e("DetailsFragment", response);
+
 
                     }
                 }
@@ -305,7 +293,7 @@ public class DetailsStoreFragment extends Fragment implements OnItemListener, Na
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     //This code is executed if there is an error.
-                    Log.e("DetailsFragment","error response");
+                    Log.e("DetailsStoreFragment","error response");
 
                 }
             }) {
@@ -337,10 +325,10 @@ public class DetailsStoreFragment extends Fragment implements OnItemListener, Na
                     //The String 'response' contains the server's response.
 
                     if(response.equals("failure")){
-                        Log.e("DetailsFragment","failed");
+                        Log.e("DetailsStoreFragment","failed");
 
                     }else{
-                        Log.e("DetailsFragment", response);
+
 
                     }
                 }
@@ -348,7 +336,7 @@ public class DetailsStoreFragment extends Fragment implements OnItemListener, Na
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     //This code is executed if there is an error.
-                    Log.e("DetailsFragment","error response");
+                    Log.e("DetailsStoreFragment","error response");
 
                 }
             }) {
@@ -387,10 +375,10 @@ public class DetailsStoreFragment extends Fragment implements OnItemListener, Na
                         //The String 'response' contains the server's response.
 
                         if (response.equals("failure")) {
-                            Log.e("DetailsFragment", "failed");
+                            Log.e("DetailsStoreFragment", "failed");
                             System.out.println(userId + "," + groupId);
                         } else {
-                            Log.e("DetailsFragment", response);
+
                             saveBalance(response);
                         }
                     }
@@ -521,11 +509,11 @@ public class DetailsStoreFragment extends Fragment implements OnItemListener, Na
                         //The String 'response' contains the server's response.
 
                         if (response.equals("failure")) {
-                            Log.e("DetailsFragment", "failed");
+                            Log.e("DetailsStoreFragment", "failed");
 
 
                         } else {
-                            Log.e("DetailsFragment", response.toString());
+
 
                         }
                     }
@@ -533,7 +521,7 @@ public class DetailsStoreFragment extends Fragment implements OnItemListener, Na
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         //This code is executed if there is an error.
-                        Log.e("DetailsFragment", "error response");
+                        Log.e("DetailsStoreFragment", "error response");
 
                     }
                 }) {

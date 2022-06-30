@@ -3,7 +3,7 @@ package com.example.splitit;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -45,17 +45,14 @@ public class BalanceActivity extends AppCompatActivity {
                 //The String 'response' contains the server's response.
 
                 if(response.equals("failure")){
-                    Log.e("BalanceActivity","failed");
 
                 }else{
-                    Log.e("BalanceActivity", response);
                     //plotGraph(response);
 
 
                 }
             }, error -> {
                 //This code is executed if there is an error.
-                Log.e("BalanceActivity","error response");
 
             }) {
                 protected Map<String, String> getParams() {

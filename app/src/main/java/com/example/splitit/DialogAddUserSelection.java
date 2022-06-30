@@ -64,8 +64,7 @@ public class DialogAddUserSelection extends DialogFragment{
                         //EditText userCode = findViewById(R.id.et_add_code);
                         addCode.setText(intentResult.getContents());
 
-                        Log.e("ActivityDetails",intentResult.getContents());
-                        Log.e("ActivityDetails",intentResult.getFormatName());
+
                     }
                 }
         );
@@ -132,7 +131,7 @@ public class DialogAddUserSelection extends DialogFragment{
                     failureResponse();
 
                 }else{
-                    Log.e("DialogUser", response);
+
                     saveLocalUser(response);
                 }
             }, error -> {
@@ -146,7 +145,7 @@ public class DialogAddUserSelection extends DialogFragment{
                     MyData.put("request",String.valueOf(4));
                     MyData.put("code",addCode.getText().toString());
                     MyData.put("idGruppo",String.valueOf(groupId));
-                    Log.e("DialogUser",addCode.getText().toString().concat(String.valueOf(groupId)));
+
                     return MyData;
                 }
             };

@@ -38,7 +38,6 @@ import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    //TODO numero gruppi, crediti, debiti
 
     ImageView userImageView;
     private static final String ROOT_URL = "http://"+Utilities.IP+"/splitit/uploadImage.php";
@@ -117,7 +116,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 REQUEST_PERMISSIONS);
                     }
                 } else {
-                    Log.e("Else", "Else");
+
                     showFileChooser();
                 }
 
@@ -141,7 +140,7 @@ public class ProfileActivity extends AppCompatActivity {
             filePath = getPath(picUri);
             if (filePath != null) {
                 try {
-                    Log.d("filePath", filePath);
+
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), picUri);
                     uploadBitmap(bitmap);
                     OnlineDatabase.execute(setUserImageName());
@@ -170,7 +169,8 @@ public class ProfileActivity extends AppCompatActivity {
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
         cursor.moveToFirst();
-        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+        int index=cursor.getColumnIndex(MediaStore.Images.Media.DATA);
+        String path = cursor.getString(index);
         cursor.close();
 
         return path;
@@ -200,13 +200,13 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         System.out.println( error.getMessage());
                         //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-                        Log.e("GotError",""+error.getMessage());
-                        Log.d("GotError", "Failed with error msg:\t" + error.getMessage());
-                        Log.d("GotError", "Error StackTrace: \t" + error.getStackTrace());
+                        Log.e("ProfileActivity",""+error.getMessage());
+                        Log.e("ProfileActivity", "Failed with error msg:\t" + error.getMessage());
+                        Log.e("ProfileActivity", "Error StackTrace: \t" + error.getStackTrace());
                         // edited here
                         try {
                             byte[] htmlBodyBytes = error.networkResponse.data;
-                            Log.e("GotError", new String(htmlBodyBytes), error);
+
                         } catch (NullPointerException e) {
                             e.printStackTrace();
                         }
@@ -246,18 +246,17 @@ public class ProfileActivity extends AppCompatActivity {
                 //The String 'response' contains the server's response.
 
                 if(response.equals("failure")){
-                    Log.e("Profile","failed");
+                    Log.e("ProfileActivity","failed");
                 }else{
-                    Log.e("Profile",response);
+
                 }
             }, error -> {
                 //This code is executed if there is an error.
-                Log.e("Profile","error response");
+                Log.e("ProfileActivity","error response");
 
             }) {
                 protected Map<String, String> getParams() {
                     Map<String, String> MyData = new HashMap<>();
-                    Log.e("Profile" , user_id);
                     MyData.put("id", String.valueOf(user_id)); //Add the data you'd like to send to the server.
                     MyData.put("img_name", String.valueOf(user_id)); //Add the data you'd like to send to the server.
                     MyData.put("request",String.valueOf(9));

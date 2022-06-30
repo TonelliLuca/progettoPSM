@@ -110,7 +110,7 @@ public class LoginActivity  extends AppCompatActivity {
                         Log.e("login","failure");
                         showErrorLogin(view);
                     }else{
-                        Log.e("login", response);
+
                         saveProfile(response);
                         goToHome();
                     }
@@ -173,7 +173,7 @@ public class LoginActivity  extends AppCompatActivity {
         editor.putString(getString(R.string.user_email), values[3]);
         editor.apply();
         String code = sharedPref.getString(getString(R.string.user_code),"0");
-        Log.e("login", "user code: "+code);
+
 
     }
 

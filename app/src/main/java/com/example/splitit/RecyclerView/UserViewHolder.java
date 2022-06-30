@@ -2,22 +2,14 @@ package com.example.splitit.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.splitit.R;
-import com.example.splitit.Utilities;
-import com.example.splitit.ViewModel.AddUserViewModel;
 
 public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
     ImageView userImage;
@@ -49,7 +41,6 @@ public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        Log.e("aaa","user_id: "+this.user_id+" idUser: "+this.idUser+" admin: "+this.admin);
         if(v.getId()==R.id.delete_user){
             if((!this.admin) && Long.parseLong(this.user_id)!=this.idUser){
                 new AlertDialog.Builder(v.getContext())
@@ -68,11 +59,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
                         // Specifying a listener allows you to take an action before dismissing the dialog.
                         // The dialog is automatically dismissed when a dialog button is clicked.
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                listener.onDelete(idUser, posU, posR);
-                            }
-                        })
+                        .setPositiveButton(android.R.string.yes, (dialog, which) -> listener.onDelete(idUser, posU, posR))
 
                         // A null listener allows the button to dismiss the dialog and take no further action.
                         .setNegativeButton(android.R.string.no, null)

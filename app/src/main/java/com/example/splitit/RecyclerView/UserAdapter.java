@@ -1,7 +1,7 @@
 package com.example.splitit.RecyclerView;
 
 import android.app.Activity;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +61,6 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.e("BIND", " viewType : "+ viewType);
 
         View layoutItem;
         if (viewType == 0) {
@@ -76,7 +75,6 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Log.e("BIND", " position: "+ position);
 
         User currentItem = userItemList.get(position);
         UserGroupCrossRef ref;
@@ -84,7 +82,6 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         for (int i = 0; i < balance.size(); i++) {
 
             if (balance.get(i).getUser_id() == currentItem.getId()) {
-                Log.e("BIND", "balance : " + balance.size());
                 ref = balance.get(i);
                 if (currentItem.getId() == admin_id) {
                     AdminViewHolder adminViewHolder = (AdminViewHolder) holder;
@@ -94,7 +91,6 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     adminViewHolder.posR = i;
                     adminViewHolder.tv_userId.setText(String.valueOf(currentItem.getId()));
                     Utilities.getImage(String.valueOf(currentItem.getId()), adminViewHolder.userImage);
-                    Log.e("BIND", "admin " + String.valueOf(adminViewHolder.idUser) + " position: "+ position);
                 } else {
                     UserViewHolder userViewHolder = (UserViewHolder) holder;
                     userViewHolder.userName.setText(currentItem.getName());
@@ -104,7 +100,6 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     userViewHolder.posR = i;
                     userViewHolder.tv_userId.setText(String.valueOf(currentItem.getId()));
                     Utilities.getImage(String.valueOf(currentItem.getId()), userViewHolder.userImage);
-                    Log.e("BIND", "user " + String.valueOf(userViewHolder.idUser) + " position: "+ position);
 
                 }
 
