@@ -4,17 +4,18 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.splitit.OnlineDatabase.OnlineDatabase;
 import com.google.android.material.snackbar.Snackbar;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,10 +53,11 @@ public class RegistrationActivity extends AppCompatActivity {
 
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         public Runnable addUser(View view){
-            Runnable task = () -> {
+            return () -> {
                 RequestQueue MyRequestQueue = Volley.newRequestQueue(this);
                 String url = "http://"+Utilities.IP+"/splitit/registration.php";
 
+                //Create an error listener to handle errors appropriately.
                 StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, response -> {
                     //This code is executed if the server responds, whether or not the response contains data.
                     //The String 'response' contains the server's response.
@@ -64,19 +66,16 @@ public class RegistrationActivity extends AppCompatActivity {
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         finish();
                     }else if(response.equals("failure")){
-                        this.check = false;
+                        RegistrationActivity.this.check = false;
                         showErrorRegister(view, 0);
                     }
-                }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //This code is executed if there is an error.
-                        System.out.println(error.getMessage());
-                        showErrorRegister(view, 1);
-                    }
+                }, error -> {
+                    //This code is executed if there is an error.
+                    System.out.println(error.getMessage());
+                    showErrorRegister(view, 1);
                 }) {
                     protected Map<String, String> getParams() {
-                        Map<String, String> MyData = new HashMap<String, String>();
+                        Map<String, String> MyData = new HashMap<>();
                         MyData.put("nome", nome.getText().toString()); //Add the data you'd like to send to the server.
                         MyData.put("email", email.getText().toString()); //Add the data you'd like to send to the server.
                         MyData.put("password", password.getText().toString()); //Add the data you'd like to send to the server.
@@ -88,7 +87,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 MyRequestQueue.add(MyStringRequest);
             };
-            return task;
         }
 
     public void showErrorRegister(View view, int value){

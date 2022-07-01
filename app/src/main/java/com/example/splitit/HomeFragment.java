@@ -285,7 +285,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
                 for (int i = 0; i < list.size(); i++) {
                     GroupItem g = list.get(i);
                     addViewModel.addGroupItem(g);
-
+                    Log.e("a","group");
                 }
             }
             listOld=list;
@@ -297,7 +297,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
                 for (int i = 0; i < listRef.size(); i++) {
                     UserGroupCrossRef r = listRef.get(i);
 
-
+                    Log.e("a","ref");
                     addUser.addNewRef(r);
 
                 }

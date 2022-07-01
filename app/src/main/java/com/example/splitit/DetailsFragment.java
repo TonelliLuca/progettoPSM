@@ -107,6 +107,8 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
 
             iv_grouImage = activity.findViewById(R.id.iv_group_image);
             iv_grouImage.setImageResource(R.drawable.avatar);
+
+            Utilities.getGroupImage(String.valueOf(this.groupName),iv_grouImage );
             tv_groupName = activity.findViewById(R.id.tv_group_name);
             tv_groupName.setText(groupName);
             btn_send_balance = activity.findViewById(R.id.btn_send_balance);

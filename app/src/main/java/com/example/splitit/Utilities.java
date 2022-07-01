@@ -182,7 +182,10 @@ public class Utilities {
     }
 
     static  public void getGroupImage(String name, ImageView iw){
+        Log.e("aa","http://"+IP+"/splitit/images/" + "groups" + name+ ".png");
+
         Picasso.get().load("http://"+IP+"/splitit/images/" + "groups" + name+ ".png").memoryPolicy(MemoryPolicy.NO_CACHE).into(iw);
+
     }
 
     public static List<User> remapUserList(List<User> l, long adminId){
@@ -213,7 +216,7 @@ public class Utilities {
         if(l1.size()==l2.size()){
             for(int i=0;i<l1.size();i++){
 
-                if(l1.get(i).getId()!=l2.get(i).getId()){
+                if(l1.get(i).getId()!=l2.get(i).getId() || l1.get(i).isCompete()!=l2.get(i).isCompete()){
                     return true;
                 }
             }
@@ -226,7 +229,7 @@ public class Utilities {
         if(l1.size()==l2.size()){
             for(int i=0;i<l1.size();i++){
 
-                if(l1.get(i).equals(l2.get(i))){
+                if(l1.get(i).getGroup_id()!=l1.get(i).getGroup_id() || l1.get(i).getUser_id()!=l2.get(i).getUser_id() || l1.get(i).isPay()!=l2.get(i).isPay() || l1.get(i).getBalance()!=l2.get(i).getBalance()){
                     return true;
                 }
             }

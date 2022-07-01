@@ -1,6 +1,7 @@
 package com.example.splitit.RecyclerView;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupViewHolder> {
     public void onBindViewHolder(@NonNull GroupViewHolder holder, int position) {
         GroupItem currentItem = groupItemList.get(position);
         String image_path = currentItem.getImageResource();
-        Utilities.getGroupImage(String.valueOf(currentItem.getGroupName()), holder.groupImage);
+        Utilities.getGroupImage(currentItem.getGroupName(), holder.groupImage);
         /*if (image_path.contains("ic_")) {
             Drawable drawable = ContextCompat.getDrawable(activity, activity.getResources()
                     .getIdentifier(image_path, "drawable",

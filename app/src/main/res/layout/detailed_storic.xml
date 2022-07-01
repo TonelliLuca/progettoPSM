@@ -21,6 +21,7 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="139dp"
             android:layout_marginRight="139dp"
+            android:scaleType="centerCrop"
             android:contentDescription="@string/group_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
