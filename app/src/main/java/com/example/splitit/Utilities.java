@@ -178,13 +178,14 @@ public class Utilities {
     }
 
     static  public void getImage(String name, ImageView iw){
-        Picasso.get().load("http://"+IP+"/splitit/images/" + name+ ".png").memoryPolicy(MemoryPolicy.NO_CACHE).into(iw);
+        iw.setImageBitmap(null);
+        Picasso.get().load("http://"+IP+"/splitit/images/" + name+ ".png").memoryPolicy(MemoryPolicy.NO_CACHE).error(R.drawable.avatar).into(iw);
     }
 
     static  public void getGroupImage(String name, ImageView iw){
-        Log.e("aa","http://"+IP+"/splitit/images/" + "groups" + name+ ".png");
+        iw.setImageBitmap(null);
 
-        Picasso.get().load("http://"+IP+"/splitit/images/" + "groups" + name+ ".png").memoryPolicy(MemoryPolicy.NO_CACHE).into(iw);
+        Picasso.get().load("http://"+IP+"/splitit/images/" + "groups" + name+ ".png").memoryPolicy(MemoryPolicy.NO_CACHE).error(R.drawable.avatar).into(iw);
 
     }
 

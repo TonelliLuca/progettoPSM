@@ -22,7 +22,7 @@
         android:layout_marginTop="10dp"
         android:orientation="vertical">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/image_group_add"
             android:layout_margin="25dp"
             android:layout_width="120dp"
@@ -30,6 +30,8 @@
             android:layout_gravity="center"
             android:contentDescription="@string/group_image"
             android:src="@drawable/avatar"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/white"
             app:srcCompat="@drawable/ic_baseline_group_24"
             tools:srcCompat="@drawable/ic_baseline_group_24" />
 

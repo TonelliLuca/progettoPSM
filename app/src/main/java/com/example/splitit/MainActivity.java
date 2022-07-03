@@ -200,8 +200,7 @@ import java.util.Map;
      }
  }
 
- /*TODO password e username in capslock login
-        immagine profilo default
+ /*TODO
        inserire una scroll view in profilo utente (?)
-        verificare funzionamento controllo password
+
   */
