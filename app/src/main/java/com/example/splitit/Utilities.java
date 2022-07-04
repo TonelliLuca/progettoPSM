@@ -185,7 +185,7 @@ public class Utilities {
     static  public void getGroupImage(String name, ImageView iw){
         iw.setImageBitmap(null);
 
-        Picasso.get().load("http://"+IP+"/splitit/images/" + "groups" + name+ ".png").memoryPolicy(MemoryPolicy.NO_CACHE).error(R.drawable.avatar).into(iw);
+        Picasso.get().load("http://"+IP+"/splitit/images/" + "groups" + name+ ".png").memoryPolicy(MemoryPolicy.NO_CACHE).error(R.drawable.group).into(iw);
 
     }
 

@@ -76,9 +76,8 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
      * Custom method handle data payload.
      *
      * @return Map data part label with data byte
-     * @throws AuthFailureError
      */
-    protected Map<String, DataPart> getByteData() throws AuthFailureError {
+    protected Map<String, DataPart> getByteData() {
         return null;
     }
 
@@ -109,7 +108,6 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
      * @param dataOutputStream data output stream handle string parsing
      * @param params           string inputs collection
      * @param encoding         encode the inputs, default UTF-8
-     * @throws IOException
      */
     private void textParse(DataOutputStream dataOutputStream, Map<String, String> params, String encoding) throws IOException {
         try {
@@ -126,7 +124,6 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
      *
      * @param dataOutputStream data output stream handle file attachment
      * @param data             loop through data
-     * @throws IOException
      */
     private void dataParse(DataOutputStream dataOutputStream, Map<String, DataPart> data) throws IOException {
         for (Map.Entry<String, DataPart> entry : data.entrySet()) {
@@ -140,7 +137,6 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
      * @param dataOutputStream data output stream handle string parsing
      * @param parameterName    name of input
      * @param parameterValue   value of input
-     * @throws IOException
      */
     private void buildTextPart(DataOutputStream dataOutputStream, String parameterName, String parameterValue) throws IOException {
         dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
@@ -155,7 +151,6 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
      * @param dataOutputStream data output stream handle data parsing
      * @param dataFile         data byte as DataPart from collection
      * @param inputName        name of data input
-     * @throws IOException
      */
     private void buildDataPart(DataOutputStream dataOutputStream, DataPart dataFile, String inputName) throws IOException {
         dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
@@ -185,13 +180,10 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
         dataOutputStream.writeBytes(lineEnd);
     }
 
-    class DataPart {
+    static class DataPart {
         private String fileName;
         private byte[] content;
         private String type;
-
-        public DataPart() {
-        }
 
         DataPart(String name, byte[] data) {
             fileName = name;

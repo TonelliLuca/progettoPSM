@@ -167,7 +167,6 @@ public class AddFragment extends DialogFragment {
                         getContext(),"no image selected",
                         Toast.LENGTH_LONG).show();
             }
-        }else{
         }
 
     }
