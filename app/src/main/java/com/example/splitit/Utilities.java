@@ -14,6 +14,7 @@ import com.example.splitit.Database.UserGroupCrossRef;
 import com.example.splitit.RecyclerView.GroupItem;
 import com.example.splitit.RecyclerView.User;
 import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -179,13 +180,13 @@ public class Utilities {
 
     static  public void getImage(String name, ImageView iw){
         iw.setImageBitmap(null);
-        Picasso.get().load("http://"+IP+"/splitit/images/" + name+ ".png").memoryPolicy(MemoryPolicy.NO_CACHE).error(R.drawable.avatar).into(iw);
+        Picasso.get().load("http://"+IP+"/splitit/images/" + name+ ".png").memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).error(R.drawable.avatar).into(iw);
     }
 
     static  public void getGroupImage(String name, ImageView iw){
         iw.setImageBitmap(null);
 
-        Picasso.get().load("http://"+IP+"/splitit/images/" + "groups" + name+ ".png").memoryPolicy(MemoryPolicy.NO_CACHE).error(R.drawable.avatar).into(iw);
+        Picasso.get().load("http://"+IP+"/splitit/images/" + "groups" + name+ ".png").memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).error(R.drawable.avatar).into(iw);
 
     }
 
@@ -225,6 +226,39 @@ public class Utilities {
         }
         return true;
     }
+
+    public static ArrayList<GroupItem> findRemovedGroup(ArrayList<GroupItem> l1, ArrayList<GroupItem> l2){
+        if(l1.size()>l2.size()) {
+            for (int i = 0; i < l2.size(); i++) {
+
+                for(int j = 0; j < l1.size(); j++){
+                    if(l2.get(i).getId()==l1.get(j).getId()){
+                        l1.remove(j);
+                    }
+                }
+            }
+            return l1;
+        }
+        return null;
+
+    }
+
+    public static ArrayList<UserGroupCrossRef> findRemovedRef(ArrayList<UserGroupCrossRef> l1, ArrayList<UserGroupCrossRef> l2){
+        if(l1.size()>l2.size()) {
+            for (int i = 0; i < l2.size(); i++) {
+
+                for(int j = 0; j < l1.size(); j++){
+                    if(l2.get(i).getUser_id() == l1.get(j).getUser_id() && l2.get(i).getGroup_id() == l1.get(j).getGroup_id()){
+                        l1.remove(j);
+                    }
+                }
+            }
+            return l1;
+        }
+        return null;
+    }
+
+
 
     public static boolean compareArrayListRefGroup(ArrayList<UserGroupCrossRef> l1,ArrayList<UserGroupCrossRef> l2){
         if(l1.size()==l2.size()){

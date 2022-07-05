@@ -515,11 +515,12 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                         } else {
 
                             if(Utilities.parseClosing(response)){
-
                                 btn_send_balance.setEnabled(false);
                                 et_balance.setEnabled(false);
-                                Toast toast = Toast.makeText(getContext(), "L'admin ha confermato il gruppo, potrai visualizzarlo nello storico", Toast.LENGTH_LONG);
-                                toast.show();
+                                if(getContext()!=null) {
+                                    Toast toast = Toast.makeText(getContext(), "L'admin ha confermato il gruppo, potrai visualizzarlo nello storico", Toast.LENGTH_LONG);
+                                    toast.show();
+                                }
                                 closeFlag = true;
                             }
 

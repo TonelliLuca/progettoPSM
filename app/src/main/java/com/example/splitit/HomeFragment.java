@@ -285,10 +285,19 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
                 for (int i = 0; i < list.size(); i++) {
                     GroupItem g = list.get(i);
                     addViewModel.addGroupItem(g);
-                    Log.e("a","group");
+
                 }
+
+                ArrayList<GroupItem> deleteVerification = Utilities.findRemovedGroup(listOld,list);
+                if(deleteVerification != null){
+                    for(int i = 0; i < deleteVerification.size(); i++){
+                        addViewModel.removeGroup(deleteVerification.get(i));
+                    }
+                }
+
             }
             listOld=list;
+            
         }
         ArrayList<UserGroupCrossRef> listRef = Utilities.parseUserGroupCrossRef(s);
         if(listRefOld.isEmpty() || Utilities.compareArrayListRefGroup(listRefOld,listRef)) {
@@ -301,8 +310,15 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
                     addUser.addNewRef(r);
 
                 }
+                ArrayList<UserGroupCrossRef> deleteVerificationRef = Utilities.findRemovedRef(listRefOld,listRef);
+                if(deleteVerificationRef != null){
+                    for(int i = 0; i < deleteVerificationRef.size(); i++){
+                        addUser.removeRef(deleteVerificationRef.get(i));
+                    }
+                }
             }
             listRefOld=listRef;
+
         }
 
     }
