@@ -336,7 +336,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
         float total=0;
         for(int i=0;i<userList.size();i++){
             for(int j=0;j<refUser.size();j++){
-                if(userList.get(i).getId() == refUser.get(j).getUserId()){
+                if(userList.get(i).getId() == refUser.get(j).getUserId() && userList.get(i).getId() != adminId){
                     //Log.e("Graph",(float)refUser.get(j).getBalance()+" "+userList.get(i).getName()+" "+userList.get(i).getId()+" = "+refUser.get(j).getUser_id());
                     NoOfEmp.add(new PieEntry((float)refUser.get(j).getBalance(), userList.get(i).getName()));
                     total+=(float)refUser.get(j).getBalance();

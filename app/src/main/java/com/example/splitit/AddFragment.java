@@ -103,9 +103,10 @@ public class AddFragment extends DialogFragment {
             groupImage = view.findViewById(R.id.image_group_add);
 
             view.findViewById(R.id.buttonAdd).setOnClickListener(v -> {
-                OnlineDatabase.execute(addGroupOnline(view));
+
 
                 if (checkAdd()) {
+                    OnlineDatabase.execute(addGroupOnline(view));
                     Utilities.setUpToolbar((AppCompatActivity) activity, "SplitIt");
                     Objects.requireNonNull(this.getDialog()).dismiss();
                     //((AppCompatActivity) activity).getSupportFragmentManager().popBackStack();
@@ -237,7 +238,9 @@ public class AddFragment extends DialogFragment {
     }
 
     public boolean checkAdd(){
-        return !nameText.getText().toString().matches("");
+        String tmp = nameText.getText().toString();
+        tmp = tmp.replaceAll("\\s+","");
+        return !tmp.isEmpty();
     }
 
     public Runnable addGroupOnline(View view) {

@@ -251,7 +251,7 @@ public class DetailsStoreFragment extends Fragment implements OnItemListener, Na
         float total=0;
         for(int i=0;i<userList.size();i++){
             for(int j=0;j<refUser.size();j++){
-                if(userList.get(i).getId() == refUser.get(j).getUserId()){
+                if(userList.get(i).getId() == refUser.get(j).getUserId() && userList.get(i).getId() != adminId){
                     NoOfEmp.add(new PieEntry((float)refUser.get(j).getBalance(), userList.get(i).getName()));
                     total+=(float)refUser.get(j).getBalance();
                 }

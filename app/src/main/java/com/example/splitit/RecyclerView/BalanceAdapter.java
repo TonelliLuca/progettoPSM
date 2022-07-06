@@ -45,7 +45,7 @@ public class BalanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         BalanceViewHolder balanceViewHolder = (BalanceViewHolder) holder;
-        balanceViewHolder.balanceVal.setText(this.balance.get(position).toString());
+        balanceViewHolder.balanceVal.setText(this.balance.get(position).toString()+"€");
         balanceViewHolder.balanceName.setText(this.balanceName.get(position));
 
     }

@@ -100,7 +100,7 @@ public class StoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
                     StoreViewHolderUser storeViewHolderUser = (StoreViewHolderUser) holder;
                     storeViewHolderUser.userName.setText(currentItem.getName());
-                    storeViewHolderUser.user_amount.setText(String.valueOf(ref.getBalance()));
+                    storeViewHolderUser.user_amount.setText(ref.getBalance() +"€");
                     storeViewHolderUser.idUser = currentItem.getId();
                     storeViewHolderUser.posU =  holder.getAdapterPosition();
                     storeViewHolderUser.posR = i;
