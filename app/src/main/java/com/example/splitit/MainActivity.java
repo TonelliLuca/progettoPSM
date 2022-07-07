@@ -114,7 +114,7 @@ import java.util.Map;
          return true;
      }
 
-     @Override
+     /*@Override
      public boolean onOptionsItemSelected(@NonNull MenuItem item) {
          super.onOptionsItemSelected(item);
          if (item.getItemId() == R.id.app_bar_option) {
@@ -123,7 +123,7 @@ import java.util.Map;
              return true;
          }
          return false;
-     }
+     }*/
 
      @Override
      public void onResume() {

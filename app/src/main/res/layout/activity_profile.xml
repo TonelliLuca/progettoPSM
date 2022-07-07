@@ -191,6 +191,7 @@
     </LinearLayout>
 
     <Button
+        android:visibility="invisible"
         android:textColor="#fff"
         android:backgroundTint="#1E4BA5"
         android:layout_marginTop="35dp"
