@@ -385,6 +385,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
                     try{
                         if(!((getGroupsOnline()==null || Utilities.stop)  || !(isVisible() && getActivity()!=null) || !isAdded())){
                             OnlineDatabase.execute(getGroupsOnline());
+
                         }
 
                     } catch (Exception e){
@@ -393,7 +394,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
                 });
             }
         };
-        timer.schedule(doAsynchronousTask,0,2000);
+        timer.schedule(doAsynchronousTask,0,5000);
     }
 
 
