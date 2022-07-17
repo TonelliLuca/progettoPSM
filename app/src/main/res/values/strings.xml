@@ -69,5 +69,8 @@
     <string name="modifica">Modifica</string>
     <string name="digita_codice_utente">Digita codice utente</string>
     <string name="oppure">oppure</string>
+    <string name="qr_code_found">QR Code Found</string>
+    <string name="es_abcd12345">Es: ABCD12345</string>
+
 
 </resources>

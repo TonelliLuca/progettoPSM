@@ -156,10 +156,12 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
         lineChart.getAxisRight().setTextColor(Color.WHITE);
         lineChart.getAxisLeft().setTextColor(Color.WHITE);
         lineChart.getXAxis().setTextColor(Color.WHITE);
+        lineChart.getXAxis().setEnabled(false);
+        lineChart.getAxisRight().setEnabled(false);
+        lineChart.getAxisLeft().setEnabled(false);
         lineChart.getXAxis().setDrawGridLines(false);
         lineChart.getAxisLeft().setDrawGridLines(false);
         lineChart.getAxisRight().setDrawGridLines(false);
-
         lineChart.setData(data);
         lineChart.invalidate();
 
@@ -306,7 +308,7 @@ public class HomeFragment extends Fragment implements OnItemListener, Navigation
                 for (int i = 0; i < listRef.size(); i++) {
                     UserGroupCrossRef r = listRef.get(i);
 
-                    Log.e("a","ref");
+
                     addUser.addNewRef(r);
 
                 }

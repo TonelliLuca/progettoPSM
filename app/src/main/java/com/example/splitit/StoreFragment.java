@@ -72,8 +72,7 @@ public class StoreFragment extends Fragment implements OnItemListener{
             listViewModel.selected(adapter.getItemFiltered(position));
             GroupItem a = listViewModel.getSelected().getValue();
             assert a != null;
-            Log.e("GroupItem","selected id: "+a.getId());
-            Log.e("GroupItem","admin id: "+a.getAdmin());
+
 
             Intent intent = new Intent(getActivity(), DetailedGroupStore.class);
             intent.putExtra("group_ID",a.getId());

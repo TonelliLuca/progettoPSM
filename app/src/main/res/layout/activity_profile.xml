@@ -114,7 +114,7 @@
                         android:textSize="20sp"
                         android:paddingTop="10dp"
                         android:textColor="#3F5AF3"
-                        android:id="@+id/tot_rec"/>/>
+                        android:id="@+id/tot_rec"/>
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

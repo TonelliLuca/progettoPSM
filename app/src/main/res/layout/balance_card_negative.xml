@@ -56,7 +56,7 @@
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="Bilancio" />
+                android:text="@string/bilancio" />
 
             <TextView
                 android:id="@+id/balance_val"
@@ -80,7 +80,8 @@
                 android:rotation="180"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/group_name"
-                app:srcCompat="@drawable/freccia_su_mod" />
+                app:srcCompat="@drawable/freccia_su_mod"
+                android:contentDescription="icona negativo" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>

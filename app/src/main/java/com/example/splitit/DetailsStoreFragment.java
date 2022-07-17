@@ -377,7 +377,7 @@ public class DetailsStoreFragment extends Fragment implements OnItemListener, Na
 
                         if (response.equals("failure")) {
                             Log.e("DetailsStoreFragment", "failed");
-                            System.out.println(userId + "," + groupId);
+
                         } else {
 
                             saveBalance(response);
@@ -466,8 +466,7 @@ public class DetailsStoreFragment extends Fragment implements OnItemListener, Na
         ArrayList <UserGroupCrossRef> res = Utilities.parseUserGroupCrossRef(response);
         ArrayList <User> users = Utilities.parseUser(response);
         controlUserDelete(res);
-        System.out.println(res.size());
-        System.out.println(users.size());
+
         for(int i = 0 ; i<res.size(); i++){
 
             vm.addNewRef(res.get(i));

@@ -61,7 +61,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, response -> {
                     //This code is executed if the server responds, whether or not the response contains data.
                     //The String 'response' contains the server's response.
-                    System.out.println(response);
+
                     if(response.equals("success")){
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         finish();

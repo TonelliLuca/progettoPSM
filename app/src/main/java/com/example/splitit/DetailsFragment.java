@@ -206,7 +206,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
                                 if(userList1.get(i).getId() != userList.get(i).getId()){
                                     userList = Utilities.remapUserList(userList1, adminId);
 
-                                    printLogList();
+
                                     adapter.setData(userList);
                                     updateGraph();
 
@@ -218,7 +218,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
 
                             userList = Utilities.remapUserList(userList1, adminId);
 
-                            printLogList();
+
 
                             adapter.setData(userList);
 
@@ -272,14 +272,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
         });
     }
 
-    private void printLogList(){
-        for(int i=0;i<userList.size();i++){
 
-
-            //Log.e("UserList ", userList.get(i).getId() +" "+userList.get(i).getName());
-
-        }
-    }
 
     private void setRecyclerView(final Activity activity){
         recyclerView = requireView().findViewById(R.id.recyclerViewUser);
@@ -463,7 +456,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
 
                         if (response.equals("failure")) {
                             Log.e("DetailsFragment", "failed");
-                            System.out.println(userId + "," + groupId);
+
                         } else {
 
                             saveBalance(response);
@@ -612,8 +605,7 @@ public class DetailsFragment extends Fragment implements OnItemListener, Navigat
         ArrayList <UserGroupCrossRef> res = Utilities.parseUserGroupCrossRef(response);
         ArrayList <User> users = Utilities.parseUser(response);
         controlUserDelete(res);
-        System.out.println(res.size());
-        System.out.println(users.size());
+
         for(int i = 0 ; i<res.size(); i++){
 
             vm.addNewRef(res.get(i));

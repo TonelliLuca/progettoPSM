@@ -52,7 +52,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="10dp"
 
-                android:text="Bilancio"
+                android:text="@string/bilancio"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:textColor="@color/white"
                 android:visibility="visible"
@@ -84,7 +84,8 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/group_name"
-                app:srcCompat="@drawable/freccia_su_mod" />
+                app:srcCompat="@drawable/freccia_su_mod"
+                android:contentDescription="icona positivo" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>

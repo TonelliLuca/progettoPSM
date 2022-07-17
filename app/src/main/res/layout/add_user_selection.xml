@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
     android:layout_height="300dp"
     android:layout_gravity="center"
@@ -27,13 +26,14 @@
         android:layout_height="40dp"
         android:layout_margin="8dp"
         android:layout_gravity="center"
-        android:hint="Es: ABCD12345"
+        android:hint="@string/es_abcd12345"
         android:textColorHint="#555555"
         android:maxLength="10"
         android:background="@drawable/edit_text_bg"
         android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:inputType="textCapCharacters" />
 
     <Button
         android:id="@+id/btn_submit"

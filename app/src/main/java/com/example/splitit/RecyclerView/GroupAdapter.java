@@ -55,7 +55,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupViewHolder> {
         }*/
 
         holder.groupName.setText(currentItem.getGroupName());
-        System.out.println(currentItem.getGroupName());
+
     }
 
     @Override
